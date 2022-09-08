@@ -76,8 +76,9 @@ namespace Project.Scripts.Model
 			}
 			else if (state == GameTypes.PlayerMove.HumanThird)
 			{
-				rigidbody.velocity += (player.forward * move.y + cam.right * move.x) * speed + 
-									Physics.gravity;
+				if (rigidbody.velocity.magnitude < limitSpeed)
+					rigidbody.velocity += (player.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
+				rigidbody.velocity += Physics.gravity * Time.deltaTime;
 				DefaultUpdateCam();
 			}
 			else if (state == GameTypes.PlayerMove.WorkerFirst)
