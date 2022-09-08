@@ -1,12 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WindowChangeScene : MonoBehaviour
 {
 	[SerializeField] private GameObject panel;
 	[SerializeField] private GameObject panelCreate;
 	[SerializeField] private GameObject panelChange;
+	//color
+	[SerializeField] private Texture2D texture2DGradient;
+	[SerializeField] private Image imgTarget;
+	[SerializeField] private Image imgSelectColorGradient;
+	[SerializeField] private Image imgColorGradient;
 
 	public void OnClick_OpenPanelChange()
 	{
@@ -18,6 +22,24 @@ public class WindowChangeScene : MonoBehaviour
 	{
 		panelChange.SetActive(false);
 		panelCreate.SetActive(true);
+	}
+
+	//тут магия
+	public void Onclick_GetColorGradient()
+	{
+		Vector3 posGra = imgColorGradient.rectTransform.position;
+		Vector3 posKra = new Vector3(posGra.x - imgColorGradient.rectTransform.sizeDelta.x / 2,
+			posGra.y - imgColorGradient.rectTransform.sizeDelta.y / 2, 0);
+		
+		int x = (100 + (int)Input.mousePosition.x - (int)posGra.x) * 5;
+		int y = (100 + (int)Input.mousePosition.y - (int)posGra.y) * 5;
+		
+		imgSelectColorGradient.color = texture2DGradient.GetPixel(x, y);
+	}
+
+	public void OnClick_ResetColor()
+	{
+		imgSelectColorGradient.color = Color.white;
 	}
 	
 	
