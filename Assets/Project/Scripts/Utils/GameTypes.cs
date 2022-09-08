@@ -14,7 +14,7 @@ namespace Project.Scripts.Utils
 		}
 
 		//стейт типа управления и положения камеры
-		public enum PlayerCam
+		public enum PlayerMove
 		{
 			Spectator,
 			HumanFirst,

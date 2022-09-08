@@ -25,6 +25,8 @@ public class ControllerGame : MonoBehaviour
 	{
 		if (Input.GetKeyDown(KeyCode.Tab))
 			Keyboard_Action?.Invoke(KeyCode.Tab);
+		if (Input.GetKeyDown(KeyCode.V))
+			Keyboard_Action?.Invoke(KeyCode.V);
 		
 		
 		PlayerMove_Action?.Invoke(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));

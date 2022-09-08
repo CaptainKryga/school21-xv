@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] private TMPro.TMP_Text playerInfoTypeMove;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	public void UpdatePlayerTypeMove(string type)
+	{
+		playerInfoTypeMove.text = type;
+	}
 }

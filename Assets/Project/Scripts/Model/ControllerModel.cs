@@ -1,3 +1,4 @@
+using System;
 using Project.Scripts.Model;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ public class ControllerModel : MonoBehaviour
 	[SerializeField] private ControllerView view;
 
 	[SerializeField] private Player player;
+	[SerializeField] private Worker worker;
 
 	private void OnEnable()
 	{
@@ -28,7 +30,11 @@ public class ControllerModel : MonoBehaviour
 	{
 		if (key == KeyCode.Tab)
 		{
-			view.ChangeVisibleGlobalPanel(player.ChangePlayState());
+			view.ChangeVisibleGlobalPanel(player.ChangeStateIsPlay());
+		}
+		if (key == KeyCode.V)
+		{
+			view.UpdatePlayerTypeMove(player.ChangeStatePlayerMove() + "");
 		}
 	}
 }
