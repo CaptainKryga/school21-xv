@@ -5,12 +5,14 @@ namespace Project.Scripts.Utils
 		//текущее состояние игры
 		public enum Game
 		{
-			Create,
-			SceneImportExport,
 			Play,
-			Pause,
+			Create,
+			Change,
+			SceneImportExport,
+			Animations,
 			GameSaveLoad,
-			Change
+			Video,
+			Null
 		}
 
 		//стейт типа управления и положения камеры

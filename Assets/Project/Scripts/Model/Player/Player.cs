@@ -99,9 +99,9 @@ namespace Project.Scripts.Model
 			player.localEulerAngles = new Vector3(0, mouseX, 0);
 		}
 
-		public bool ChangeStateIsPlay()
+		public bool ChangeStateIsPlay(bool isPlay)
 		{
-			isPlay = !isPlay;
+			this.isPlay = isPlay;
 			return isPlay;
 		}
 

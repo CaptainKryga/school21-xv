@@ -12,6 +12,9 @@ public class WindowChangeScene : MonoBehaviour
 	[SerializeField] private Image imgSelectColorGradient;
 	[SerializeField] private Image imgColorGradient;
 
+	public GameObject PanelChange { get => panelChange; }
+	public GameObject PanelCreate { get => panelCreate; }
+	
 	public void OnClick_OpenPanelChange()
 	{
 		panelChange.SetActive(true);
@@ -41,6 +44,4 @@ public class WindowChangeScene : MonoBehaviour
 	{
 		imgSelectColorGradient.color = Color.white;
 	}
-	
-	
 }

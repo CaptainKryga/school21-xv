@@ -1,14 +1,18 @@
 using System;
 using Project.Scripts.Model;
+using Project.Scripts.Utils;
 using UnityEngine;
 
-public class ControllerModel : MonoBehaviour
+public class ModelController : MonoBehaviour
 {
 	[SerializeField] private ControllerGame game;
 	[SerializeField] private ControllerView view;
 
 	[SerializeField] private Player player;
 	[SerializeField] private Worker worker;
+		
+	//глобальный стейт текущей стадии игры
+	[SerializeField] private GameTypes.Game stateGame;
 
 	private void OnEnable()
 	{
@@ -30,12 +34,24 @@ public class ControllerModel : MonoBehaviour
 	{
 		if (key == KeyCode.Tab)
 		{
-			view.ChangeVisibleGlobalPanel(player.ChangeStateIsPlay());
+			view.ChangeVisibleGlobalPanel();
 		}
 		if (key == KeyCode.V)
 		{
 			if (player.IsPlay())
 				view.UpdatePlayerTypeMove(player.ChangeStatePlayerMove() + "");
 		}
+	}
+
+	public void UpdateState(GameTypes.Game state)
+	{
+		stateGame = state;
+
+		if (state == GameTypes.Game.Play)
+		{
+			player.ChangeStateIsPlay(true);
+		}
+		
+		Debug.Log("state: " + state);
 	}
 }
