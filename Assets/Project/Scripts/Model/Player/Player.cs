@@ -6,14 +6,13 @@ namespace Project.Scripts.Model
 {
 	public class Player : MonoBehaviour
 	{
-		[SerializeField] private CustomAnimator animator;
-		
-
 		//ссылка на элементы игрока в сцене
 		[SerializeField] private Transform player;
 		[SerializeField] private Transform cam;
 		private Transform parentStart;
-		
+		[SerializeField] private CustomAnimator animator;
+		private Rigidbody rigidbody;
+
 		//ссылка на рабочего
 		private Transform worker;
 
@@ -40,8 +39,8 @@ namespace Project.Scripts.Model
 
 		[Header("Settings")]
 		//скорость движения
-		[SerializeField]
-		private float speed;
+		[SerializeField] private float speed;
+		[SerializeField] public float limitSpeed;
 
 		//скорость поворота
 		[SerializeField] private float sensitive;
@@ -51,8 +50,10 @@ namespace Project.Scripts.Model
 		{
 			parentStart = player.parent;
 			meshRenderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
+			rigidbody = player.GetComponent<Rigidbody>();
 
 			state = GameTypes.PlayerMove.Spectator;
+			UpdateState(state);
 			ChangeVisiblePlayer(false);
 		}
 
@@ -63,32 +64,30 @@ namespace Project.Scripts.Model
 
 			if (state == GameTypes.PlayerMove.Spectator)
 			{
-				player.position += (cam.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
+				rigidbody.velocity = (cam.forward * move.y + cam.right * move.x) * speed / 2;
 				DefaultUpdateCam();
 			}
 			else if (state == GameTypes.PlayerMove.HumanFirst)
 			{
-				player.position += (player.forward * move.y + player.right * move.x) * speed * Time.deltaTime;
+				if (rigidbody.velocity.magnitude < limitSpeed)
+					rigidbody.velocity += (player.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
+				rigidbody.velocity += Physics.gravity * Time.deltaTime;
 				DefaultUpdateCam();
-				//enable physics?
 			}
 			else if (state == GameTypes.PlayerMove.HumanThird)
 			{
-				player.position += (player.forward * move.y + player.right * move.x) * speed * Time.deltaTime;
+				rigidbody.velocity += (player.forward * move.y + cam.right * move.x) * speed + 
+									Physics.gravity;
 				DefaultUpdateCam();
-				//enable physics
 			}
 			else if (state == GameTypes.PlayerMove.WorkerFirst)
 			{
-				//disable physics
-				//set parent worker
+				
 			}
 			else if (state == GameTypes.PlayerMove.WorkerThird)
 			{
-				//disable physics
-				//set parent worker
+				
 			}
-
 		}
 
 		public void DefaultUpdateCam()
@@ -127,22 +126,23 @@ namespace Project.Scripts.Model
 		{
 			this.state = state;
 			if (state == GameTypes.PlayerMove.Spectator)
-				UpdatePlayerSettings(false, false, point1, new Vector2(-85, 85));
+				UpdatePlayerSettings(false, false, true, point1, new Vector2(-85, 85));
 			else if (state == GameTypes.PlayerMove.HumanFirst)
-				UpdatePlayerSettings(false, false, point1, new Vector2(-85, 85));
+				UpdatePlayerSettings(false, false, true, point1, new Vector2(-85, 85));
 			else if (state == GameTypes.PlayerMove.HumanThird)
-				UpdatePlayerSettings(true, false, point3, new Vector2(-20, 0));
+				UpdatePlayerSettings(true, false, true, point3, new Vector2(-20, 0));
 			else if (state == GameTypes.PlayerMove.WorkerFirst)
-				UpdatePlayerSettings(false, true, point1, Vector2.zero);
+				UpdatePlayerSettings(false, true, false, point1, Vector2.zero);
 			else if (state == GameTypes.PlayerMove.WorkerThird)
-				UpdatePlayerSettings(false, true, point3, Vector2.zero);
+				UpdatePlayerSettings(false, true, false, point3, Vector2.zero);
 		}
 
-		private void UpdatePlayerSettings(bool isVisible, bool isWorker, Transform camPoint, Vector2 restrictionRot)
+		private void UpdatePlayerSettings(bool isVisible, bool isWorker, bool isPhysics,
+			Transform camPoint, Vector2 restrictionRot)
 		{
 			if (worker == null)
 				GetWorker();
-			
+
 			if (isWorker && worker)
 			{
 				player.SetParent(worker.transform);
@@ -153,14 +153,17 @@ namespace Project.Scripts.Model
 			{
 				player.SetParent(parentStart);
 			}
-			
+
 			ChangeVisiblePlayer(isVisible);
-			
+
 			cam.position = camPoint.position;
 			cam.rotation = camPoint.rotation;
 
 			rotateMinY = restrictionRot.x;
 			rotateMaxY = restrictionRot.y;
+
+			rigidbody.isKinematic = !isPhysics;
+			rigidbody.useGravity = isPhysics;
 		}
 
 		public void ReceivePlayerMoveActions(Vector2 vec)
@@ -184,16 +187,17 @@ namespace Project.Scripts.Model
 
 		private void GetWorker()
 		{
-			Debug.Log("GetWorker");
 			if (worker == null)
 			{
-				Debug.Log("worker == null");
 				Worker temp = FindObjectOfType<Worker>();
-				Debug.Log(temp);
 				if (temp != null)
 					worker = temp.GetTransformWorker();
-				Debug.Log(worker);
 			}
+		}
+
+		public bool IsPlay()
+		{
+			return isPlay;
 		}
 	}
 }

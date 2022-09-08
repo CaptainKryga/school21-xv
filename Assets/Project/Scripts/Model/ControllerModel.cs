@@ -34,7 +34,8 @@ public class ControllerModel : MonoBehaviour
 		}
 		if (key == KeyCode.V)
 		{
-			view.UpdatePlayerTypeMove(player.ChangeStatePlayerMove() + "");
+			if (player.IsPlay())
+				view.UpdatePlayerTypeMove(player.ChangeStatePlayerMove() + "");
 		}
 	}
 }
