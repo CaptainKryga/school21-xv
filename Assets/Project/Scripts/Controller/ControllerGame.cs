@@ -14,6 +14,11 @@ public class ControllerGame : MonoBehaviour
 	//все нажатия с мыши
 	public Action<KeyCode> Mouse_Action;
 
+	private void Start()
+	{
+		
+	}
+
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Tab))
