@@ -1,4 +1,3 @@
-using System;
 using Project.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +7,6 @@ public class WindowChangeScene : MonoBehaviour
 	[SerializeField] private ControllerGame game;
 	[SerializeField] private ControllerView view;
 	[SerializeField] private DataBase dataBase;
-
 	
 	[SerializeField] private GameObject panelCreate;
 	[SerializeField] private GameObject panelChange;
@@ -25,14 +23,19 @@ public class WindowChangeScene : MonoBehaviour
 	public GameObject PanelChange { get => panelChange; }
 	public GameObject PanelCreate { get => panelCreate; }
 
+	private ImgContentButton[] saveButtons;
+	private int selectedId = -1;
+
 	private void Start()
 	{
+		saveButtons = new ImgContentButton[dataBase.defaultPrefabs.Length];
 		for (int i = 0; i < dataBase.defaultPrefabs.Length; i++)
 		{
 			GameObject newItem = Instantiate(imgContentButton, parentContent);
-			newItem.GetComponent<ImgContentButton>().GetTextInfo.text =
-				dataBase.defaultPrefabs[i].GetComponent<Item>().itemName;
-			newItem.GetComponent<ImgContentButton>().GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i); });
+			saveButtons[i] = newItem.GetComponent<ImgContentButton>();
+			saveButtons[i].GetTextInfo.text = dataBase.defaultPrefabs[i].GetComponent<Item>().itemName;
+			var i1 = i;
+			saveButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i1); });
 		}
 	}
 
@@ -70,6 +73,10 @@ public class WindowChangeScene : MonoBehaviour
 
 	public void OnClick_SelectItem(int id)
 	{
-		
+		Debug.Log(id);
+		if (selectedId != -1)
+			saveButtons[selectedId].GetImg.color = Color.white;
+		selectedId = id;
+		saveButtons[selectedId].GetImg.color = Color.green;
 	}
 }

@@ -7,7 +7,7 @@ public class WindowSaveLoad : MonoBehaviour
 	[SerializeField] private ImgContentButton[] imgLoadSaves;
 	[SerializeField] private TMPro.TMP_InputField inputField;
 
-	private int selectedScene;
+	private int selectedScene = -1;
 	
 	private void Start()
 	{
@@ -37,7 +37,8 @@ public class WindowSaveLoad : MonoBehaviour
 
 	public void OnClick_SelectSave(int scene)
 	{
-		imgLoadSaves[selectedScene].GetImg.color = Color.white;
+		if (selectedScene != -1)
+			imgLoadSaves[selectedScene].GetImg.color = Color.white;
 		selectedScene = scene;
 		imgLoadSaves[scene].GetImg.color = Color.green;
 	}
