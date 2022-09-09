@@ -1,3 +1,5 @@
+using System;
+using Project.Scripts.Model;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,6 +7,8 @@ public class WindowChangeScene : MonoBehaviour
 {
 	[SerializeField] private ControllerGame game;
 	[SerializeField] private ControllerView view;
+	[SerializeField] private DataBase dataBase;
+
 	
 	[SerializeField] private GameObject panelCreate;
 	[SerializeField] private GameObject panelChange;
@@ -13,10 +17,25 @@ public class WindowChangeScene : MonoBehaviour
 	[SerializeField] private Image imgTarget;
 	[SerializeField] private Image imgSelectColorGradient;
 	[SerializeField] private Image imgColorGradient;
+	
+	//prefabs
+	[SerializeField] private Transform parentContent;
+	[SerializeField] private GameObject imgContentButton;
 
 	public GameObject PanelChange { get => panelChange; }
 	public GameObject PanelCreate { get => panelCreate; }
-	
+
+	private void Start()
+	{
+		for (int i = 0; i < dataBase.defaultPrefabs.Length; i++)
+		{
+			GameObject newItem = Instantiate(imgContentButton, parentContent);
+			newItem.GetComponent<ImgContentButton>().GetTextInfo.text =
+				dataBase.defaultPrefabs[i].GetComponent<Item>().itemName;
+			newItem.GetComponent<ImgContentButton>().GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i); });
+		}
+	}
+
 	public void OnClick_OpenPanelChange()
 	{
 		panelChange.SetActive(true);
@@ -47,5 +66,10 @@ public class WindowChangeScene : MonoBehaviour
 	public void OnClick_ResetColor()
 	{
 		imgSelectColorGradient.color = Color.white;
+	}
+
+	public void OnClick_SelectItem(int id)
+	{
+		
 	}
 }

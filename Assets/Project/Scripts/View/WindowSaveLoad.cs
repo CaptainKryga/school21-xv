@@ -4,7 +4,7 @@ public class WindowSaveLoad : MonoBehaviour
 {
 	[SerializeField] private ModelSaveLoad modelSaveLoad;
 	
-	[SerializeField] private ImgLoadSave[] imgLoadSaves;
+	[SerializeField] private ImgContentButton[] imgLoadSaves;
 	[SerializeField] private TMPro.TMP_InputField inputField;
 
 	private int selectedScene;
