@@ -122,7 +122,7 @@ public class ModelSaveLoad : MonoBehaviour
 		Debug.LogError("НЕВОЗМОЖНО СОХРАНИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
 	}
 
-	private void SaveScene(SettingsScene save)
+	private void SaveScene(SettingsScene save2)
 	{
 		BinaryFormatter bf2 = new BinaryFormatter(); 
 		FileStream file2 = File.Create(Application.persistentDataPath 
