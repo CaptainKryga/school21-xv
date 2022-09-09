@@ -34,7 +34,8 @@ public class ControllerView : MonoBehaviour
 		panelGlobalPanel.SetActive(false);
 		panelImportExport.SetActive(false);
 		panelChangeScene.SetActive(false);
-		wChangeScene.PanelChange.SetActive(false);
+		//для правильного старта и отображения стейтов
+		// wChangeScene.PanelChange.SetActive(false);
 		wChangeScene.PanelCreate.SetActive(false);
 		panelAnimations.SetActive(false);
 		panelSaveLoad.SetActive(false);
@@ -51,7 +52,6 @@ public class ControllerView : MonoBehaviour
 	public void UpdatePlayerTypeMove(string type)
 	{
 		playerInfo.UpdatePlayerTypeMove(type);
-		game.UpdateState(GetNowState());
 	}
 
 	#region Global Button's
@@ -88,6 +88,7 @@ public class ControllerView : MonoBehaviour
 	}
 	private void DisableOpenPanels()
 	{
+		// panelGlobalPanel.SetActive(false);
 		panelImportExport.SetActive(false);
 		panelChangeScene.SetActive(false);
 		panelAnimations.SetActive(false);
@@ -97,15 +98,12 @@ public class ControllerView : MonoBehaviour
 	
 	#endregion
 
-	private GameTypes.Game GetNowState()
+	public GameTypes.Game GetNowState()
 	{
 		if (!panelGlobalPanel.activeSelf)
 			return GameTypes.Game.Play;
-		else if (panelChangeScene)
+		else if (panelChangeScene.activeSelf)
 		{
-			Debug.Log(wChangeScene);
-			Debug.Log(wChangeScene.PanelChange);
-			Debug.Log(wChangeScene.PanelChange.activeSelf);
 			if (wChangeScene.PanelChange.activeSelf)
 				return GameTypes.Game.Change;
 			else if (wChangeScene.PanelCreate.activeSelf)

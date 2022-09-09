@@ -1,6 +1,4 @@
-using System;
 using Project.Scripts.Model;
-using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,12 +20,8 @@ public class ModelSaveLoad : MonoBehaviour
 
 	[SerializeField] private bool isSaveDefaultScene;
 	[SerializeField] private bool isLoadDefaultScene;
-
-	private void Start()
-	{
-		//пробегаемся по всем итемам и смотрим саймый крайний от него создаём следующий дефолтный скриптейбл обж
-		//load defaultScene?
-	}
+	
+	public SettingsScene[] GetSaveScenes { get=>saveScenes; }
 
 	private void Update()
 	{
@@ -46,7 +40,7 @@ public class ModelSaveLoad : MonoBehaviour
 		}
 	}
 
-	private void PreSaveScene(string save)
+	public void PreSaveScene(string save)
 	{
 		if (save == defaultS)
 		{
@@ -88,6 +82,8 @@ public class ModelSaveLoad : MonoBehaviour
 		
 		save.workerData.position = worker.GetTransform.position;
 		save.workerData.rotation = worker.GetTransform.rotation;
+
+		save.playerData.state = player.GetState;
 	}
 
 	public void PreLoadScene(string load)
@@ -95,7 +91,19 @@ public class ModelSaveLoad : MonoBehaviour
 		if (load == defaultS)
 		{
 			LoadScene(defaultScene);
+			return;
 		}
+		
+		for (int i = 0; i < saveScenes.Length; i++)
+		{
+			if (load == saveScenes[i].sceneName)
+			{
+				LoadScene(saveScenes[i]);
+				return;
+			}
+		}
+		
+		Debug.LogError("НЕВОЗМОЖНО ЗАГРУЗИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
 	}
 
 	private void LoadScene(SettingsScene load)
@@ -109,8 +117,6 @@ public class ModelSaveLoad : MonoBehaviour
 		{
 			for (int x = 0; x < dataBase.defaultPrefabs.Length; x++)
 			{
-				Debug.Log("prefab: " + dataBase.defaultPrefabs[x].name + 
-						" == load.data: " + load.items[i].defaultName);
 				if (dataBase.defaultPrefabs[x].GetComponent<Item>().defaultName == load.items[i].defaultName)
 				{
 					GameObject newItem = Instantiate(dataBase.defaultPrefabs[x]);
@@ -135,7 +141,8 @@ public class ModelSaveLoad : MonoBehaviour
 		worker.GetTransform.position = load.workerData.position;
 		worker.GetTransform.rotation = load.workerData.rotation;
 		
-		model.UpdateState(load.stateGame);
+		model.UpdateGameState(load.stateGame);
+		model.UpdatePlayerState(load.playerData.state);
 	}
 
 

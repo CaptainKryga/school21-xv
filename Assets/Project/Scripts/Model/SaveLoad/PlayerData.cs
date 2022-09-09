@@ -1,4 +1,5 @@
 using System;
+using Project.Scripts.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.Model
@@ -13,5 +14,7 @@ namespace Project.Scripts.Model
 		//позиции камеры игрока
 		public Vector3 camPosition;
 		public Quaternion camRotation;
+
+		public GameTypes.PlayerMove state;
 	}
 }

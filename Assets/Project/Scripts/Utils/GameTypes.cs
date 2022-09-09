@@ -22,7 +22,8 @@ namespace Project.Scripts.Utils
 			HumanFirst,
 			HumanThird,
 			WorkerFirst,
-			WorkerThird
+			WorkerThird,
+			Null
 		}
 	}
 }

@@ -1,11 +1,15 @@
 using System;
 using Project.Scripts.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Project.Scripts.Model
 {
 	public class Player : MonoBehaviour
 	{
+		[SerializeField] private ModelController model;
+		
+		
 		//ссылка на элементы игрока в сцене
 		[SerializeField] private Transform body;
 		[SerializeField] private Transform cam;
@@ -21,10 +25,6 @@ namespace Project.Scripts.Model
 
 		//для отключения и включения видимости персонажа
 		private SkinnedMeshRenderer[] meshRenderers;
-
-
-		//можем ли мы двигаться?
-		private bool isPlay;
 
 		//тип движения
 		private GameTypes.PlayerMove state;
@@ -47,22 +47,23 @@ namespace Project.Scripts.Model
 		
 		public Transform GetBodyTransform { get => body; }
 		public Transform GetCamTransform { get => body; }
+		public GameTypes.PlayerMove GetState { get => state; }
 
-		private void Start()
+		private void Awake()
 		{
 			parentStart = body.parent;
 			meshRenderers = body.GetComponentsInChildren<SkinnedMeshRenderer>();
 			rigidbody = body.GetComponent<Rigidbody>();
-
-			state = GameTypes.PlayerMove.Spectator;
-			UpdateState(state);
-			ChangeVisiblePlayer(false);
 		}
 
 		private void Update()
 		{
-			if (!isPlay)
+			if (model.GetStateGame != GameTypes.Game.Play)
+			{
+				rigidbody.velocity = Vector3.zero;
+				rigidbody.angularVelocity = Vector3.zero;
 				return;
+			}
 
 			if (state == GameTypes.PlayerMove.Spectator)
 			{
@@ -101,31 +102,7 @@ namespace Project.Scripts.Model
 			body.localEulerAngles = new Vector3(0, mouseX, 0);
 		}
 
-		public bool ChangeStateIsPlay(bool isPlay)
-		{
-			this.isPlay = isPlay;
-			return isPlay;
-		}
-
-		public GameTypes.PlayerMove ChangeStatePlayerMove()
-		{
-			GameTypes.PlayerMove state = GameTypes.PlayerMove.Spectator;
-			if (this.state == GameTypes.PlayerMove.Spectator)
-				state = GameTypes.PlayerMove.HumanFirst;
-			else if (this.state == GameTypes.PlayerMove.HumanFirst)
-				state = GameTypes.PlayerMove.HumanThird;
-			else if (this.state == GameTypes.PlayerMove.HumanThird)
-				state = GameTypes.PlayerMove.WorkerFirst;
-			else if (this.state == GameTypes.PlayerMove.WorkerFirst)
-				state = GameTypes.PlayerMove.WorkerThird;
-			else if (this.state == GameTypes.PlayerMove.WorkerThird)
-				state = GameTypes.PlayerMove.Spectator;
-
-			UpdateState(state);
-			return state;
-		}
-
-		private void UpdateState(GameTypes.PlayerMove state)
+		public void UpdateState(GameTypes.PlayerMove state)
 		{
 			this.state = state;
 			if (state == GameTypes.PlayerMove.Spectator)
@@ -196,11 +173,6 @@ namespace Project.Scripts.Model
 				if (temp != null)
 					worker = temp.GetTransformWorker();
 			}
-		}
-
-		public bool IsPlay()
-		{
-			return isPlay;
 		}
 	}
 }

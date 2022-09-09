@@ -12,9 +12,9 @@ public class ModelController : MonoBehaviour
 	[SerializeField] private Worker worker;
 		
 	//глобальный стейт текущей стадии игры
-	[SerializeField] private GameTypes.Game stateGame;
+	[SerializeField] private GameTypes.Game state;
 	
-	public GameTypes.Game GetStateGame { get => stateGame; }
+	public GameTypes.Game GetStateGame { get => state; }
 
 	private void OnEnable()
 	{
@@ -32,28 +32,53 @@ public class ModelController : MonoBehaviour
 		game.PlayerAxis_Action -= player.ReceivePlayerAxisActions;
 	}
 
+	private void Start()
+	{
+		UpdatePlayerState(GameTypes.PlayerMove.Spectator);
+	}
+
 	private void ReceiveKeyboardActions(KeyCode key)
 	{
 		if (key == KeyCode.Tab)
 		{
 			view.ChangeVisibleGlobalPanel();
 		}
-		if (key == KeyCode.V)
+
+		if (key == KeyCode.Alpha1)
 		{
-			if (player.IsPlay())
-				view.UpdatePlayerTypeMove(player.ChangeStatePlayerMove() + "");
+			player.UpdateState(GameTypes.PlayerMove.Spectator);
+			view.UpdatePlayerTypeMove(GameTypes.PlayerMove.Spectator.ToString());
+		}
+		if (key == KeyCode.Alpha2)
+		{
+			player.UpdateState(GameTypes.PlayerMove.HumanFirst);
+			view.UpdatePlayerTypeMove(GameTypes.PlayerMove.HumanFirst.ToString());
+		}
+		if (key == KeyCode.Alpha3)
+		{
+			player.UpdateState(GameTypes.PlayerMove.HumanThird);
+			view.UpdatePlayerTypeMove(GameTypes.PlayerMove.HumanThird.ToString());
+		}
+		if (key == KeyCode.Alpha4)
+		{
+			player.UpdateState(GameTypes.PlayerMove.WorkerFirst);
+			view.UpdatePlayerTypeMove(GameTypes.PlayerMove.WorkerFirst.ToString());
+		}
+		if (key == KeyCode.Alpha5)
+		{
+			player.UpdateState(GameTypes.PlayerMove.WorkerThird);
+			view.UpdatePlayerTypeMove(GameTypes.PlayerMove.WorkerThird.ToString());
 		}
 	}
 
-	public void UpdateState(GameTypes.Game state)
+	public void UpdateGameState(GameTypes.Game state)
 	{
-		stateGame = state;
+		this.state = state;
+	}
 
-		if (state == GameTypes.Game.Play)
-		{
-			player.ChangeStateIsPlay(true);
-		}
-		
-		Debug.Log("state: " + state);
+	public void UpdatePlayerState(GameTypes.PlayerMove state)
+	{
+		player.UpdateState(state);
+		view.UpdatePlayerTypeMove(state.ToString());
 	}
 }

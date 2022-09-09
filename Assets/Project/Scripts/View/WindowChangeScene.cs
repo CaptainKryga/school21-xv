@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 public class WindowChangeScene : MonoBehaviour
 {
-	[SerializeField] private GameObject panel;
+	[SerializeField] private ControllerGame game;
+	[SerializeField] private ControllerView view;
+	
 	[SerializeField] private GameObject panelCreate;
 	[SerializeField] private GameObject panelChange;
 	//color
@@ -19,12 +21,14 @@ public class WindowChangeScene : MonoBehaviour
 	{
 		panelChange.SetActive(true);
 		panelCreate.SetActive(false);
+		game.UpdateState(view.GetNowState());
 	}
 
 	public void OnClick_OpenPanelCreate()
 	{
 		panelChange.SetActive(false);
 		panelCreate.SetActive(true);
+		game.UpdateState(view.GetNowState());
 	}
 
 	//тут магия

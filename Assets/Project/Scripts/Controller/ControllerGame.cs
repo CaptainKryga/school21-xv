@@ -14,17 +14,24 @@ public class ControllerGame : MonoBehaviour
 	//все нажатия с мыши
 	public Action<KeyCode> Mouse_Action;
 
-	private void Start()
-	{
-		
-	}
-
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Tab))
 			Keyboard_Action?.Invoke(KeyCode.Tab);
-		if (Input.GetKeyDown(KeyCode.V))
-			Keyboard_Action?.Invoke(KeyCode.V);
+		
+		if (model.GetStateGame == GameTypes.Game.Play)
+		{
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+				Keyboard_Action?.Invoke(KeyCode.Alpha1);
+			if (Input.GetKeyDown(KeyCode.Alpha2))
+				Keyboard_Action?.Invoke(KeyCode.Alpha2);
+			if (Input.GetKeyDown(KeyCode.Alpha3))
+				Keyboard_Action?.Invoke(KeyCode.Alpha3);
+			if (Input.GetKeyDown(KeyCode.Alpha4))
+				Keyboard_Action?.Invoke(KeyCode.Alpha4);
+			if (Input.GetKeyDown(KeyCode.Alpha5))
+				Keyboard_Action?.Invoke(KeyCode.Alpha5);
+		}
 		
 		if (Input.GetKeyDown(KeyCode.Mouse0))
 			Mouse_Action?.Invoke(KeyCode.Mouse0);
@@ -38,6 +45,6 @@ public class ControllerGame : MonoBehaviour
 
 	public void UpdateState(GameTypes.Game state)
 	{
-		model.UpdateState(state);
+		model.UpdateGameState(state);
 	}
 }
