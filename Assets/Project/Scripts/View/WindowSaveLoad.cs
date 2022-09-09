@@ -16,7 +16,7 @@ public class WindowSaveLoad : MonoBehaviour
 		{
 			if (settingsScenes[i].isSave)
 			{
-				imgLoadSaves[i].GetTextInfo.text = settingsScenes[i].sceneName;
+				imgLoadSaves[i].GetTextInfo.text = (settingsScenes[i].isSave ? "> " : "") + settingsScenes[i].sceneName;
 			}
 			else
 			{
@@ -45,6 +45,7 @@ public class WindowSaveLoad : MonoBehaviour
 	public void OnClick_Rename()
 	{
 		modelSaveLoad.GetSaveScenes[selectedScene].sceneName = inputField.text;
-		imgLoadSaves[selectedScene].GetTextInfo.text = inputField.text;
+		imgLoadSaves[selectedScene].GetTextInfo.text = 
+			(modelSaveLoad.GetSaveScenes[selectedScene].isSave ? "> " : "") + inputField.text;
 	}
 }
