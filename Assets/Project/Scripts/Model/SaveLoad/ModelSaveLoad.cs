@@ -1,5 +1,7 @@
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using Project.Scripts.Model;
-using UnityEditor;
 using UnityEngine;
 
 public class ModelSaveLoad : MonoBehaviour
@@ -21,7 +23,67 @@ public class ModelSaveLoad : MonoBehaviour
 	[SerializeField] private bool isSaveDefaultScene;
 	[SerializeField] private bool isLoadDefaultScene;
 	
-	public SettingsScene[] GetSaveScenes { get=>saveScenes; }
+	public SettingsScene[] GetSaveScenes { get => saveScenes; }
+
+	private string[] saveNames =
+		{"save0", "save1", "save2", "save3", "save4", "save5", "save6", "save7", "save8", "save9"};
+	
+	private void Start()
+	{
+		try
+		{
+			if (!Directory.Exists(Application.persistentDataPath + "/Save"))
+				Directory.CreateDirectory(Application.persistentDataPath + "/Save");
+			
+			string[] allfiles = Directory.GetFiles(Application.persistentDataPath + "");
+			for (int x = 0; x < saveNames.Length; x++)
+			{
+				bool isCreate = false;
+				for (int y = 0; y < allfiles.Length; y++)
+				{
+					if (saveNames[x] == allfiles[y])
+					{
+						isCreate = true;
+						break;
+					}
+				}
+
+				if (!isCreate)
+				{
+					// BinaryFormatter bf = new BinaryFormatter(); 
+					// FileStream file = File.Create(Application.persistentDataPath 
+												// + "/Save/" + saveNames[x]);
+					// SettingsScene data = new SettingsScene();
+					// data.isSave = true;
+					// data.stateGame = model.GetStateGame;
+					// data.items = new ItemData[parentItems.childCount];
+					// for (int i = 0; i < data.items.Length; i++)
+					// {
+						// Item item = parentItems.GetChild(i).GetComponent<Item>();
+						// data.items[i] = new ItemData(item.defaultName, item.itemName, item.transform.position,
+							// item.transform.rotation, item.color);
+					// }
+					// data.playerData.bodyPosition = player.GetBodyTransform.position;
+					// data.playerData.bodyRotation = player.GetBodyTransform.rotation;
+					// data.playerData.camPosition = player.GetCamTransform.position;
+					// data.playerData.camRotation = player.GetCamTransform.rotation;
+					// data.workerData.position = worker.GetTransform.position;
+					// data.workerData.rotation = worker.GetTransform.rotation;
+					// data.playerData.state = player.GetState;
+					
+					// bf.Serialize(file, data);
+					// file.Close();
+				}
+					
+			}
+
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
+	}
 
 	private void Update()
 	{
@@ -62,28 +124,90 @@ public class ModelSaveLoad : MonoBehaviour
 
 	private void SaveScene(SettingsScene save)
 	{
-		save.isSave = true;
-
+		BinaryFormatter bf2 = new BinaryFormatter(); 
+		FileStream file2 = File.Create(Application.persistentDataPath 
+									+ "/Save/ddfs");
+		
+		SaveData save = new SaveData();
+		save.saveName = "default";
+		save.sceneName = "basic";
 		save.stateGame = model.GetStateGame;
-
-		save.items = new ItemData[parentItems.childCount];
-		for (int i = 0; i < save.items.Length; i++)
+		
+		int childCount = parentItems.childCount;
+		save.itemDefaultName = new string[childCount];
+		save.itemName = new string[childCount];
+		// save.position = new Vector3[childCount];
+		save.itemPositionX = new float[childCount];
+		save.itemPositionY = new float[childCount];
+		save.itemPositionZ = new float[childCount];
+		// save.rotation = new Quaternion[childCount];
+		save.itemRotationX = new float[childCount];
+		save.itemRotationY = new float[childCount];
+		save.itemRotationZ = new float[childCount];
+		save.itemRotationW = new float[childCount];
+		// save.color = new Color[childCount];
+		save.itemColorR = new float[childCount];
+		save.itemColorG = new float[childCount];
+		save.itemColorB = new float[childCount];
+		save.itemColorA = new float[childCount];
+		for (int i = 0; i < save.itemDefaultName.Length; i++)
 		{
 			Item item = parentItems.GetChild(i).GetComponent<Item>();
-			save.items[i] = new ItemData(item.defaultName, item.itemName, item.transform.position,
-				item.transform.rotation, item.color);
+			save.itemDefaultName[i] = item.defaultName;
+			save.itemName[i] = item.itemName;
+			// save.position[i] = item.transform.position;
+			save.itemPositionX[i] = item.transform.position.x;
+			save.itemPositionY[i] = item.transform.position.y;
+			save.itemPositionZ[i] = item.transform.position.z;
+			// save.rotation[i] = item.transform.rotation;
+			save.itemRotationX[i] = item.transform.rotation.x;
+			save.itemRotationY[i] = item.transform.rotation.y;
+			save.itemRotationZ[i] = item.transform.rotation.z;
+			save.itemRotationW[i] = item.transform.rotation.w;
+			// save.color[i] = item.color;
+			save.itemColorR[i] = item.color.r;
+			save.itemColorG[i] = item.color.g;
+			save.itemColorB[i] = item.color.b;
+			save.itemColorA[i] = item.color.a;
+
 		}
-
-		save.playerData.bodyPosition = player.GetBodyTransform.position;
-		save.playerData.bodyRotation = player.GetBodyTransform.rotation;
 		
-		save.playerData.camPosition = player.GetCamTransform.position;
-		save.playerData.camRotation = player.GetCamTransform.rotation;
+		// save.playerBodyPosition = player.GetBodyTransform.position;
+		save.playerBodyPositionX = player.GetBodyTransform.position.x;
+		save.playerBodyPositionY = player.GetBodyTransform.position.y;
+		save.playerBodyPositionZ = player.GetBodyTransform.position.z;
+		// save.playerBodyRotation = player.GetBodyTransform.rotation;
+		save.playerBodyRotationX = player.GetBodyTransform.rotation.x;
+		save.playerBodyRotationY = player.GetBodyTransform.rotation.y;
+		save.playerBodyRotationZ = player.GetBodyTransform.rotation.z;
+		save.playerBodyRotationW = player.GetBodyTransform.rotation.w;
+		// save.playerCamPosition = player.GetCamTransform.position;
+		save.playerCamPositionX = player.GetCamTransform.position.x;
+		save.playerCamPositionY = player.GetCamTransform.position.y;
+		save.playerCamPositionZ = player.GetCamTransform.position.z;
+		// save.playerCamRotation = player.GetCamTransform.rotation;
+		save.playerCamRotationX = player.GetCamTransform.rotation.x;
+		save.playerCamRotationY = player.GetCamTransform.rotation.y;
+		save.playerCamRotationZ = player.GetCamTransform.rotation.z;
+		save.playerCamRotationW = player.GetCamTransform.rotation.w;
 		
-		save.workerData.position = worker.GetTransform.position;
-		save.workerData.rotation = worker.GetTransform.rotation;
-
-		save.playerData.state = player.GetState;
+		save.playerMoveState = player.GetState;
+		
+		// save.workerBodyPosition = worker.GetTransform.position;
+		save.workerBodyPositionX = worker.GetTransform.position.x;
+		save.workerBodyPositionY = worker.GetTransform.position.y;
+		save.workerBodyPositionZ = worker.GetTransform.position.z;
+		// save.workerBodyRotation = worker.GetTransform.rotation;
+		save.workerBodyRotationX = worker.GetTransform.rotation.x;
+		save.workerBodyRotationY = worker.GetTransform.rotation.y;
+		save.workerBodyRotationZ = worker.GetTransform.rotation.z;
+		save.workerBodyRotationW = worker.GetTransform.rotation.w;
+			
+		bf2.Serialize(file2, save);
+		file2.Close();
+		
+		Debug.Log("Game data saved!");
+		Debug.Log("Game data saved!");
 	}
 
 	public void PreLoadScene(string load)
@@ -146,22 +270,22 @@ public class ModelSaveLoad : MonoBehaviour
 	}
 
 
-	private SettingsScene LoadScene(string sceneName)
-	{
-		return AssetDatabase.LoadAssetAtPath<SettingsScene>(pathSaveLoad + sceneName + type);
-	}
-
-	private void CreateAsset()
-	{
-		SettingsScene save = ScriptableObject.CreateInstance<SettingsScene>();
-		string path = pathSaveLoad + "save";
-		AssetDatabase.CreateAsset(save, path + ".asset");
-		AssetDatabase.SaveAssets();
-	}
-	
-	private void DestroyAsset(string name)
-	{
-		AssetDatabase.DeleteAsset(pathSaveLoad + name + ".asset");
-		AssetDatabase.SaveAssets();
-	}
+	// private SettingsScene LoadScene(string sceneName)
+	// {
+	// 	return AssetDatabase.LoadAssetAtPath<SettingsScene>(pathSaveLoad + sceneName + type);
+	// }
+	//
+	// private void CreateAsset()
+	// {
+	// 	SettingsScene save = ScriptableObject.CreateInstance<SettingsScene>();
+	// 	string path = pathSaveLoad + "save";
+	// 	AssetDatabase.CreateAsset(save, path + ".asset");
+	// 	AssetDatabase.SaveAssets();
+	// }
+	//
+	// private void DestroyAsset(string name)
+	// {
+	// 	AssetDatabase.DeleteAsset(pathSaveLoad + name + ".asset");
+	// 	AssetDatabase.SaveAssets();
+	// }
 }
