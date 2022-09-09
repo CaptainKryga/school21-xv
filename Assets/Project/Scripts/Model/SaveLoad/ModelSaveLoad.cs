@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Project.Scripts.Model;
 using UnityEngine;
@@ -13,8 +14,8 @@ public class ModelSaveLoad : MonoBehaviour
 	private const string type = ".asset";
 	private const string defaultS = "default";
 
-	[SerializeField] private SettingsScene defaultScene;
-	[SerializeField] private SettingsScene[] saveScenes = new SettingsScene[10];
+	// [SerializeField] private SettingsScene defaultScene;
+	// [SerializeField] private SettingsScene[] saveScenes = new SettingsScene[10];
 	
 	[SerializeField] private Transform parentItems;
 	[SerializeField] private Player player;
@@ -23,63 +24,23 @@ public class ModelSaveLoad : MonoBehaviour
 	[SerializeField] private bool isSaveDefaultScene;
 	[SerializeField] private bool isLoadDefaultScene;
 	
-	public SettingsScene[] GetSaveScenes { get => saveScenes; }
-
-	private string[] saveNames =
-		{"save0", "save1", "save2", "save3", "save4", "save5", "save6", "save7", "save8", "save9"};
+	private string[] lastScanSaveFiles;
 	
-	private void Start()
+	public string[] LastScanSaveFiles { get => lastScanSaveFiles; }
+	
+	private void Awake()
 	{
 		try
 		{
 			if (!Directory.Exists(Application.persistentDataPath + "/Save"))
 				Directory.CreateDirectory(Application.persistentDataPath + "/Save");
+			lastScanSaveFiles = updateArraySaveFiles();
 			
-			string[] allfiles = Directory.GetFiles(Application.persistentDataPath + "");
-			for (int x = 0; x < saveNames.Length; x++)
-			{
-				bool isCreate = false;
-				for (int y = 0; y < allfiles.Length; y++)
-				{
-					if (saveNames[x] == allfiles[y])
-					{
-						isCreate = true;
-						break;
-					}
-				}
-
-				if (!isCreate)
-				{
-					// BinaryFormatter bf = new BinaryFormatter(); 
-					// FileStream file = File.Create(Application.persistentDataPath 
-												// + "/Save/" + saveNames[x]);
-					// SettingsScene data = new SettingsScene();
-					// data.isSave = true;
-					// data.stateGame = model.GetStateGame;
-					// data.items = new ItemData[parentItems.childCount];
-					// for (int i = 0; i < data.items.Length; i++)
-					// {
-						// Item item = parentItems.GetChild(i).GetComponent<Item>();
-						// data.items[i] = new ItemData(item.defaultName, item.itemName, item.transform.position,
-							// item.transform.rotation, item.color);
-					// }
-					// data.playerData.bodyPosition = player.GetBodyTransform.position;
-					// data.playerData.bodyRotation = player.GetBodyTransform.rotation;
-					// data.playerData.camPosition = player.GetCamTransform.position;
-					// data.playerData.camRotation = player.GetCamTransform.rotation;
-					// data.workerData.position = worker.GetTransform.position;
-					// data.workerData.rotation = worker.GetTransform.rotation;
-					// data.playerData.state = player.GetState;
-					
-					// bf.Serialize(file, data);
-					// file.Close();
-				}
-					
-			}
-
+			Debug.Log("СОХРАНЕНИЯ РАБОТАЮТ");
 		}
 		catch (Exception e)
 		{
+			Debug.Log("СОХРАНЕНИЯ НЕ РАБОТАЮТ");
 			Console.WriteLine(e);
 			throw;
 		}
@@ -102,31 +63,23 @@ public class ModelSaveLoad : MonoBehaviour
 		}
 	}
 
-	public void PreSaveScene(string save)
+	public void PreSaveScene(string saveFileName)
 	{
-		if (save == defaultS)
+		lastScanSaveFiles = updateArraySaveFiles();
+		
+		if (!lastScanSaveFiles.Contains(saveFileName))
 		{
-			SaveScene(defaultScene);
+			SaveScene(saveFileName);
 			return;
 		}
-
-		for (int i = 0; i < saveScenes.Length; i++)
-		{
-			if (save == saveScenes[i].sceneName)
-			{
-				SaveScene(saveScenes[i]);
-				return;
-			}
-		}
-
 		Debug.LogError("НЕВОЗМОЖНО СОХРАНИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
 	}
 
-	private void SaveScene(SettingsScene save2)
+	private void SaveScene(string saveFileName)
 	{
 		BinaryFormatter bf2 = new BinaryFormatter(); 
 		FileStream file2 = File.Create(Application.persistentDataPath 
-									+ "/Save/ddfs");
+									+ "/Save/" + saveFileName);
 		
 		SaveData save = new SaveData();
 		save.saveName = "default";
@@ -207,85 +160,103 @@ public class ModelSaveLoad : MonoBehaviour
 		file2.Close();
 		
 		Debug.Log("Game data saved!");
-		Debug.Log("Game data saved!");
 	}
 
-	public void PreLoadScene(string load)
+	public void PreLoadScene(string loadFileName)
 	{
-		if (load == defaultS)
+		lastScanSaveFiles = updateArraySaveFiles();
+
+		if (!lastScanSaveFiles.Contains(loadFileName))
 		{
-			LoadScene(defaultScene);
+			LoadScene(loadFileName);
 			return;
-		}
-		
-		for (int i = 0; i < saveScenes.Length; i++)
-		{
-			if (load == saveScenes[i].sceneName)
-			{
-				LoadScene(saveScenes[i]);
-				return;
-			}
 		}
 		
 		Debug.LogError("НЕВОЗМОЖНО ЗАГРУЗИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
 	}
 
-	private void LoadScene(SettingsScene load)
+	private void LoadScene(string loadFileName)
 	{
 		for (int i = 0; i < parentItems.childCount; i++)
 		{
 			Destroy(parentItems.GetChild(i).transform.gameObject);
 		}
-		
-		for (int i = 0; i < load.items.Length; i++)
+
+		try
 		{
-			for (int x = 0; x < dataBase.defaultPrefabs.Length; x++)
+			BinaryFormatter bf = new BinaryFormatter();
+			FileStream file = File.Open(Application.persistentDataPath + "/Save/" + loadFileName, FileMode.Open);
+			SaveData load = (SaveData) bf.Deserialize(file);
+			file.Close();
+
+			// save.saveName = "default";
+			// save.sceneName = "basic";
+
+			// int childCount = parentItems.childCount;
+			for (int i = 0; i < load.itemDefaultName.Length; i++)
 			{
-				if (dataBase.defaultPrefabs[x].GetComponent<Item>().defaultName == load.items[i].defaultName)
+				for (int x = 0; x < dataBase.defaultPrefabs.Length; x++)
 				{
-					GameObject newItem = Instantiate(dataBase.defaultPrefabs[x]);
-					newItem.GetComponent<Item>().defaultName = load.items[i].defaultName;
-					newItem.GetComponent<Item>().itemName = load.items[i].itemName;
-					newItem.GetComponent<Item>().SetColor(load.items[i].color);
-					newItem.transform.position = load.items[i].position;
-					newItem.transform.rotation = load.items[i].rotation;
-					newItem.transform.SetParent(parentItems);
-					
-					break;
+					if (dataBase.defaultPrefabs[x].GetComponent<Item>().defaultName == load.itemDefaultName[i])
+					{
+						GameObject newItem = Instantiate(dataBase.defaultPrefabs[x]);
+						newItem.GetComponent<Item>().defaultName = load.itemDefaultName[i];
+						newItem.GetComponent<Item>().itemName = load.itemName[i];
+						newItem.transform.position = new Vector3(load.itemPositionX[i], load.itemPositionY[i],
+							load.itemPositionZ[i]);
+						newItem.transform.rotation = new Quaternion(load.itemRotationX[i], load.itemRotationY[i],
+							load.itemRotationZ[i], load.itemRotationW[i]);
+						newItem.GetComponent<Item>().SetColor(new Color(load.itemColorR[i], load.itemColorG[i],
+							load.itemColorB[i], load.itemColorA[i]));
+						newItem.transform.SetParent(parentItems);
+						break;
+					}
 				}
 			}
-		}
+			// save.playerBodyPosition = player.GetBodyTransform.position;
+			player.GetBodyTransform.position = new Vector3(load.playerBodyPositionX, load.playerBodyPositionY,
+				load.playerBodyPositionZ);
+			// save.playerBodyRotation = player.GetBodyTransform.rotation;
+			player.GetBodyTransform.rotation = new Quaternion(load.playerBodyRotationX, load.playerBodyRotationY, 
+				load.playerBodyRotationZ, load.playerBodyRotationW);
+			// save.playerCamPosition = player.GetCamTransform.position;
+			player.GetCamTransform.position = new Vector3(load.playerCamPositionX, load.playerCamPositionY,
+				load.playerCamPositionZ);
+			// save.playerCamRotation = player.GetCamTransform.rotation;
+			player.GetCamTransform.rotation = new Quaternion(load.playerCamRotationX, load.playerCamRotationY, 
+				load.playerCamRotationZ, load.playerCamRotationW);
 
-		player.GetBodyTransform.position = load.playerData.bodyPosition;
-		player.GetBodyTransform.rotation = load.playerData.bodyRotation;
-		
-		player.GetCamTransform.position = load.playerData.camPosition;
-		player.GetCamTransform.rotation = load.playerData.camRotation;
-		
-		worker.GetTransform.position = load.workerData.position;
-		worker.GetTransform.rotation = load.workerData.rotation;
-		
-		model.UpdateGameState(load.stateGame);
-		model.UpdatePlayerState(load.playerData.state);
+			// save.workerBodyPosition = worker.GetTransform.position;
+			worker.GetTransform.position = new Vector3(load.workerBodyPositionX, load.workerBodyPositionY,
+				load.workerBodyPositionZ);
+			// save.workerBodyRotation = worker.GetTransform.rotation;
+			worker.GetTransform.rotation = new Quaternion(load.workerBodyRotationX, load.workerBodyRotationY, 
+				load.workerBodyRotationZ, load.workerBodyRotationW);
+
+			model.UpdateGameState(load.stateGame);
+			model.UpdatePlayerState(load.playerMoveState);
+			
+			Debug.Log("Game data loaded!");
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
 	}
 
+	private string[] updateArraySaveFiles()
+	{
+		try
+		{
+			lastScanSaveFiles = Directory.GetFiles(Application.persistentDataPath + "");
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
 
-	// private SettingsScene LoadScene(string sceneName)
-	// {
-	// 	return AssetDatabase.LoadAssetAtPath<SettingsScene>(pathSaveLoad + sceneName + type);
-	// }
-	//
-	// private void CreateAsset()
-	// {
-	// 	SettingsScene save = ScriptableObject.CreateInstance<SettingsScene>();
-	// 	string path = pathSaveLoad + "save";
-	// 	AssetDatabase.CreateAsset(save, path + ".asset");
-	// 	AssetDatabase.SaveAssets();
-	// }
-	//
-	// private void DestroyAsset(string name)
-	// {
-	// 	AssetDatabase.DeleteAsset(pathSaveLoad + name + ".asset");
-	// 	AssetDatabase.SaveAssets();
-	// }
+		return lastScanSaveFiles;
+	}
 }

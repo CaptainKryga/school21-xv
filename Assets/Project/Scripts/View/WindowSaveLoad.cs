@@ -1,52 +1,56 @@
+using Project.Scripts.Utils;
 using UnityEngine;
 
 public class WindowSaveLoad : MonoBehaviour
 {
 	[SerializeField] private ModelSaveLoad modelSaveLoad;
-	
-	[SerializeField] private ImgContentButton[] imgLoadSaves;
+
+	[SerializeField] private Transform parentContent;
+	[SerializeField] private GameObject prafabImgContentButton;
 	[SerializeField] private TMPro.TMP_InputField inputField;
+
+	private ImgContentButton[] imgContentButtons;
 
 	private int selectedScene = -1;
 	
 	private void Start()
 	{
-		SettingsScene[] settingsScenes = modelSaveLoad.GetSaveScenes;
-		for (int i = 0; i < imgLoadSaves.Length; i++)
+		string[] lastScanSaveFiles = modelSaveLoad.LastScanSaveFiles;
+		imgContentButtons = new ImgContentButton[lastScanSaveFiles.Length];
+		for (int i = 0; i < lastScanSaveFiles.Length; i++)
 		{
-			if (settingsScenes[i].isSave)
-			{
-				imgLoadSaves[i].GetTextInfo.text = (settingsScenes[i].isSave ? "> " : "") + settingsScenes[i].sceneName;
-			}
-			else
-			{
-				imgLoadSaves[i].GetTextInfo.text = "Clear";
-			}
+			ImgContentButton imgContentButton = 
+				Instantiate(prafabImgContentButton, parentContent).GetComponent<ImgContentButton>();
+			imgContentButton.GetTextInfo.text = "> " + lastScanSaveFiles[i];
+			imgContentButtons[i] = imgContentButton;
+			
+			int i1 = i;
+			imgContentButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectSave(i1); });
 		}
 	}
 
 	public void OnClick_SaveGame()
 	{
-		modelSaveLoad.PreSaveScene(modelSaveLoad.GetSaveScenes[selectedScene].sceneName);
+		modelSaveLoad.PreSaveScene(imgContentButtons[selectedScene].GetTextInfo.text);
 	}
 
 	public void OnClick_LoadGame()
 	{
-		modelSaveLoad.PreLoadScene(modelSaveLoad.GetSaveScenes[selectedScene].sceneName);
+		modelSaveLoad.PreLoadScene(imgContentButtons[selectedScene].GetTextInfo.text);
 	}
 
 	public void OnClick_SelectSave(int scene)
 	{
 		if (selectedScene != -1)
-			imgLoadSaves[selectedScene].GetImg.color = Color.white;
+			imgContentButtons[selectedScene].GetImg.color = Color.white;
 		selectedScene = scene;
-		imgLoadSaves[scene].GetImg.color = Color.green;
+		imgContentButtons[scene].GetImg.color = Color.green;
 	}
 
 	public void OnClick_Rename()
 	{
-		modelSaveLoad.GetSaveScenes[selectedScene].sceneName = inputField.text;
-		imgLoadSaves[selectedScene].GetTextInfo.text = 
-			(modelSaveLoad.GetSaveScenes[selectedScene].isSave ? "> " : "") + inputField.text;
+		imgContentButtons[selectedScene].sceneName = inputField.text;
+		imgContentButtons[selectedScene].GetTextInfo.text = 
+			(imgContentButtons[selectedScene].isSave ? "> " : "") + inputField.text;
 	}
 }
