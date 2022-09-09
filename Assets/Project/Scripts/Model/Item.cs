@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Item : MonoBehaviour
@@ -7,7 +5,7 @@ public class Item : MonoBehaviour
 	public string defaultName;
 	public string itemName;
 	public Color color;
-
+	
 	public void SetColor(Color color)
 	{
 		MeshRenderer[] mrs = this.gameObject.GetComponentsInChildren<MeshRenderer>();

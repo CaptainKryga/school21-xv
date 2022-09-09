@@ -13,9 +13,14 @@ public class ModelController : MonoBehaviour
 		
 	//глобальный стейт текущей стадии игры
 	[SerializeField] private GameTypes.Game state;
+
+	private SettingsScene nowOpenScene;
+	
 	
 	public GameTypes.Game GetStateGame { get => state; }
-
+	public SettingsScene NowOpenScene { get => nowOpenScene; set => nowOpenScene = value; }
+	
+	
 	private void OnEnable()
 	{
 		game.Keyboard_Action += ReceiveKeyboardActions;

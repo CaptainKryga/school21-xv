@@ -1,4 +1,5 @@
 using Project.Scripts.Model;
+using Project.Scripts.Model.CreateChange;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,10 @@ public class WindowChangeScene : MonoBehaviour
 {
 	[SerializeField] private ControllerGame game;
 	[SerializeField] private ControllerView view;
+	[SerializeField] private ModelCreateChange modelCreateChange;
 	[SerializeField] private DataBase dataBase;
 	
+	//Create
 	[SerializeField] private GameObject panelCreate;
 	[SerializeField] private GameObject panelChange;
 	//color
@@ -25,6 +28,12 @@ public class WindowChangeScene : MonoBehaviour
 
 	private ImgContentButton[] saveButtons;
 	private int selectedId = -1;
+	
+	
+	//Change
+	[SerializeField] private TMPro.TMP_InputField inputFieldScene;
+	
+	[SerializeField] private TMPro.TMP_InputField inputFieldObject;
 
 	private void Start()
 	{
@@ -37,6 +46,8 @@ public class WindowChangeScene : MonoBehaviour
 			var i1 = i;
 			saveButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i1); });
 		}
+
+		// inputFieldScene.text = dataBase;
 	}
 
 	public void OnClick_OpenPanelChange()
@@ -73,10 +84,16 @@ public class WindowChangeScene : MonoBehaviour
 
 	public void OnClick_SelectItem(int id)
 	{
-		Debug.Log(id);
 		if (selectedId != -1)
 			saveButtons[selectedId].GetImg.color = Color.white;
 		selectedId = id;
+		modelCreateChange.SelectedId = id;
 		saveButtons[selectedId].GetImg.color = Color.green;
 	}
+
+	public void OnClick_RenameScene()
+	{
+		
+	}
+
 }

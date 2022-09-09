@@ -9,6 +9,7 @@ public class ControllerGame : MonoBehaviour
 	//все нажатия исключительно для движения игрока
 	public Action<Vector2> PlayerMove_Action;
 	public Action<Vector2> PlayerAxis_Action;
+	public Action<float> MouseScroll_Action;
 	//все нажатия с клавиатуры
 	public Action<KeyCode> Keyboard_Action;
 	//все нажатия с мыши
@@ -37,6 +38,14 @@ public class ControllerGame : MonoBehaviour
 			Mouse_Action?.Invoke(KeyCode.Mouse0);
 		if (Input.GetKeyDown(KeyCode.Mouse1))
 			Mouse_Action?.Invoke(KeyCode.Mouse1);
+
+		if (model.GetStateGame == GameTypes.Game.Create)
+		{
+			if (Input.GetKeyDown(KeyCode.LeftShift))
+				Keyboard_Action?.Invoke(KeyCode.LeftShift);
+			MouseScroll_Action?.Invoke(Input.GetAxis("Mouse ScrollWheel"));
+	
+		}
 		
 		
 		PlayerMove_Action?.Invoke(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
