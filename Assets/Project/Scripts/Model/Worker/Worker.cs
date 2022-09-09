@@ -7,6 +7,9 @@ namespace Project.Scripts.Model
 	{
 		[SerializeField] private Transform worker;
 		[SerializeField] private CustomAnimator animator;
+		
+		public Transform GetTransform { get => worker; }
+		
 		private void Update()
 		{
 			animator.SetAnimatorWalkSpeed(0);

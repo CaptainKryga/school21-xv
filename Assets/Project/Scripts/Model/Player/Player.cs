@@ -7,7 +7,7 @@ namespace Project.Scripts.Model
 	public class Player : MonoBehaviour
 	{
 		//ссылка на элементы игрока в сцене
-		[SerializeField] private Transform player;
+		[SerializeField] private Transform body;
 		[SerializeField] private Transform cam;
 		private Transform parentStart;
 		[SerializeField] private CustomAnimator animator;
@@ -44,13 +44,15 @@ namespace Project.Scripts.Model
 
 		//скорость поворота
 		[SerializeField] private float sensitive;
-
+		
+		public Transform GetBodyTransform { get => body; }
+		public Transform GetCamTransform { get => body; }
 
 		private void Start()
 		{
-			parentStart = player.parent;
-			meshRenderers = player.GetComponentsInChildren<SkinnedMeshRenderer>();
-			rigidbody = player.GetComponent<Rigidbody>();
+			parentStart = body.parent;
+			meshRenderers = body.GetComponentsInChildren<SkinnedMeshRenderer>();
+			rigidbody = body.GetComponent<Rigidbody>();
 
 			state = GameTypes.PlayerMove.Spectator;
 			UpdateState(state);
@@ -70,14 +72,14 @@ namespace Project.Scripts.Model
 			else if (state == GameTypes.PlayerMove.HumanFirst)
 			{
 				if (rigidbody.velocity.magnitude < limitSpeed)
-					rigidbody.velocity += (player.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
+					rigidbody.velocity += (body.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
 				rigidbody.velocity += Physics.gravity * Time.deltaTime;
 				DefaultUpdateCam();
 			}
 			else if (state == GameTypes.PlayerMove.HumanThird)
 			{
 				if (rigidbody.velocity.magnitude < limitSpeed)
-					rigidbody.velocity += (player.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
+					rigidbody.velocity += (body.forward * move.y + cam.right * move.x) * speed * Time.deltaTime;
 				rigidbody.velocity += Physics.gravity * Time.deltaTime;
 				DefaultUpdateCam();
 			}
@@ -95,8 +97,8 @@ namespace Project.Scripts.Model
 		{
 			//ставим ограничение по осям чтобы не улетать как колобок
 			mouseY = Mathf.Clamp(mouseY, rotateMinY, rotateMaxY);
-			cam.transform.eulerAngles = new Vector3(-mouseY, player.transform.localEulerAngles.y, 0);
-			player.localEulerAngles = new Vector3(0, mouseX, 0);
+			cam.transform.eulerAngles = new Vector3(-mouseY, body.transform.localEulerAngles.y, 0);
+			body.localEulerAngles = new Vector3(0, mouseX, 0);
 		}
 
 		public bool ChangeStateIsPlay(bool isPlay)
@@ -146,13 +148,13 @@ namespace Project.Scripts.Model
 
 			if (isWorker && worker)
 			{
-				player.SetParent(worker.transform);
-				player.localPosition = Vector3.zero;
-				player.localRotation = Quaternion.identity;
+				body.SetParent(worker.transform);
+				body.localPosition = Vector3.zero;
+				body.localRotation = Quaternion.identity;
 			}
 			else
 			{
-				player.SetParent(parentStart);
+				body.SetParent(parentStart);
 			}
 
 			ChangeVisiblePlayer(isVisible);

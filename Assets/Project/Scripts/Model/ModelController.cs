@@ -13,6 +13,8 @@ public class ModelController : MonoBehaviour
 		
 	//глобальный стейт текущей стадии игры
 	[SerializeField] private GameTypes.Game stateGame;
+	
+	public GameTypes.Game GetStateGame { get => stateGame; }
 
 	private void OnEnable()
 	{

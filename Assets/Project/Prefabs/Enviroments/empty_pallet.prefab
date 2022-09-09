@@ -687,6 +687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2652906099989709981}
+  - component: {fileID: 6636823218522960975}
   m_Layer: 0
   m_Name: empty_pallet
   m_TagString: Untagged
@@ -710,6 +711,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6636823218522960975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3430287876882619943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: empty_pallet
+  itemName: empty_pallet
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &3889215336463064789
 GameObject:
   m_ObjectHideFlags: 0

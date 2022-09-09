@@ -5077,7 +5077,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478ad1d80979a4ba0a7c9baabd8a68bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standardScene: {fileID: 11400000, guid: 19965a3c8da38443ba5a020d38c18a13, type: 2}
+  model: {fileID: 649565551}
+  dataBase: {fileID: 11400000, guid: 3e8e43c01bd6445cd93c2b5cbc2ddf90, type: 2}
+  defaultScene: {fileID: 11400000, guid: 19965a3c8da38443ba5a020d38c18a13, type: 2}
   saveScenes:
   - {fileID: 11400000, guid: 41458c1c787544bb39d6304842e4bf7a, type: 2}
   - {fileID: 11400000, guid: 58ab326435e0b48bda96bbdcc5ef1cbb, type: 2}
@@ -5092,6 +5094,8 @@ MonoBehaviour:
   parentItems: {fileID: 1853074324}
   player: {fileID: 921907913}
   worker: {fileID: 1046086799}
+  isSaveDefaultScene: 0
+  isLoadDefaultScene: 0
 --- !u!1 &462182905
 GameObject:
   m_ObjectHideFlags: 0
@@ -7435,7 +7439,6 @@ Transform:
   - {fileID: 921907912}
   - {fileID: 1046086797}
   - {fileID: 460903576}
-  - {fileID: 1159888341}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9578,7 +9581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10e5b5cf5d849b6a6e1f51562e66fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 4580767153518547}
+  body: {fileID: 4580767153518547}
   cam: {fileID: 1321821006}
   animator: {fileID: 921907914}
   point1: {fileID: 1676990581487772034}
@@ -12692,37 +12695,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154890080}
   m_CullTransparentMesh: 1
---- !u!1 &1159888340
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1159888341}
-  m_Layer: 0
-  m_Name: DataBase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1159888341
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1159888340}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 669633090}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1168077628
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,5 @@ MonoBehaviour:
   m_Name: save8
   m_EditorClassIdentifier: 
   isSave: 0
-  sceneName: 
+  sceneName: scene 9
   stateGame: 0
-  items: []

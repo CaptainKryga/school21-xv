@@ -2082,6 +2082,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1736264724649489374}
+  - component: {fileID: 3144501016111743445}
   m_Layer: 0
   m_Name: kardex
   m_TagString: Untagged
@@ -2216,6 +2217,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3144501016111743445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392636196445120868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: kardex
+  itemName: kardex
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &1416424029092031985
 GameObject:
   m_ObjectHideFlags: 0

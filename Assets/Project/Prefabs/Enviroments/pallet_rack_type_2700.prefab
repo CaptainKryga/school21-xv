@@ -3318,6 +3318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 914922725804930209}
+  - component: {fileID: 5502896755456985945}
   m_Layer: 0
   m_Name: pallet_rack_type_2700
   m_TagString: Untagged
@@ -3342,6 +3343,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5502896755456985945
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5173449691955063709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: pallet_rack_type_2700
+  itemName: pallet_rack_type_2700
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &5235426898151082678
 GameObject:
   m_ObjectHideFlags: 0

@@ -531,6 +531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6727103877200740012}
+  - component: {fileID: 4792385379432057858}
   m_Layer: 0
   m_Name: plateform_trolley
   m_TagString: Untagged
@@ -563,6 +564,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4792385379432057858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2365475403407340529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: plateform_trolley
+  itemName: plateform_trolley
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2894104176335690056
 GameObject:
   m_ObjectHideFlags: 0

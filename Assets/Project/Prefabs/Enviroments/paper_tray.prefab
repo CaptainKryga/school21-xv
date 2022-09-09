@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1272195377176745528}
   - component: {fileID: 2174623958582735707}
   - component: {fileID: 5178744987998263145}
+  - component: {fileID: 7253576523831313684}
   m_Layer: 0
   m_Name: paper_tray
   m_TagString: Untagged
@@ -83,3 +84,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7253576523831313684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5052440069782173500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: paper_tray
+  itemName: paper_tray
+  color: {r: 0, g: 0, b: 0, a: 0}
