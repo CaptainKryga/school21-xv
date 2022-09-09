@@ -26,7 +26,7 @@ public class ModelSaveLoad : MonoBehaviour
 	private void Start()
 	{
 		//пробегаемся по всем итемам и смотрим саймый крайний от него создаём следующий дефолтный скриптейбл обж
-
+		//load defaultScene?
 	}
 
 	private void Update()

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7911a088edb4acf92451cb25b9506bb, type: 3}
   m_Name: DataBase
   m_EditorClassIdentifier: 
-  standardPrefabs:
+  defaultPrefabs:
   - {fileID: 7712075756085895438, guid: 48026b412eade49a99e38e6a0b74c11e, type: 3}
-  - {fileID: 7772994226326788475, guid: 427a0c8a6fdac44e181ced435f924ce0, type: 3}
   - {fileID: 7633679088634215765, guid: a5305dcc598064613b0b981dbaada2e7, type: 3}
   - {fileID: 9201313659304070523, guid: 15a2ac7fa25884ec2a076903eaa462a5, type: 3}
   - {fileID: 3507688795374837122, guid: 4114cdf02351c4832b1837bf9ef866e2, type: 3}
@@ -39,7 +38,9 @@ MonoBehaviour:
   - {fileID: 5941614282041420760, guid: 6ae5ff827cf7a431da069dc1ee1dec05, type: 3}
   - {fileID: 5425216037292507541, guid: 4f5ec4277b46f4547815024f0f243568, type: 3}
   - {fileID: 5052440069782173500, guid: 5789bf851b4934da58538e1a2a0166b7, type: 3}
+  - {fileID: 2365475403407340529, guid: 96c249b90c5194b6196f36db23f9e154, type: 3}
   - {fileID: 4902277720547909980, guid: fba1ea08046be477cb90afc3cf19634a, type: 3}
   - {fileID: 7813387624131627112, guid: f2c84516afb094c6494d48d8bec9d32f, type: 3}
   - {fileID: 2759286058915226091, guid: 2269aa31e8f3a4a4381a15137f8b0817, type: 3}
   - {fileID: 3989044182921742772, guid: fce262c25609948238c0c4e79cdbbdd9, type: 3}
+  - {fileID: 7772994226326788475, guid: 427a0c8a6fdac44e181ced435f924ce0, type: 3}
