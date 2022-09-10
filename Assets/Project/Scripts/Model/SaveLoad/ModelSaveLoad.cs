@@ -19,9 +19,6 @@ public class ModelSaveLoad : MonoBehaviour
 	[SerializeField] private Player player;
 	[SerializeField] private Worker worker;
 
-	[SerializeField] private bool isSaveDefaultScene;
-	[SerializeField] private bool isLoadDefaultScene;
-
 	private string pathToSaveDirectory;
 	
 	private string[] lastScanSaveFiles;
@@ -52,23 +49,6 @@ public class ModelSaveLoad : MonoBehaviour
 			Debug.Log("СОХРАНЕНИЯ НЕ РАБОТАЮТ");
 			Console.WriteLine(e);
 			throw;
-		}
-	}
-
-	private void Update()
-	{
-		if (isSaveDefaultScene)
-		{
-			isSaveDefaultScene = false;
-			
-			PreSaveScene(model.SceneName);
-		}
-
-		if (isLoadDefaultScene)
-		{
-			isLoadDefaultScene = false;
-			
-			PreLoadScene(model.SceneName);
 		}
 	}
 

@@ -8,8 +8,19 @@ namespace Project.Scripts.Model
 		[SerializeField] private Transform worker;
 		[SerializeField] private CustomAnimator animator;
 		
-		public Transform GetTransform { get => worker; }
+		private Vector3 workerBodyStartPosition;
+		private Quaternion workerBodyStartRotation;
 		
+		public Transform GetTransform { get => worker; }
+		public Vector3 WorkerBodyStartPosition { get => workerBodyStartPosition; }
+		public Quaternion WorkerBodyStartRotation { get => workerBodyStartRotation; }
+
+		private void Start()
+		{
+			workerBodyStartPosition = transform.position;
+			workerBodyStartRotation = transform.rotation;
+		}
+
 		private void Update()
 		{
 			animator.SetAnimatorWalkSpeed(0);

@@ -9,13 +9,15 @@ namespace Project.Scripts.Model
 	{
 		[SerializeField] private ModelController model;
 		
-		
 		//ссылка на элементы игрока в сцене
 		[SerializeField] private Transform body;
 		[SerializeField] private Transform cam;
 		private Transform parentStart;
 		[SerializeField] private CustomAnimator animator;
 		private Rigidbody rigidbody;
+
+		private Vector3 playerBodyStartPosition, playerCamStartPosition;
+		private Quaternion playerBodyStartRotation, playerCamStartRotation;
 
 		//ссылка на рабочего
 		private Transform worker;
@@ -48,12 +50,24 @@ namespace Project.Scripts.Model
 		public Transform GetBodyTransform { get => body; }
 		public Transform GetCamTransform { get => body; }
 		public GameTypes.PlayerMove GetState { get => state; }
+		public Vector3 PlayerBodyStartPosition { get => playerBodyStartPosition; }
+		public Vector3 PlayerCamStartPosition { get => playerCamStartPosition; }
+		public Quaternion PlayerBodyStartRotation { get => playerBodyStartRotation; }
+		public Quaternion PlayerCamStartRotation { get => playerCamStartRotation; }
 
 		private void Awake()
 		{
 			parentStart = body.parent;
 			meshRenderers = body.GetComponentsInChildren<SkinnedMeshRenderer>();
 			rigidbody = body.GetComponent<Rigidbody>();
+		}
+
+		private void Start()
+		{
+			playerBodyStartPosition = body.position;
+			playerBodyStartRotation = body.rotation;
+			playerCamStartPosition = cam.position;
+			playerCamStartRotation = cam.rotation;
 		}
 
 		private void Update()
