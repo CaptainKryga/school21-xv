@@ -34,8 +34,7 @@ public class ControllerView : MonoBehaviour
 		panelGlobalPanel.SetActive(false);
 		panelImportExport.SetActive(false);
 		panelChangeScene.SetActive(false);
-		//для правильного старта и отображения стейтов
-		// wChangeScene.PanelChange.SetActive(false);
+		wChangeScene.PanelChange.SetActive(false);
 		wChangeScene.PanelCreate.SetActive(false);
 		panelAnimations.SetActive(false);
 		panelSaveLoad.SetActive(false);
@@ -67,6 +66,8 @@ public class ControllerView : MonoBehaviour
 		DisableOpenPanels();
 		panelChangeScene.SetActive(true);
 		game.UpdateState(GetNowState());
+		
+		wChangeScene.OnClick_OpenPanelChange();
 	}
 	public void OnClick_OpenAnimations()
 	{

@@ -13,7 +13,6 @@ public class ModelSaveLoad : MonoBehaviour
 
 	[SerializeField] private WindowSaveLoad wSaveLoad;
 	
-	private string sceneName = "default";
 	private string format = ".save";
 	
 	[SerializeField] private Transform parentItems;
@@ -62,14 +61,14 @@ public class ModelSaveLoad : MonoBehaviour
 		{
 			isSaveDefaultScene = false;
 			
-			PreSaveScene(sceneName);
+			PreSaveScene(model.SceneName);
 		}
 
 		if (isLoadDefaultScene)
 		{
 			isLoadDefaultScene = false;
 			
-			PreLoadScene(sceneName);
+			PreLoadScene(model.SceneName);
 		}
 	}
 
@@ -197,7 +196,7 @@ public class ModelSaveLoad : MonoBehaviour
 			// save.saveName = "default";
 			// save.sceneName = "basic";
 
-			sceneName = load.sceneName;
+			model.SceneName = load.sceneName;
 			
 			// int childCount = parentItems.childCount;
 			for (int i = 0; i < load.itemDefaultName.Length; i++)
@@ -284,7 +283,14 @@ public class ModelSaveLoad : MonoBehaviour
 	{
 		if (lastScanSaveFiles.Contains(newName))
 		{
-			Debug.LogError("НЕВОЗМОЖНО СОХРАНИТЬ ИГРУ, ИМЯ ЗАНЯТО");
+			Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ ИГРУ, ЭТО ИМЯ ЗАНЯТО");
+			return false;
+		}
+
+		if (!lastScanSaveFiles.Contains(oldName))
+		{
+			Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ ИГРУ, СОХРАНИТЕ ЕЁ ВНАЧАЛЕ ИЛИ ЗАГРУЗИТЕ СТАРУЮ");
+			Debug.LogError("тут можно бахнуть сразу сохранение что думаешь???");
 			return false;
 		}
 		

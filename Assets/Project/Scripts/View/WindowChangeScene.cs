@@ -8,6 +8,7 @@ public class WindowChangeScene : MonoBehaviour
 	[SerializeField] private ControllerGame game;
 	[SerializeField] private ControllerView view;
 	[SerializeField] private ModelCreateChange modelCreateChange;
+	[SerializeField] private ModelSaveLoad modelSaveLoad;
 	[SerializeField] private DataBase dataBase;
 	
 	//Create
@@ -46,8 +47,8 @@ public class WindowChangeScene : MonoBehaviour
 			var i1 = i;
 			saveButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i1); });
 		}
-
-		// inputFieldScene.text = dataBase;
+		
+		inputFieldScene.text = modelCreateChange.GetSceneName();
 	}
 
 	public void OnClick_OpenPanelChange()
@@ -55,6 +56,9 @@ public class WindowChangeScene : MonoBehaviour
 		panelChange.SetActive(true);
 		panelCreate.SetActive(false);
 		game.UpdateState(view.GetNowState());
+		
+		//update sceneName
+		inputFieldScene.text = modelCreateChange.GetSceneName();
 	}
 
 	public void OnClick_OpenPanelCreate()
@@ -93,7 +97,7 @@ public class WindowChangeScene : MonoBehaviour
 
 	public void OnClick_RenameScene()
 	{
-		
+		modelSaveLoad.Rename(modelCreateChange.GetSceneName(), inputFieldScene.text);
 	}
 
 }

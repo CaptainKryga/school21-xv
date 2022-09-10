@@ -7,6 +7,7 @@ namespace Project.Scripts.Model.CreateChange
 	public class ModelCreateChange : MonoBehaviour
 	{
 		[SerializeField] private ControllerGame game;
+		[SerializeField] private ModelController model;
 		[SerializeField] private DataBase dataBase;
 		[SerializeField] private Transform parentItems;
 		private int selectedId = -1;
@@ -84,6 +85,11 @@ namespace Project.Scripts.Model.CreateChange
 			
 			rigidbody.MoveRotation(nowCreateGO.transform.rotation * Quaternion.Euler(Vector3.up * scroll * 100));
 			nowCreateGO.transform.Rotate(Vector3.up * scroll * 100);
+		}
+
+		public string GetSceneName()
+		{
+			return model.SceneName;
 		}
 	}
 }

@@ -14,12 +14,10 @@ public class ModelController : MonoBehaviour
 	//глобальный стейт текущей стадии игры
 	[SerializeField] private GameTypes.Game state;
 
-	private SaveData nowOpenScene;
-	
-	
+	private string sceneName = "default";
+
 	public GameTypes.Game GetStateGame { get => state; }
-	public SaveData NowOpenScene { get => nowOpenScene; set => nowOpenScene = value; }
-	
+	public string SceneName { get => sceneName; set => sceneName = value; }
 	
 	private void OnEnable()
 	{
