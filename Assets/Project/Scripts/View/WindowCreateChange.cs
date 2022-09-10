@@ -117,6 +117,7 @@ public class WindowCreateChange : MonoBehaviour
 	public void OnClick_ResetColor()
 	{
 		imgSelectColorGradient.color = Color.white;
+		modelChange.SetColorNowSelectedItem(Color.white);
 	}
 	
 	public void OnClick_SetColor()

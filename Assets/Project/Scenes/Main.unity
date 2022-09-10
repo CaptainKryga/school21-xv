@@ -620,7 +620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Reset
+  m_text: 'Set
 
     Color'
   m_isRightToLeft: 0
@@ -14547,7 +14547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game: {fileID: 40471723}
   model: {fileID: 649565551}
-  wCreateChange: {fileID: 0}
+  wCreateChange: {fileID: 596380907}
   dataBase: {fileID: 11400000, guid: 3e8e43c01bd6445cd93c2b5cbc2ddf90, type: 2}
   parentItems: {fileID: 1853074324}
 --- !u!1 &1378361237
