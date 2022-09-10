@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEditor;
 using UnityEngine;
 
@@ -50,6 +51,12 @@ namespace Project.Scripts.Model.CreateChange
 		{
 			if (key != KeyCode.LeftShift || selectedId == -1)
 				return;
+
+			if (nowCreateGO)
+			{
+				Destroy(nowCreateGO.transform.gameObject);
+				nowCreateGO = null;
+			}
 
 			nowCreateGO = Instantiate(dataBase.defaultPrefabs[selectedId], parentItems);
 			nowCreateGO.AddComponent<ItemCreate>();
