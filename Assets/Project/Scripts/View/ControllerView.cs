@@ -7,7 +7,7 @@ public class ControllerView : MonoBehaviour
 	[SerializeField] private ModelController model;
 
 	[SerializeField] private PlayerInfo playerInfo;
-	[SerializeField] private WindowChangeScene wChangeScene;
+	[SerializeField] private WindowCreateChange wCreateChange;
 	[SerializeField] private WindowSaveLoad wSaveLoad;
 	
 	[SerializeField] private GameObject panelGlobalPanel;
@@ -22,8 +22,8 @@ public class ControllerView : MonoBehaviour
 		panelGlobalPanel.SetActive(true);
 		panelImportExport.SetActive(true);
 		panelChangeScene.SetActive(true);
-		wChangeScene.PanelChange.SetActive(true);
-		wChangeScene.PanelCreate.SetActive(true);
+		wCreateChange.PanelChange.SetActive(true);
+		wCreateChange.PanelCreate.SetActive(true);
 		panelAnimations.SetActive(true);
 		panelSaveLoad.SetActive(true);
 		panelVideo.SetActive(true);
@@ -34,8 +34,8 @@ public class ControllerView : MonoBehaviour
 		panelGlobalPanel.SetActive(false);
 		panelImportExport.SetActive(false);
 		panelChangeScene.SetActive(false);
-		wChangeScene.PanelChange.SetActive(false);
-		wChangeScene.PanelCreate.SetActive(false);
+		wCreateChange.PanelChange.SetActive(false);
+		wCreateChange.PanelCreate.SetActive(false);
 		panelAnimations.SetActive(false);
 		panelSaveLoad.SetActive(false);
 		panelVideo.SetActive(false);
@@ -67,7 +67,7 @@ public class ControllerView : MonoBehaviour
 		panelChangeScene.SetActive(true);
 		game.UpdateState(GetNowState());
 		
-		wChangeScene.OnClick_OpenPanelChange();
+		wCreateChange.OnClick_OpenPanelChange();
 	}
 	public void OnClick_OpenAnimations()
 	{
@@ -107,9 +107,9 @@ public class ControllerView : MonoBehaviour
 			return GameTypes.Game.Play;
 		else if (panelChangeScene.activeSelf)
 		{
-			if (wChangeScene.PanelChange.activeSelf)
+			if (wCreateChange.PanelChange.activeSelf)
 				return GameTypes.Game.Change;
-			else if (wChangeScene.PanelCreate.activeSelf)
+			else if (wCreateChange.PanelCreate.activeSelf)
 				return GameTypes.Game.Create;
 		}
 		else if (panelImportExport.activeSelf)

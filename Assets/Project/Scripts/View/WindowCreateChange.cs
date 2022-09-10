@@ -3,11 +3,12 @@ using Project.Scripts.Model.CreateChange;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WindowChangeScene : MonoBehaviour
+public class WindowCreateChange : MonoBehaviour
 {
 	[SerializeField] private ControllerGame game;
 	[SerializeField] private ControllerView view;
-	[SerializeField] private ModelCreateChange modelCreateChange;
+	[SerializeField] private ModelCreate modelCreate;
+	[SerializeField] private ModelChange modelChange;
 	[SerializeField] private ModelSaveLoad modelSaveLoad;
 	[SerializeField] private DataBase dataBase;
 	
@@ -33,7 +34,6 @@ public class WindowChangeScene : MonoBehaviour
 	
 	//Change
 	[SerializeField] private TMPro.TMP_InputField inputFieldScene;
-	
 	[SerializeField] private TMPro.TMP_InputField inputFieldObject;
 
 	private void Start()
@@ -48,7 +48,7 @@ public class WindowChangeScene : MonoBehaviour
 			saveButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i1); });
 		}
 		
-		inputFieldScene.text = modelCreateChange.GetSceneName();
+		inputFieldScene.text = modelChange.GetSceneName();
 	}
 
 	public void OnClick_OpenPanelChange()
@@ -58,7 +58,7 @@ public class WindowChangeScene : MonoBehaviour
 		game.UpdateState(view.GetNowState());
 		
 		//update sceneName
-		inputFieldScene.text = modelCreateChange.GetSceneName();
+		inputFieldScene.text = modelChange.GetSceneName();
 	}
 
 	public void OnClick_OpenPanelCreate()
@@ -68,6 +68,39 @@ public class WindowChangeScene : MonoBehaviour
 		game.UpdateState(view.GetNowState());
 	}
 
+	public void OnClick_SelectItem(int id)
+	{
+		if (selectedId != -1)
+			saveButtons[selectedId].GetImg.color = Color.white;
+		selectedId = id;
+		modelCreate.SelectedId = id;
+		saveButtons[selectedId].GetImg.color = Color.green;
+	}
+
+	public void OnClick_RenameScene()
+	{
+		modelSaveLoad.Rename(modelChange.GetSceneName(), inputFieldScene.text);
+	}
+
+
+
+	#region Change
+
+	public void SetItemName(string itemName)
+	{
+		inputFieldObject.text = itemName;
+	}
+
+	public void OnClick_RenameItem()
+	{
+		modelChange.RenameNowSelectedItemName(inputFieldObject.text);
+	}
+
+	public void OnClick_DeleteItem()
+	{
+		modelChange.DeleteNowSelectedItem();
+	}
+	
 	//тут магия
 	public void Onclick_GetColorGradient()
 	{
@@ -85,19 +118,11 @@ public class WindowChangeScene : MonoBehaviour
 	{
 		imgSelectColorGradient.color = Color.white;
 	}
-
-	public void OnClick_SelectItem(int id)
+	
+	public void OnClick_SetColor()
 	{
-		if (selectedId != -1)
-			saveButtons[selectedId].GetImg.color = Color.white;
-		selectedId = id;
-		modelCreateChange.SelectedId = id;
-		saveButtons[selectedId].GetImg.color = Color.green;
+		modelChange.SetColorNowSelectedItem(imgSelectColorGradient.color);
 	}
-
-	public void OnClick_RenameScene()
-	{
-		modelSaveLoad.Rename(modelCreateChange.GetSceneName(), inputFieldScene.text);
-	}
-
+	
+	#endregion
 }
