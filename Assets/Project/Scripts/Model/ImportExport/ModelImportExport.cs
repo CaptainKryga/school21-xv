@@ -170,7 +170,7 @@ namespace Project.Scripts.Model.ImportExport
 				worker.GetTransform.position = worker.WorkerBodyStartPosition;
 				worker.GetTransform.rotation = worker.WorkerBodyStartRotation;
 
-				model.UpdateGameState(GameTypes.Game.Play);
+				model.UpdateGameState(GameTypes.Game.SceneImportExport);
 				model.UpdatePlayerState(GameTypes.PlayerMove.Spectator);
 
 				Debug.Log("Game data imported!");
