@@ -9,8 +9,9 @@ public class SaveData
 	// public bool isSave;
 	public string sceneName;
 	public GameTypes.Game stateGame;
-	//item
+	//item default in resources unity name
 	public string[] itemDefaultName;
+	//custom item name in game
 	public string[] itemName;
 	// public Vector3[] position;
 	public float[] itemPositionX;

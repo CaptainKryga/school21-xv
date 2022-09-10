@@ -181,10 +181,7 @@ public class ModelSaveLoad : MonoBehaviour
 
 	private void LoadScene(string loadFileName)
 	{
-		for (int i = 0; i < parentItems.childCount; i++)
-		{
-			Destroy(parentItems.GetChild(i).transform.gameObject);
-		}
+		Item[] saveItems = parentItems.GetComponentsInChildren<Item>();
 
 		try
 		{
@@ -243,6 +240,11 @@ public class ModelSaveLoad : MonoBehaviour
 			model.UpdatePlayerState(load.playerMoveState);
 			
 			Debug.Log("Game data loaded!");
+			
+			for (int i = 0; i < saveItems.Length; i++)
+			{
+				Destroy(saveItems[i].gameObject);
+			}
 		}
 		catch (Exception e)
 		{
