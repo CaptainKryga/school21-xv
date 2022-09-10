@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,13 +10,11 @@ public class ModelSaveLoad : MonoBehaviour
 {
 	[SerializeField] private ModelController model;
 	[SerializeField] private DataBase dataBase;
-	
-	private const string pathSaveLoad = "Assets/Resources/Save";
-	private const string type = ".asset";
-	private const string defaultS = "default";
 
-	// [SerializeField] private SettingsScene defaultScene;
-	// [SerializeField] private SettingsScene[] saveScenes = new SettingsScene[10];
+	[SerializeField] private WindowSaveLoad wSaveLoad;
+	
+	private string sceneName = "default";
+	private string format = ".save";
 	
 	[SerializeField] private Transform parentItems;
 	[SerializeField] private Player player;
@@ -23,18 +22,29 @@ public class ModelSaveLoad : MonoBehaviour
 
 	[SerializeField] private bool isSaveDefaultScene;
 	[SerializeField] private bool isLoadDefaultScene;
+
+	private string pathToSaveDirectory;
 	
 	private string[] lastScanSaveFiles;
-	
-	public string[] LastScanSaveFiles { get => lastScanSaveFiles; }
+
+	public string[] LastScanSaveFiles
+	{
+		get
+		{
+			UpdateArraySaveFiles();
+			return lastScanSaveFiles;
+		}
+	}
 	
 	private void Awake()
 	{
+		pathToSaveDirectory = Application.persistentDataPath + "/Save/";
+		
 		try
 		{
-			if (!Directory.Exists(Application.persistentDataPath + "/Save"))
-				Directory.CreateDirectory(Application.persistentDataPath + "/Save");
-			lastScanSaveFiles = updateArraySaveFiles();
+			if (!Directory.Exists(pathToSaveDirectory))
+				Directory.CreateDirectory(pathToSaveDirectory);
+			lastScanSaveFiles = UpdateArraySaveFiles();
 			
 			Debug.Log("СОХРАНЕНИЯ РАБОТАЮТ");
 		}
@@ -52,38 +62,33 @@ public class ModelSaveLoad : MonoBehaviour
 		{
 			isSaveDefaultScene = false;
 			
-			PreSaveScene(defaultS);
+			PreSaveScene(sceneName);
 		}
 
 		if (isLoadDefaultScene)
 		{
 			isLoadDefaultScene = false;
 			
-			PreLoadScene(defaultS);
+			PreLoadScene(sceneName);
 		}
 	}
 
 	public void PreSaveScene(string saveFileName)
 	{
-		lastScanSaveFiles = updateArraySaveFiles();
+		UpdateArraySaveFiles();
 		
-		if (!lastScanSaveFiles.Contains(saveFileName))
-		{
-			SaveScene(saveFileName);
-			return;
-		}
-		Debug.LogError("НЕВОЗМОЖНО СОХРАНИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
+		SaveScene(saveFileName);
+		
+		wSaveLoad.UpdateContent();
 	}
 
 	private void SaveScene(string saveFileName)
 	{
 		BinaryFormatter bf2 = new BinaryFormatter(); 
-		FileStream file2 = File.Create(Application.persistentDataPath 
-									+ "/Save/" + saveFileName);
+		FileStream file2 = File.Create(pathToSaveDirectory + saveFileName + format);
 		
 		SaveData save = new SaveData();
-		save.saveName = "default";
-		save.sceneName = "basic";
+		save.sceneName = saveFileName;
 		save.stateGame = model.GetStateGame;
 		
 		int childCount = parentItems.childCount;
@@ -164,9 +169,9 @@ public class ModelSaveLoad : MonoBehaviour
 
 	public void PreLoadScene(string loadFileName)
 	{
-		lastScanSaveFiles = updateArraySaveFiles();
+		lastScanSaveFiles = UpdateArraySaveFiles();
 
-		if (!lastScanSaveFiles.Contains(loadFileName))
+		if (lastScanSaveFiles.Contains(loadFileName))
 		{
 			LoadScene(loadFileName);
 			return;
@@ -185,13 +190,15 @@ public class ModelSaveLoad : MonoBehaviour
 		try
 		{
 			BinaryFormatter bf = new BinaryFormatter();
-			FileStream file = File.Open(Application.persistentDataPath + "/Save/" + loadFileName, FileMode.Open);
+			FileStream file = File.Open(pathToSaveDirectory + loadFileName + format, FileMode.Open);
 			SaveData load = (SaveData) bf.Deserialize(file);
 			file.Close();
 
 			// save.saveName = "default";
 			// save.sceneName = "basic";
 
+			sceneName = load.sceneName;
+			
 			// int childCount = parentItems.childCount;
 			for (int i = 0; i < load.itemDefaultName.Length; i++)
 			{
@@ -241,15 +248,28 @@ public class ModelSaveLoad : MonoBehaviour
 		catch (Exception e)
 		{
 			Console.WriteLine(e);
+			Debug.Log("БИТЫЙ ФАЙЛ ВЫБЕРИТЕ ДРУГОЙ!!!");
 			throw;
 		}
 	}
 
-	private string[] updateArraySaveFiles()
+	private string[] UpdateArraySaveFiles()
 	{
 		try
 		{
-			lastScanSaveFiles = Directory.GetFiles(Application.persistentDataPath + "");
+			List<string> temp = new List<string>();
+			lastScanSaveFiles = Directory.GetFiles(pathToSaveDirectory);
+			for (int i = 0; i < lastScanSaveFiles.Length; i++)
+			{
+				if (lastScanSaveFiles[i].Substring(lastScanSaveFiles[i].Length - 5) == format)
+				{
+					string res = lastScanSaveFiles[i].Substring(pathToSaveDirectory.Length);
+					res = res.Substring(0, res.Length - 5);
+					temp.Add(res);
+				}
+			}
+
+			lastScanSaveFiles = temp.ToArray();
 		}
 		catch (Exception e)
 		{
@@ -258,5 +278,27 @@ public class ModelSaveLoad : MonoBehaviour
 		}
 
 		return lastScanSaveFiles;
+	}
+
+	public bool Rename(string oldName, string newName)
+	{
+		if (lastScanSaveFiles.Contains(newName))
+		{
+			Debug.LogError("НЕВОЗМОЖНО СОХРАНИТЬ ИГРУ, ИМЯ ЗАНЯТО");
+			return false;
+		}
+		
+		try
+		{
+			File.Move(pathToSaveDirectory + oldName + format, 
+				pathToSaveDirectory + newName + format);
+		}
+		catch (Exception e)
+		{
+			Console.WriteLine(e);
+			throw;
+		}
+
+		return true;
 	}
 }

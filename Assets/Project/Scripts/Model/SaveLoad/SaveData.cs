@@ -7,7 +7,6 @@ public class SaveData
 { 
 	//scene
 	// public bool isSave;
-	public string saveName;
 	public string sceneName;
 	public GameTypes.Game stateGame;
 	//item

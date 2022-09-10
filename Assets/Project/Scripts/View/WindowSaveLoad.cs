@@ -1,4 +1,3 @@
-using Project.Scripts.Utils;
 using UnityEngine;
 
 public class WindowSaveLoad : MonoBehaviour
@@ -12,31 +11,26 @@ public class WindowSaveLoad : MonoBehaviour
 	private ImgContentButton[] imgContentButtons;
 
 	private int selectedScene = -1;
-	
+
 	private void Start()
 	{
-		string[] lastScanSaveFiles = modelSaveLoad.LastScanSaveFiles;
-		imgContentButtons = new ImgContentButton[lastScanSaveFiles.Length];
-		for (int i = 0; i < lastScanSaveFiles.Length; i++)
-		{
-			ImgContentButton imgContentButton = 
-				Instantiate(prafabImgContentButton, parentContent).GetComponent<ImgContentButton>();
-			imgContentButton.GetTextInfo.text = "> " + lastScanSaveFiles[i];
-			imgContentButtons[i] = imgContentButton;
-			
-			int i1 = i;
-			imgContentButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectSave(i1); });
-		}
+		UpdateContent();
 	}
 
 	public void OnClick_SaveGame()
 	{
-		modelSaveLoad.PreSaveScene(imgContentButtons[selectedScene].GetTextInfo.text);
+		if (selectedScene != -1)
+			modelSaveLoad.PreSaveScene(imgContentButtons[selectedScene].GetTextInfo.text);
+		else if (inputField.text != "")
+			modelSaveLoad.PreSaveScene(inputField.text);
+		else
+			Debug.LogError("ВВЕДИТЕ ИМЯ ДЛЯ СОХРАНЕНИЯ");
 	}
 
 	public void OnClick_LoadGame()
 	{
-		modelSaveLoad.PreLoadScene(imgContentButtons[selectedScene].GetTextInfo.text);
+		if (selectedScene != -1)
+			modelSaveLoad.PreLoadScene(imgContentButtons[selectedScene].GetTextInfo.text);
 	}
 
 	public void OnClick_SelectSave(int scene)
@@ -49,8 +43,45 @@ public class WindowSaveLoad : MonoBehaviour
 
 	public void OnClick_Rename()
 	{
-		imgContentButtons[selectedScene].sceneName = inputField.text;
-		imgContentButtons[selectedScene].GetTextInfo.text = 
-			(imgContentButtons[selectedScene].isSave ? "> " : "") + inputField.text;
+		if (selectedScene == -1)
+		{
+			Debug.LogError("ВЫБЕРИТЕ СОХРАНЕНИЕ");
+			return;
+		}
+
+		if (modelSaveLoad.Rename(imgContentButtons[selectedScene].GetTextInfo.text, inputField.text))
+		{
+			imgContentButtons[selectedScene].GetTextInfo.text = inputField.text;
+		
+			UpdateContent();
+		}
+	}
+
+	public void UpdateContent()
+	{
+		for (int i = 0; i < parentContent.childCount; i++)
+		{
+			Destroy(parentContent.GetChild(i).gameObject);
+		}
+		
+		selectedScene = -1;
+		
+		UpdateListSaveLoad();
+	}
+
+	private void UpdateListSaveLoad()
+	{
+		string[] lastScanSaveFiles = modelSaveLoad.LastScanSaveFiles;
+		imgContentButtons = new ImgContentButton[lastScanSaveFiles.Length];
+		for (int i = 0; i < lastScanSaveFiles.Length; i++)
+		{
+			ImgContentButton imgContentButton = 
+				Instantiate(prafabImgContentButton, parentContent).GetComponent<ImgContentButton>();
+			imgContentButton.GetTextInfo.text = lastScanSaveFiles[i];
+			imgContentButtons[i] = imgContentButton;
+			
+			int i1 = i;
+			imgContentButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectSave(i1); });
+		}
 	}
 }

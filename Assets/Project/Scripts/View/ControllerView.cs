@@ -1,4 +1,3 @@
-using System;
 using Project.Scripts.Utils;
 using UnityEngine;
 
@@ -9,6 +8,7 @@ public class ControllerView : MonoBehaviour
 
 	[SerializeField] private PlayerInfo playerInfo;
 	[SerializeField] private WindowChangeScene wChangeScene;
+	[SerializeField] private WindowSaveLoad wSaveLoad;
 	
 	[SerializeField] private GameObject panelGlobalPanel;
 	[SerializeField] private GameObject panelImportExport;
@@ -79,6 +79,8 @@ public class ControllerView : MonoBehaviour
 		DisableOpenPanels();
 		panelSaveLoad.SetActive(true);
 		game.UpdateState(GetNowState());
+		
+		wSaveLoad.UpdateContent();
 	}	
 	public void OnClick_OpenVideo()
 	{
