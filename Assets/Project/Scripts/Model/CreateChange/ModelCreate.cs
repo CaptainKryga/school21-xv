@@ -1,3 +1,4 @@
+using Project.Scripts.Utils;
 using UnityEngine;
 
 namespace Project.Scripts.Model.CreateChange
@@ -33,6 +34,16 @@ namespace Project.Scripts.Model.CreateChange
 
 		private void Update()
 		{
+			if (model.GetStateGame != GameTypes.Game.Create)
+			{
+				if (nowCreateGO)
+				{
+					Destroy(nowCreateGO.transform.gameObject);
+					nowCreateGO = null;
+				}
+				return;
+			}
+			
 			if (!nowCreateGO)
 				return;
 			
