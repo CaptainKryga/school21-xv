@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Project.Scripts.Model
 {
@@ -7,6 +8,10 @@ namespace Project.Scripts.Model
 	{
 		[SerializeField] private Transform worker;
 		[SerializeField] private CustomAnimator animator;
+
+		[SerializeField] private NavMeshAgent agent;
+		[SerializeField] private Transform point1, point2;
+		[SerializeField] private bool isPoint1;
 		
 		private Vector3 workerBodyStartPosition;
 		private Quaternion workerBodyStartRotation;
@@ -19,11 +24,24 @@ namespace Project.Scripts.Model
 		{
 			workerBodyStartPosition = transform.position;
 			workerBodyStartRotation = transform.rotation;
+			
+			agent.destination = point1.transform.position;
 		}
 
 		private void Update()
 		{
-			animator.SetAnimatorWalkSpeed(0);
+			animator.SetAnimatorWalkSpeed(1);
+
+			if (!isPoint1 && Vector3.Distance(agent.transform.position, point1.transform.position) < 1)
+			{
+				agent.destination = point2.transform.position;
+				isPoint1 = true; ;
+			}
+			else if (isPoint1 && Vector3.Distance(agent.transform.position, point2.transform.position) < 1)
+			{
+				agent.destination = point1.transform.position;
+				isPoint1 = false;
+			}
 		}
 
 		public Transform GetTransformWorker()
