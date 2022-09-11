@@ -69,7 +69,7 @@ namespace Project.Scripts.Model.CreateChange
 				RaycastHit hit;
 				if (Physics.Raycast(ray, out hit, 100))
 				{
-					Debug.Log("hit " + hit.transform.name);
+					// Debug.Log("hit " + hit.transform.name);
 				}
 
 				if (hit.collider && hit.collider.GetComponent<Item>())

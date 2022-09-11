@@ -12781,6 +12781,8 @@ MonoBehaviour:
   model: {fileID: 649565551}
   dataBase: {fileID: 11400000, guid: 3e8e43c01bd6445cd93c2b5cbc2ddf90, type: 2}
   parentItems: {fileID: 1853074324}
+  correct: {fileID: 2100000, guid: 8bff83c1bf22d4dab960671b15c531b1, type: 2}
+  incorrect: {fileID: 2100000, guid: 584867df24c5a4f199c11683baf726f1, type: 2}
 --- !u!1 &1240626223
 GameObject:
   m_ObjectHideFlags: 0

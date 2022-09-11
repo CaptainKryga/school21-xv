@@ -11,6 +11,9 @@ namespace Project.Scripts.Model.CreateChange
 		private int selectedId = -1;
 		private GameObject nowCreateGO;
 		private Rigidbody rigidbody;
+
+		//visualize create or not create
+		[SerializeField] private Material correct, incorrect;
 		
 		public int SelectedId { get => selectedId; set => selectedId = value; }
 
@@ -37,7 +40,7 @@ namespace Project.Scripts.Model.CreateChange
 			RaycastHit hit;
 			if (Physics.Raycast(ray, out hit, 100))
 			{
-				Debug.Log("hit " + hit.transform.name);
+				// Debug.Log("hit " + hit.transform.name);
 			}
 			
 			if (hit.collider)
@@ -56,7 +59,7 @@ namespace Project.Scripts.Model.CreateChange
 			}
 
 			nowCreateGO = Instantiate(dataBase.defaultPrefabs[selectedId], parentItems);
-			nowCreateGO.AddComponent<ItemCreate>();
+			nowCreateGO.AddComponent<ItemCreate>().Init(correct, incorrect);
 			rigidbody = nowCreateGO.GetComponent<Rigidbody>();
 		}
 

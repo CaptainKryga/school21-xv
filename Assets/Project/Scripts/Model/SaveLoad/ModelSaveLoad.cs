@@ -189,7 +189,7 @@ public class ModelSaveLoad : MonoBehaviour
 							load.itemPositionZ[i]);
 						newItem.transform.rotation = new Quaternion(load.itemRotationX[i], load.itemRotationY[i],
 							load.itemRotationZ[i], load.itemRotationW[i]);
-						newItem.GetComponent<Item>().SetColor(new Color(load.itemColorR[i], load.itemColorG[i],
+						newItem.GetComponent<Item>().InitColor(new Color(load.itemColorR[i], load.itemColorG[i],
 							load.itemColorB[i], load.itemColorA[i]));
 						newItem.transform.SetParent(parentItems);
 						break;
