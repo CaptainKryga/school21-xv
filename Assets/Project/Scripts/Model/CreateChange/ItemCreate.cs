@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -38,8 +37,6 @@ public class ItemCreate : MonoBehaviour
 
         coll = GetComponentInChildren<Collider>();
         coll.isTrigger = true;
-        
-        UpdateMaterial(correct);
     }
 
     public void Init(Material correct, Material incorrect)
@@ -52,6 +49,8 @@ public class ItemCreate : MonoBehaviour
     {
         gameObject.layer = 0;
         coll.isTrigger = false;
+        
+        ResetMaterials();
     }
 
     private void Update()
@@ -111,8 +110,6 @@ public class ItemCreate : MonoBehaviour
     {
         if (!isCorrect)
             return false;
-        
-        ResetMaterials();
         return true;
     }
 }

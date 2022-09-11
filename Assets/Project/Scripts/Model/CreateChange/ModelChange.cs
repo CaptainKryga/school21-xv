@@ -1,5 +1,6 @@
 using System;
 using Project.Scripts.Utils;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,7 +19,12 @@ namespace Project.Scripts.Model.CreateChange
 		private Item nowSelectedItem;
 		private Rigidbody rigidbody;
 		private bool isMove;
-		
+		private ItemCreate itemCreate;
+		[SerializeField] private Material correct, incorrect;
+
+		private Vector3 savePosition;
+		private Quaternion saveRotation;
+
 		private void OnEnable()
 		{
 			game.Keyboard_Action += ReceiveKeyboard;
@@ -55,7 +61,13 @@ namespace Project.Scripts.Model.CreateChange
 			if (key != KeyCode.LeftShift || !nowSelectedItem)
 				return;
 
-			isMove = !isMove;
+			isMove = true;
+
+			if (isMove && !itemCreate)
+			{
+				itemCreate = nowSelectedItem.AddComponent<ItemCreate>();
+				itemCreate.Init(correct, incorrect);
+			}
 		}
 
 		private void ReceiveMouse(KeyCode key)
@@ -65,33 +77,51 @@ namespace Project.Scripts.Model.CreateChange
 
 			if (key == KeyCode.Mouse0)
 			{
-				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
-				if (Physics.Raycast(ray, out hit, 100))
+				if (itemCreate)
 				{
-					// Debug.Log("hit " + hit.transform.name);
+					Destroy(itemCreate);
+					nowSelectedItem = null;
+					isMove = false;
+					wCreateChange.SetItemName("null");
 				}
-
-				if (hit.collider && hit.collider.GetComponent<Item>())
+				else
 				{
-					nowSelectedItem = hit.collider.GetComponent<Item>();
-					rigidbody = nowSelectedItem.GetComponent<Rigidbody>();
+					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+					if (Physics.Raycast(ray, out hit, 100))
+					{
+						// Debug.Log("hit " + hit.transform.name);
+					}
 
-					wCreateChange.SetItemName(nowSelectedItem.itemName);
+					if (hit.collider && hit.collider.GetComponent<Item>())
+					{
+						nowSelectedItem = hit.collider.GetComponent<Item>();
+						rigidbody = nowSelectedItem.GetComponent<Rigidbody>();
+
+						wCreateChange.SetItemName(nowSelectedItem.itemName);
+
+						savePosition = nowSelectedItem.transform.position;
+						saveRotation = nowSelectedItem.transform.rotation;
+					}
 				}
 			}
 			else if (key == KeyCode.Mouse1)
 			{
-				//destroy
-				Destroy(nowSelectedItem.transform.gameObject);
+				nowSelectedItem.transform.position = savePosition;
+				nowSelectedItem.transform.rotation = saveRotation;
+
+				Destroy(itemCreate);
 				nowSelectedItem = null;
+				
+				// Destroy(nowSelectedItem.transform.gameObject);
 				isMove = false;
+				wCreateChange.SetItemName("null");
 			}
 		}
 
 		private void ReceiveMouseScroll(float scroll)
 		{
-			if (!nowSelectedItem)
+			if (!nowSelectedItem || !isMove)
 				return;
 			
 			rigidbody.MoveRotation(nowSelectedItem.transform.rotation * Quaternion.Euler(Vector3.up * scroll * 100));
@@ -116,6 +146,7 @@ namespace Project.Scripts.Model.CreateChange
 			if (nowSelectedItem)
 			{
 				Destroy(nowSelectedItem.gameObject);
+				wCreateChange.SetItemName("null");
 			}
 		}
 		

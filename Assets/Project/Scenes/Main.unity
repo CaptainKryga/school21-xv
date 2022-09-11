@@ -1376,7 +1376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &83570796
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5480,7 +5480,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 601005306}
   m_OnClick:
     m_PersistentCalls:
@@ -12498,7 +12498,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1221542944
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13889,6 +13889,8 @@ MonoBehaviour:
   wCreateChange: {fileID: 596380907}
   dataBase: {fileID: 11400000, guid: 3e8e43c01bd6445cd93c2b5cbc2ddf90, type: 2}
   parentItems: {fileID: 1853074324}
+  correct: {fileID: 2100000, guid: 8bff83c1bf22d4dab960671b15c531b1, type: 2}
+  incorrect: {fileID: 2100000, guid: 584867df24c5a4f199c11683baf726f1, type: 2}
 --- !u!1 &1378361237
 GameObject:
   m_ObjectHideFlags: 0
@@ -14599,7 +14601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1440565078
 RectTransform:
   m_ObjectHideFlags: 0

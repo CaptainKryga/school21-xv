@@ -39,12 +39,12 @@ public class ControllerGame : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Mouse1))
 			Mouse_Action?.Invoke(KeyCode.Mouse1);
 
-		if (model.GetStateGame == GameTypes.Game.Create)
+		if (model.GetStateGame == GameTypes.Game.Create ||
+			model.GetStateGame == GameTypes.Game.Change)
 		{
 			if (Input.GetKeyDown(KeyCode.LeftShift))
 				Keyboard_Action?.Invoke(KeyCode.LeftShift);
 			MouseScroll_Action?.Invoke(Input.GetAxis("Mouse ScrollWheel"));
-	
 		}
 		
 		
