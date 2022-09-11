@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ImgContentButton : MonoBehaviour
+public class ContentScene : MonoBehaviour
 {
 	[SerializeField] private Image img;
 	[SerializeField] private TMPro.TMP_Text textInfo;

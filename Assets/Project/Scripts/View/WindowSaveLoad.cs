@@ -8,7 +8,7 @@ public class WindowSaveLoad : MonoBehaviour
 	[SerializeField] private GameObject prafabImgContentButton;
 	[SerializeField] private TMPro.TMP_InputField inputField;
 
-	private ImgContentButton[] imgContentButtons;
+	private ContentScene[] imgContentButtons;
 
 	private int selectedScene = -1;
 
@@ -72,13 +72,13 @@ public class WindowSaveLoad : MonoBehaviour
 	private void UpdateListSaveLoad()
 	{
 		string[] lastScanSaveFiles = modelSaveLoad.LastScanSaveFiles;
-		imgContentButtons = new ImgContentButton[lastScanSaveFiles.Length];
+		imgContentButtons = new ContentScene[lastScanSaveFiles.Length];
 		for (int i = 0; i < lastScanSaveFiles.Length; i++)
 		{
-			ImgContentButton imgContentButton = 
-				Instantiate(prafabImgContentButton, parentContent).GetComponent<ImgContentButton>();
-			imgContentButton.GetTextInfo.text = lastScanSaveFiles[i];
-			imgContentButtons[i] = imgContentButton;
+			ContentScene contentScene = 
+				Instantiate(prafabImgContentButton, parentContent).GetComponent<ContentScene>();
+			contentScene.GetTextInfo.text = lastScanSaveFiles[i];
+			imgContentButtons[i] = contentScene;
 			
 			int i1 = i;
 			imgContentButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectSave(i1); });

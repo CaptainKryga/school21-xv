@@ -2323,6 +2323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 199697728}
+  - component: {fileID: 199697729}
   m_Layer: 0
   m_Name: WindowAnimation
   m_TagString: Untagged
@@ -2345,6 +2346,22 @@ Transform:
   m_Father: {fileID: 512307559}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &199697729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199697727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99bfb568bc474bb993b1b47c30668d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelAnimation: {fileID: 1141122553}
+  parentContent: {fileID: 360650750}
+  prefabContentTask: {fileID: 3327712266206928322, guid: e7c16b4ab1c244ec9a9308cdb75d095f,
+    type: 3}
 --- !u!1 &215354363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3667,7 +3684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelSaveLoad: {fileID: 460903577}
   parentContent: {fileID: 929379878}
-  prafabImgContentButton: {fileID: 3036179676414119535, guid: 9304ac78999534d808daf64096d18558,
+  prafabImgContentButton: {fileID: 3356689498649692792, guid: f0ca8bff8034d4e07b4ca3c02f5b7d54,
     type: 3}
   inputField: {fileID: 1752009017}
 --- !u!1 &360650749
@@ -10601,6 +10618,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1141122552}
+  - component: {fileID: 1141122553}
   m_Layer: 0
   m_Name: Animation
   m_TagString: Untagged
@@ -10623,6 +10641,19 @@ Transform:
   m_Father: {fileID: 649565550}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1141122553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1141122551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50dc2e97bc2541ad8d928650a65cd622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wAnimation: {fileID: 199697729}
 --- !u!1 &1144917818
 GameObject:
   m_ObjectHideFlags: 0
@@ -14165,7 +14196,7 @@ GameObject:
   - component: {fileID: 1558472420}
   - component: {fileID: 1558472419}
   m_Layer: 5
-  m_Name: BtnImport
+  m_Name: BtnStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14236,9 +14267,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2127165224}
-        m_TargetAssemblyTypeName: WindowImportExport, Assembly-CSharp
-        m_MethodName: OnClick_ImportScene
+      - m_Target: {fileID: 199697729}
+        m_TargetAssemblyTypeName: Project.Scripts.View.WindowAnimation, Assembly-CSharp
+        m_MethodName: OnClick_StartSequence
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19545,7 +19576,7 @@ GameObject:
   - component: {fileID: 2126002806}
   - component: {fileID: 2126002805}
   m_Layer: 5
-  m_Name: BtnRename
+  m_Name: BtnStop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19616,9 +19647,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2127165224}
-        m_TargetAssemblyTypeName: WindowImportExport, Assembly-CSharp
-        m_MethodName: OnClick_RenameScene
+      - m_Target: {fileID: 199697729}
+        m_TargetAssemblyTypeName: Project.Scripts.View.WindowAnimation, Assembly-CSharp
+        m_MethodName: OnClick_StopSequence
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19697,7 +19728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modelImportExport: {fileID: 289575736}
   parentContent: {fileID: 717276046}
-  prafabImgContentButton: {fileID: 3036179676414119535, guid: 9304ac78999534d808daf64096d18558,
+  prafabImgContentButton: {fileID: 3356689498649692792, guid: f0ca8bff8034d4e07b4ca3c02f5b7d54,
     type: 3}
   inputField: {fileID: 2103451923}
   textPath: {fileID: 666997648}
@@ -19960,7 +19991,7 @@ GameObject:
   - component: {fileID: 2138169928}
   - component: {fileID: 2138169927}
   m_Layer: 5
-  m_Name: BtnExport
+  m_Name: BtnRedactor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20031,9 +20062,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2127165224}
-        m_TargetAssemblyTypeName: WindowImportExport, Assembly-CSharp
-        m_MethodName: OnClick_ExportScene
+      - m_Target: {fileID: 199697729}
+        m_TargetAssemblyTypeName: Project.Scripts.View.WindowAnimation, Assembly-CSharp
+        m_MethodName: OnClick_OpenRedactor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

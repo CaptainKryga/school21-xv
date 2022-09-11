@@ -28,7 +28,7 @@ public class WindowCreateChange : MonoBehaviour
 	public GameObject PanelChange { get => panelChange; }
 	public GameObject PanelCreate { get => panelCreate; }
 
-	private ImgContentButton[] saveButtons;
+	private ContentScene[] saveButtons;
 	private int selectedId = -1;
 	
 	
@@ -38,11 +38,11 @@ public class WindowCreateChange : MonoBehaviour
 
 	private void Start()
 	{
-		saveButtons = new ImgContentButton[dataBase.defaultPrefabs.Length];
+		saveButtons = new ContentScene[dataBase.defaultPrefabs.Length];
 		for (int i = 0; i < dataBase.defaultPrefabs.Length; i++)
 		{
 			GameObject newItem = Instantiate(imgContentButton, parentContent);
-			saveButtons[i] = newItem.GetComponent<ImgContentButton>();
+			saveButtons[i] = newItem.GetComponent<ContentScene>();
 			saveButtons[i].GetTextInfo.text = dataBase.defaultPrefabs[i].GetComponent<Item>().itemName;
 			var i1 = i;
 			saveButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i1); });
