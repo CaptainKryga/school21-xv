@@ -25,5 +25,12 @@ namespace Project.Scripts.Utils
 			WorkerThird,
 			Null
 		}
+
+		public enum Task
+		{
+			Transfer,
+			Craft,
+			Cycle
+		}
 	}
 }
