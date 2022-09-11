@@ -43,7 +43,7 @@ public class WindowCreateChange : MonoBehaviour
 		{
 			GameObject newItem = Instantiate(imgContentButton, parentContent);
 			saveButtons[i] = newItem.GetComponent<ContentScene>();
-			saveButtons[i].GetTextInfo.text = dataBase.defaultPrefabs[i].GetComponent<Item>().itemName;
+			saveButtons[i].GetTextInfo.text = dataBase.defaultPrefabs[i].GetComponent<Dynamic>().itemName;
 			var i1 = i;
 			saveButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectItem(i1); });
 		}

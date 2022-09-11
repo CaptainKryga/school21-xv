@@ -82,13 +82,13 @@ public class ItemCreate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Item>())
+        if (other.gameObject.GetComponent<Dynamic>())
             collisionList.Add(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Item>())
+        if (other.gameObject.GetComponent<Dynamic>())
             collisionList.Remove(other);
     }
 

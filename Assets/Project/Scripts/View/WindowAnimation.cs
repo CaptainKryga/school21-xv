@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
+using Animation;
 using Project.Scripts.Model.Animation;
+using Project.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,13 +27,13 @@ namespace Project.Scripts.View
 		[SerializeField] private TMP_Dropdown dropdownTaskType;
 		
 		[Header("Transfer")] 
-		[SerializeField] private TMP_Dropdown transferDropdownPointA;
-		[SerializeField] private TMP_Dropdown transferDropdownPointB;
+		[SerializeField] private TMP_Dropdown transferDropdownPlaceA;
+		[SerializeField] private TMP_Dropdown transferDropdownPlaceB;
 		[SerializeField] private TMP_Dropdown transferDropdownItem;
 		[SerializeField] private Slider transferSliderSpeed;		
 		
 		[Header("Craft")] 
-		[SerializeField] private TMP_Dropdown craftDropdownTable;
+		[SerializeField] private TMP_Dropdown craftDropdownPlace;
 		[SerializeField] private TMP_Dropdown craftDropdownItem;
 		[SerializeField] private Slider craftSliderSpeed;		
 		
@@ -74,8 +77,21 @@ namespace Project.Scripts.View
 
 		public void OnClick_Save()
 		{
-			ContentTask task = Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>();
-			modelAnimation.AddNewTask(task);
+			if (inputFieldTaskName.text != "" &&
+				transferDropdownPlaceA.options[transferDropdownPlaceA.value].text != "None" &&
+				transferDropdownPlaceB.options[transferDropdownPlaceB.value].text != "None" &&
+				transferDropdownItem.options[transferDropdownItem.value].text != "None")
+			{
+				GameTypes.Task tempTask =
+					GameTypes.GetTaskFromString(dropdownTaskType.options[dropdownTaskType.value].text);
+				string place1 = (transferDropdownPlaceA.options[transferDropdownPlaceA.value].text).Split('#')[^1];
+				string place2 = (transferDropdownPlaceB.options[transferDropdownPlaceB.value].text).Split('#')[^1];
+				GameTypes.Item tempItem =
+					GameTypes.GetItemFromString(transferDropdownItem.options[transferDropdownItem.value].text);
+				ContentTask task = Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>();
+				modelAnimation.AddNewTask(inputFieldTaskName.text, task, tempTask, Int32.Parse(place1),
+					Int32.Parse(place2), tempItem);
+			}
 		}
 
 		public void OnClick_Cancel()
@@ -90,17 +106,78 @@ namespace Project.Scripts.View
 				panelTransfer.SetActive(true);
 				panelCraft.SetActive(false);
 				panelCycle.SetActive(false);
+				inputFieldTaskName.text = "Transfer";
+				
+				Place[] places = modelAnimation.GetAllPlaces();
+				List<TMP_Dropdown.OptionData> optionDatas = new List<TMP_Dropdown.OptionData>();
+
+				for (int x = 0; x < places.Length; x++)
+				{
+					optionDatas.Add(new TMP_Dropdown.OptionData(places[x].itemName + "#" + 
+																places[x].type + "#" + 
+																places[x].output + "#" + 
+																places[x].gameObject.GetInstanceID()));
+				}
+				
+				// SetupDropdownPlaces(transferDropdownPlaceB, modelAnimation.GetAllPlaces());
+				transferDropdownPlaceB.options = new List<TMP_Dropdown.OptionData>()
+					{ new TMP_Dropdown.OptionData("null") };
+				// SetupDropdownItems(transferDropdownPlaceB, itemsStorage);
+				transferDropdownItem.options = new List<TMP_Dropdown.OptionData>()
+					{new TMP_Dropdown.OptionData("null")};
+				
+				transferDropdownPlaceA.options = optionDatas;
+				transferDropdownPlaceA.RefreshShownValue();
+				transferDropdownPlaceA.onValueChanged?.Invoke(0);
+				
 			} else if (dropdownTaskType.options[dropdownTaskType.value].text == "Craft")
 			{
 				panelTransfer.SetActive(false);
 				panelCraft.SetActive(true);
 				panelCycle.SetActive(false);
+				inputFieldTaskName.text = "Craft";
 			} else if (dropdownTaskType.options[dropdownTaskType.value].text == "Cycle")
 			{
 				panelTransfer.SetActive(false);
 				panelCraft.SetActive(false);
 				panelCycle.SetActive(true);
+				inputFieldTaskName.text = "Cycle";
 			}
+		}
+
+		public void OnDropdown_SetPlaceA()
+		{
+			string[] dropA = transferDropdownPlaceA.options[transferDropdownPlaceA.value].text.Split('#');
+			Craft[] crafts = modelAnimation.GetCraft(GameTypes.GetItemFromString(dropA[^2]));
+			List<TMP_Dropdown.OptionData> optionDataB = new List<TMP_Dropdown.OptionData>();
+			List<GameTypes.Item> inputItems = new List<GameTypes.Item>();
+
+			for (int x = 0; x < crafts.Length; x++)
+			{
+				optionDataB.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + 
+															crafts[x].type + "#" + crafts[x].gameObject.GetInstanceID()));
+			}
+
+			if (crafts.Length == 0)
+			{
+				optionDataB.Add(new TMP_Dropdown.OptionData("None"));
+			}
+
+			transferDropdownPlaceB.options = optionDataB;
+			transferDropdownPlaceB.RefreshShownValue();
+			transferDropdownPlaceB.onValueChanged?.Invoke(0);
+
+
+			List<TMP_Dropdown.OptionData> optionDataItem = new List<TMP_Dropdown.OptionData>();
+			optionDataItem.Add(new TMP_Dropdown.OptionData(GameTypes.GetItemFromString(dropA[^2]).ToString()));
+			transferDropdownItem.options = optionDataItem;
+			transferDropdownItem.RefreshShownValue();
+			transferDropdownItem.onValueChanged?.Invoke(0);
+		}
+
+		public void OnDropdown_SetPlaceB()
+		{
+
 		}
 	}
 }

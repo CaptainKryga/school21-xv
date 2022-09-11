@@ -16,7 +16,7 @@ namespace Project.Scripts.Model.CreateChange
 		[SerializeField] private DataBase dataBase;
 		[SerializeField] private Transform parentItems;
 		
-		private Item nowSelectedItem;
+		private Dynamic nowSelectedDynamic;
 		private Rigidbody rigidbody;
 		private bool isMove;
 		private ItemCreate itemCreate;
@@ -41,7 +41,7 @@ namespace Project.Scripts.Model.CreateChange
 
 		private void Update()
 		{
-			if (!nowSelectedItem || !isMove)
+			if (!nowSelectedDynamic || !isMove)
 				return;
 			
 			
@@ -58,14 +58,14 @@ namespace Project.Scripts.Model.CreateChange
 
 		private void ReceiveKeyboard(KeyCode key)
 		{
-			if (key != KeyCode.LeftShift || !nowSelectedItem)
+			if (key != KeyCode.LeftShift || !nowSelectedDynamic)
 				return;
 
 			isMove = true;
 
 			if (isMove && !itemCreate)
 			{
-				itemCreate = nowSelectedItem.AddComponent<ItemCreate>();
+				itemCreate = nowSelectedDynamic.AddComponent<ItemCreate>();
 				itemCreate.Init(correct, incorrect);
 			}
 		}
@@ -80,7 +80,7 @@ namespace Project.Scripts.Model.CreateChange
 				if (itemCreate)
 				{
 					Destroy(itemCreate);
-					nowSelectedItem = null;
+					nowSelectedDynamic = null;
 					isMove = false;
 					wCreateChange.SetItemName("null");
 				}
@@ -93,25 +93,25 @@ namespace Project.Scripts.Model.CreateChange
 						// Debug.Log("hit " + hit.transform.name);
 					}
 
-					if (hit.collider && hit.collider.GetComponent<Item>())
+					if (hit.collider && hit.collider.GetComponent<Dynamic>())
 					{
-						nowSelectedItem = hit.collider.GetComponent<Item>();
-						rigidbody = nowSelectedItem.GetComponent<Rigidbody>();
+						nowSelectedDynamic = hit.collider.GetComponent<Dynamic>();
+						rigidbody = nowSelectedDynamic.GetComponent<Rigidbody>();
 
-						wCreateChange.SetItemName(nowSelectedItem.itemName);
+						wCreateChange.SetItemName(nowSelectedDynamic.itemName);
 
-						savePosition = nowSelectedItem.transform.position;
-						saveRotation = nowSelectedItem.transform.rotation;
+						savePosition = nowSelectedDynamic.transform.position;
+						saveRotation = nowSelectedDynamic.transform.rotation;
 					}
 				}
 			}
 			else if (key == KeyCode.Mouse1)
 			{
-				nowSelectedItem.transform.position = savePosition;
-				nowSelectedItem.transform.rotation = saveRotation;
+				nowSelectedDynamic.transform.position = savePosition;
+				nowSelectedDynamic.transform.rotation = saveRotation;
 
 				Destroy(itemCreate);
-				nowSelectedItem = null;
+				nowSelectedDynamic = null;
 				
 				// Destroy(nowSelectedItem.transform.gameObject);
 				isMove = false;
@@ -121,11 +121,11 @@ namespace Project.Scripts.Model.CreateChange
 
 		private void ReceiveMouseScroll(float scroll)
 		{
-			if (!nowSelectedItem || !isMove)
+			if (!nowSelectedDynamic || !isMove)
 				return;
 			
-			rigidbody.MoveRotation(nowSelectedItem.transform.rotation * Quaternion.Euler(Vector3.up * scroll * 100));
-			nowSelectedItem.transform.Rotate(Vector3.up * scroll * 100);
+			rigidbody.MoveRotation(nowSelectedDynamic.transform.rotation * Quaternion.Euler(Vector3.up * scroll * 100));
+			nowSelectedDynamic.transform.Rotate(Vector3.up * scroll * 100);
 		}
 
 		public string GetSceneName()
@@ -135,26 +135,26 @@ namespace Project.Scripts.Model.CreateChange
 
 		public void RenameNowSelectedItemName(string newName)
 		{
-			if (nowSelectedItem)
+			if (nowSelectedDynamic)
 			{
-				nowSelectedItem.itemName = newName;
+				nowSelectedDynamic.itemName = newName;
 			}
 		}
 
 		public void DeleteNowSelectedItem()
 		{
-			if (nowSelectedItem)
+			if (nowSelectedDynamic)
 			{
-				Destroy(nowSelectedItem.gameObject);
+				Destroy(nowSelectedDynamic.gameObject);
 				wCreateChange.SetItemName("null");
 			}
 		}
 		
 		public void SetColorNowSelectedItem(Color color)
 		{
-			if (nowSelectedItem)
+			if (nowSelectedDynamic)
 			{
-				nowSelectedItem.SetColor(color);
+				nowSelectedDynamic.SetColor(color);
 			}
 		}
 	}

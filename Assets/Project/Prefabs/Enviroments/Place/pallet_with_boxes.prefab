@@ -652,6 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4187426664129507290}
+  - component: {fileID: 2494664907214529718}
   m_Layer: 0
   m_Name: cardboard_box5
   m_TagString: Untagged
@@ -680,6 +681,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2494664907214529718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 425087402576459923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &526230965723758211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1096,6 +1109,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8178460778655488703}
+  - component: {fileID: 5055633361616206352}
   m_Layer: 0
   m_Name: cardboard_box12
   m_TagString: Untagged
@@ -1124,6 +1138,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5055633361616206352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644316162600632926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &688475267979350889
 GameObject:
   m_ObjectHideFlags: 0
@@ -2926,6 +2952,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1415041558764929615}
+  - component: {fileID: 6059593273891932078}
   m_Layer: 0
   m_Name: cardboard_box4
   m_TagString: Untagged
@@ -2954,6 +2981,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6059593273891932078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074212989993121790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2127868282482479873
 GameObject:
   m_ObjectHideFlags: 0
@@ -2995,6 +3034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7469250171900511097}
+  - component: {fileID: 4056001654089759643}
   m_Layer: 0
   m_Name: cardboard_box13
   m_TagString: Untagged
@@ -3023,6 +3063,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4056001654089759643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2215031043495094581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2245194523942148467
 GameObject:
   m_ObjectHideFlags: 0
@@ -3895,6 +3947,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2477186846845351618}
+  - component: {fileID: 2967231625566371663}
   m_Layer: 0
   m_Name: cardboard_box16
   m_TagString: Untagged
@@ -3923,6 +3976,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2967231625566371663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2582627404363842520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2720401708227415702
 GameObject:
   m_ObjectHideFlags: 0
@@ -6559,6 +6624,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 537700432817221917}
+  - component: {fileID: 88286739141254196}
   m_Layer: 0
   m_Name: cardboard_box1
   m_TagString: Untagged
@@ -6587,6 +6653,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &88286739141254196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4231365416096682431}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4322160879285714172
 GameObject:
   m_ObjectHideFlags: 0
@@ -8404,6 +8482,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5084140556394492980}
+  - component: {fileID: 1217849737799483558}
   m_Layer: 0
   m_Name: cardboard_box2
   m_TagString: Untagged
@@ -8432,6 +8511,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1217849737799483558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5137859719270845053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5150099674431933031
 GameObject:
   m_ObjectHideFlags: 0
@@ -8441,6 +8532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1203295809765824594}
+  - component: {fileID: 2108943355217206644}
   m_Layer: 0
   m_Name: cardboard_box8
   m_TagString: Untagged
@@ -8469,6 +8561,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2108943355217206644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5150099674431933031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5164616457811459526
 GameObject:
   m_ObjectHideFlags: 0
@@ -8677,6 +8781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1378934297539419566}
+  - component: {fileID: 7201418596291661192}
   m_Layer: 0
   m_Name: cardboard_box15
   m_TagString: Untagged
@@ -8705,6 +8810,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7201418596291661192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5241897703132031913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5297038526251488110
 GameObject:
   m_ObjectHideFlags: 0
@@ -8997,9 +9114,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4612228702412135215}
-  - component: {fileID: 9107002564232063134}
   - component: {fileID: 8753055782102397366}
   - component: {fileID: 692489675833879161}
+  - component: {fileID: 2032233171334808290}
   m_Layer: 0
   m_Name: pallet_with_boxes
   m_TagString: Untagged
@@ -9025,21 +9142,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9107002564232063134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5425216037292507541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultName: pallet_with_boxes
-  itemName: pallet_with_boxes
-  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &8753055782102397366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9069,6 +9171,26 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &2032233171334808290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425216037292507541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d7b7a8a4db5e44e5be4fc7079d47949, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: pallet_with_boxes
+  itemName: storage
+  color: {r: 1, g: 1, b: 1, a: 1}
+  type: 0
+  input: 
+  output: 1
+  storageCells: []
+  outputItem: 0
 --- !u!1 &5435110813124983935
 GameObject:
   m_ObjectHideFlags: 0
@@ -9078,6 +9200,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5453822871385760645}
+  - component: {fileID: 1800040744624880680}
   m_Layer: 0
   m_Name: cardboard_box10
   m_TagString: Untagged
@@ -9106,6 +9229,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1800040744624880680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5435110813124983935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5451892143079338949
 GameObject:
   m_ObjectHideFlags: 0
@@ -10932,6 +11067,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9151580569481701646}
+  - component: {fileID: 2260817623405818754}
   m_Layer: 0
   m_Name: cardboard_box3
   m_TagString: Untagged
@@ -10960,6 +11096,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2260817623405818754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6883699126879190801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6892047538935270022
 GameObject:
   m_ObjectHideFlags: 0
@@ -11503,6 +11651,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8131036532321355799}
+  - component: {fileID: 5983442921061622175}
   m_Layer: 0
   m_Name: cardboard_box9
   m_TagString: Untagged
@@ -11531,6 +11680,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5983442921061622175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465281631775458467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7543600196891780796
 GameObject:
   m_ObjectHideFlags: 0
@@ -11792,6 +11953,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4887497178320159774}
+  - component: {fileID: 5184217565363144572}
   m_Layer: 0
   m_Name: cardboard_box14
   m_TagString: Untagged
@@ -11820,6 +11982,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5184217565363144572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7685434973990045311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7744007326392850323
 GameObject:
   m_ObjectHideFlags: 0
@@ -12260,6 +12434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1442734474056473724}
+  - component: {fileID: 7468202827377952778}
   m_Layer: 0
   m_Name: cardboard_box6
   m_TagString: Untagged
@@ -12288,6 +12463,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7468202827377952778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971704260389309285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7981248276198674774
 GameObject:
   m_ObjectHideFlags: 0
@@ -12695,6 +12882,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4880664211850224936}
+  - component: {fileID: 7530161478472796741}
   m_Layer: 0
   m_Name: cardboard_box7
   m_TagString: Untagged
@@ -12723,6 +12911,18 @@ Transform:
   m_Father: {fileID: 5489583462939472360}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7530161478472796741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265289506143527216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8316101577634289099
 GameObject:
   m_ObjectHideFlags: 0
@@ -13131,6 +13331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4592161319540523639}
+  - component: {fileID: 3757330831961415614}
   m_Layer: 0
   m_Name: cardboard_box11
   m_TagString: Untagged
@@ -13159,6 +13360,18 @@ Transform:
   m_Father: {fileID: 514018387070530038}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3757330831961415614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8674232990321268406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7927938a25da9448ba75de289d002782, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8681461017415153472
 GameObject:
   m_ObjectHideFlags: 0

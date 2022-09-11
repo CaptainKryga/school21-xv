@@ -91,23 +91,23 @@ namespace Project.Scripts.Model.ImportExport
 			save.itemColorA = new float[childCount];
 			for (int i = 0; i < save.itemDefaultName.Length; i++)
 			{
-				Item item = parentItems.GetChild(i).GetComponent<Item>();
-				save.itemDefaultName[i] = item.defaultName;
-				save.itemName[i] = item.itemName;
+				Dynamic @dynamic = parentItems.GetChild(i).GetComponent<Dynamic>();
+				save.itemDefaultName[i] = dynamic.defaultName;
+				save.itemName[i] = dynamic.itemName;
 				// save.position[i] = item.transform.position;
-				save.itemPositionX[i] = item.transform.position.x;
-				save.itemPositionY[i] = item.transform.position.y;
-				save.itemPositionZ[i] = item.transform.position.z;
+				save.itemPositionX[i] = dynamic.transform.position.x;
+				save.itemPositionY[i] = dynamic.transform.position.y;
+				save.itemPositionZ[i] = dynamic.transform.position.z;
 				// save.rotation[i] = item.transform.rotation;
-				save.itemRotationX[i] = item.transform.rotation.x;
-				save.itemRotationY[i] = item.transform.rotation.y;
-				save.itemRotationZ[i] = item.transform.rotation.z;
-				save.itemRotationW[i] = item.transform.rotation.w;
+				save.itemRotationX[i] = dynamic.transform.rotation.x;
+				save.itemRotationY[i] = dynamic.transform.rotation.y;
+				save.itemRotationZ[i] = dynamic.transform.rotation.z;
+				save.itemRotationW[i] = dynamic.transform.rotation.w;
 				// save.color[i] = item.color;
-				save.itemColorR[i] = item.color.r;
-				save.itemColorG[i] = item.color.g;
-				save.itemColorB[i] = item.color.b;
-				save.itemColorA[i] = item.color.a;
+				save.itemColorR[i] = dynamic.color.r;
+				save.itemColorG[i] = dynamic.color.g;
+				save.itemColorB[i] = dynamic.color.b;
+				save.itemColorA[i] = dynamic.color.a;
 
 			}
 
@@ -132,7 +132,7 @@ namespace Project.Scripts.Model.ImportExport
 
 		private void LoadScene(string loadFileName)
 		{
-			Item[] saveItems = parentItems.GetComponentsInChildren<Item>();
+			Dynamic[] saveItems = parentItems.GetComponentsInChildren<Dynamic>();
 
 			try
 			{
@@ -145,16 +145,16 @@ namespace Project.Scripts.Model.ImportExport
 				{
 					for (int x = 0; x < dataBase.defaultPrefabs.Length; x++)
 					{
-						if (dataBase.defaultPrefabs[x].GetComponent<Item>().defaultName == load.itemDefaultName[i])
+						if (dataBase.defaultPrefabs[x].GetComponent<Dynamic>().defaultName == load.itemDefaultName[i])
 						{
 							GameObject newItem = Instantiate(dataBase.defaultPrefabs[x]);
-							newItem.GetComponent<Item>().defaultName = load.itemDefaultName[i];
-							newItem.GetComponent<Item>().itemName = load.itemName[i];
+							newItem.GetComponent<Dynamic>().defaultName = load.itemDefaultName[i];
+							newItem.GetComponent<Dynamic>().itemName = load.itemName[i];
 							newItem.transform.position = new Vector3(load.itemPositionX[i], load.itemPositionY[i],
 								load.itemPositionZ[i]);
 							newItem.transform.rotation = new Quaternion(load.itemRotationX[i], load.itemRotationY[i],
 								load.itemRotationZ[i], load.itemRotationW[i]);
-							newItem.GetComponent<Item>().InitColor(new Color(load.itemColorR[i], load.itemColorG[i],
+							newItem.GetComponent<Dynamic>().InitColor(new Color(load.itemColorR[i], load.itemColorG[i],
 								load.itemColorB[i], load.itemColorA[i]));
 							newItem.transform.SetParent(parentItems);
 							break;
@@ -201,10 +201,7 @@ namespace Project.Scripts.Model.ImportExport
 						string res = lastScanSaveFiles[i].Substring(pathToImportExportDirectory.Length);
 						res = res.Substring(0, res.Length - 3);
 						temp.Add(res);
-						
-						Debug.Log("res: " + res);
 					}
-					Debug.Log("lastScanSaveFiles[i]: " + lastScanSaveFiles[i]);
 				}
 
 				lastScanSaveFiles = temp.ToArray();

@@ -392,11 +392,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4316138338376419128}
-  - component: {fileID: 9200117466446974193}
   - component: {fileID: 4413390153965073250}
   - component: {fileID: 1260549487482594992}
+  - component: {fileID: 1640543720249568125}
   m_Layer: 0
-  m_Name: classic_table2
+  m_Name: table
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,21 +418,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9200117466446974193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3507688795374837122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  defaultName: classic_table2
-  itemName: classic_table2
-  color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &4413390153965073250
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -462,6 +447,24 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!114 &1640543720249568125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3507688795374837122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b1306bac3bfa4160bea81592331d752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultName: table
+  itemName: table
+  color: {r: 1, g: 1, b: 1, a: 1}
+  type: 1
+  input: 0100000002000000
+  output: 0
 --- !u!1 &4249081549626866416
 GameObject:
   m_ObjectHideFlags: 0

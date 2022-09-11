@@ -1,6 +1,8 @@
+using Project.Scripts.Utils;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+//REFACTOR MATERIALSSSSSSSS
+public class Dynamic : MonoBehaviour
 {
 	public string defaultName;
 	public string itemName;

@@ -32,5 +32,44 @@ namespace Project.Scripts.Utils
 			Craft,
 			Cycle
 		}
+
+		public enum Item
+		{
+			None,
+			BoxSmall,
+			BoxMiddle,
+		}
+
+		public enum Place
+		{
+			Storage,
+			Craft,
+		}
+
+		public static Item GetItemFromString(string item)
+		{
+			if (item == Item.BoxSmall.ToString())
+			{
+				return Item.BoxSmall;
+			}
+			else if (item == Item.BoxMiddle.ToString())
+			{
+				return Item.BoxMiddle;
+			}
+			return Item.None;
+		}
+		
+		public static Task GetTaskFromString(string task)
+		{
+			if (task == Task.Transfer.ToString())
+			{
+				return Task.Transfer;
+			}
+			else if (task == Task.Craft.ToString())
+			{
+				return Task.Craft;
+			}
+			return Task.Cycle;
+		}
 	}
 }
