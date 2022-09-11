@@ -26,6 +26,8 @@ namespace Project.Scripts.Model
 			workerBodyStartRotation = transform.rotation;
 			
 			agent.destination = point1.transform.position;
+			agent.autoRepath = true;
+			agent.autoTraverseOffMeshLink = true;
 		}
 
 		private void Update()

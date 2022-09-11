@@ -9117,6 +9117,7 @@ GameObject:
   - component: {fileID: 8753055782102397366}
   - component: {fileID: 692489675833879161}
   - component: {fileID: 2032233171334808290}
+  - component: {fileID: 6148735442808404540}
   m_Layer: 0
   m_Name: pallet_with_boxes
   m_TagString: Untagged
@@ -9189,8 +9190,25 @@ MonoBehaviour:
   type: 0
   input: 
   output: 1
+  localId: 0
   storageCells: []
   outputItem: 0
+--- !u!208 &6148735442808404540
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5425216037292507541}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.42331645, y: 0.26994914, z: 0.6188215}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.4009457, y: 0.2519605, z: -0.59656}
+  m_TimeToStationary: 0.5
 --- !u!1 &5435110813124983935
 GameObject:
   m_ObjectHideFlags: 0
