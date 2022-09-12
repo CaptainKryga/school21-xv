@@ -27,8 +27,10 @@ namespace Project.Scripts.Model.Animation
 		private GameTypes.Task tempType;
 		private Place tempPlaceA, tempPlaceB;
 		private GameTypes.Item tempItem;
-		private int tempIterations;
+		private int tempIterations = 1;
 		private string tempDescription;
+
+		public GameTypes.Task TempType { get => tempType; }
 
 		private void Update()
 		{
@@ -126,16 +128,27 @@ namespace Project.Scripts.Model.Animation
 			{
 				if (actualTasks[x] == task)
 				{
-					ContentTask swap = actualTasks[x];
 					if (isUp && x > 0)
 					{
+						Debug.Log((task.Type == GameTypes.Task.Cycle) + " | " + task.ChildTask + " | " + 
+								(actualTasks[x - 1].ChildTask == task));
+						//чек на ребёнка в цикле
+						if (task.Type == GameTypes.Task.Cycle && task.ParentTask && 
+							actualTasks[x - 1].ChildTask == task)
+							break;
+						
 						actualTasks[x] = actualTasks[x - 1];
-						actualTasks[x - 1] = swap;
+						actualTasks[x - 1] = task;
 					}
 					if (!isUp && x < actualTasks.Length - 1)
 					{
+						//чек на родителя в цикле
+						if (task.Type == GameTypes.Task.Cycle && task.ChildTask && 
+							actualTasks[x + 1].ParentTask == task)
+							break;
+						
 						actualTasks[x] = actualTasks[x + 1];
-						actualTasks[x + 1] = swap;
+						actualTasks[x + 1] = task;
 					}
 					break;
 				}
@@ -146,7 +159,7 @@ namespace Project.Scripts.Model.Animation
 			return 0;
 		}
 
-		public void AddNewTask(string taskName, ContentTask contentTask)
+		public void AddNewTask(string taskName, ContentTask contentTask, ContentTask subTaskEnd)
 		{
 			List<ContentTask> temp;
 			if (actualTasks != null)
@@ -154,9 +167,19 @@ namespace Project.Scripts.Model.Animation
 			else
 				temp = new List<ContentTask>();
 			
-			temp.Add(contentTask);
-			contentTask.InitTask(taskName, tempDescription, UpdatePositionTasks, tempType, tempPlaceA, 
+			contentTask.InitTask(taskName, tempDescription, tempType, tempPlaceA, 
 				tempPlaceB, tempItem, 1, tempIterations);
+			contentTask.InitButtons(UpdatePositionTasks);
+			temp.Add(contentTask);
+
+			if (contentTask.Type == GameTypes.Task.Cycle)
+			{
+				contentTask.InitWhile(tempIterations, subTaskEnd, null);
+				subTaskEnd.InitButtons(UpdatePositionTasks);
+				subTaskEnd.InitWhile(tempIterations, null, contentTask);
+				temp.Add(subTaskEnd);
+			}
+
 			actualTasks = temp.ToArray();
 		}
 

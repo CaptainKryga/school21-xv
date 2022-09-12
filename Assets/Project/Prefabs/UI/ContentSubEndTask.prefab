@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 2993420467000504748}
   - component: {fileID: 3327712266206928322}
   m_Layer: 5
-  m_Name: ContentTaskCycle
+  m_Name: ContentSubEndTask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -401,10 +401,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdcbbd15356654ed1ae20c7e2f222114, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  background: {fileID: 0}
   btnUp: {fileID: 577158543130971202}
   btnDown: {fileID: 873982247475625056}
   slider: {fileID: 4065953381867037101}
   textNameTask: {fileID: 6821724329795060275}
+  colorTask: []
 --- !u!1 &3446405032259996221
 GameObject:
   m_ObjectHideFlags: 0

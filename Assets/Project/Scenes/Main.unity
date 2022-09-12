@@ -3210,6 +3210,8 @@ MonoBehaviour:
   parentContent: {fileID: 360650750}
   prefabContentTask: {fileID: 3327712266206928322, guid: e7c16b4ab1c244ec9a9308cdb75d095f,
     type: 3}
+  prefabSubEndTask: {fileID: 3327712266206928322, guid: 95586055d24c04c2fb3acf8cd3125695,
+    type: 3}
   panelRedactor: {fileID: 111965099}
   panelTransfer: {fileID: 1057620341}
   panelCraft: {fileID: 1806732113}
@@ -6707,7 +6709,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: None
+  m_text: Transfer
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -22985,8 +22987,6 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: None
-      m_Image: {fileID: 0}
     - m_Text: Transfer
       m_Image: {fileID: 0}
     - m_Text: Craft

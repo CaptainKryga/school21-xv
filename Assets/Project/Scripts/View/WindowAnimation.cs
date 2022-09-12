@@ -15,6 +15,7 @@ namespace Project.Scripts.View
 		
 		[SerializeField] private Transform parentContent;
 		[SerializeField] private ContentTask prefabContentTask;
+		[SerializeField] private ContentTask prefabSubEndTask;
 
 		[Header("Sub Windows")] 
 		[SerializeField] private GameObject panelRedactor;
@@ -62,6 +63,7 @@ namespace Project.Scripts.View
 		public void OnClick_OpenRedactor()
 		{
 			panelRedactor.SetActive(true);
+			dropdownTaskType.onValueChanged?.Invoke(0);
 		}
 
 		public void OnClick_StartSequence()
@@ -88,7 +90,9 @@ namespace Project.Scripts.View
 				// GameTypes.Item tempItem =
 				// 	GameTypes.GetItemFromString(transferDropdownItem.options[transferDropdownItem.value].text);
 				ContentTask task = Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>();
-				modelAnimation.AddNewTask(inputFieldTaskName.text, task);
+				ContentTask subTask = modelAnimation.TempType == GameTypes.Task.Cycle ? 
+					Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>() : null;
+				modelAnimation.AddNewTask(inputFieldTaskName.text, task, subTask);
 			}
 		}
 
