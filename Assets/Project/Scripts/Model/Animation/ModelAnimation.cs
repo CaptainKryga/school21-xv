@@ -41,6 +41,8 @@ namespace Project.Scripts.Model.Animation
 				if (phase == GameTypes.Phase.First)
 				{
 					worker.UpdateAnimation(1, 1);
+					worker.UpdateSpeed(actualTasks[id].Speed);
+					
 					if (worker.SetNextPosition(actualTasks[id].PlaceA.transform.position))
 					{
 						phase = GameTypes.Phase.Second;
@@ -53,6 +55,7 @@ namespace Project.Scripts.Model.Animation
 				else if (phase == GameTypes.Phase.Second)
 				{
 					worker.UpdateAnimation(0, 0);
+					worker.UpdateSpeed(actualTasks[id].Speed);
 
 					delay -= Time.deltaTime * actualTasks[id].Speed;
 					if (delay <= 0)
@@ -70,6 +73,8 @@ namespace Project.Scripts.Model.Animation
 				else if (phase == GameTypes.Phase.Third)
 				{
 					worker.UpdateAnimation(1, 0);
+					worker.UpdateSpeed(actualTasks[id].Speed);
+
 					if (worker.SetNextPosition(actualTasks[id].PlaceB.transform.position))
 					{
 						phase = GameTypes.Phase.Fourth;
@@ -82,6 +87,7 @@ namespace Project.Scripts.Model.Animation
 				else if (phase == GameTypes.Phase.Fourth)
 				{
 					worker.UpdateAnimation(0, 0);
+					worker.UpdateSpeed(actualTasks[id].Speed);
 
 					delay -= Time.deltaTime * actualTasks[id].Speed;
 					if (delay <= 0)
@@ -93,7 +99,7 @@ namespace Project.Scripts.Model.Animation
 					}
 				}
 				
-				Debug.Log("phase: " + phase + "[" + actualTasks[id].Speed + "][" + actualTasks[id].Item + "]");
+				// Debug.Log("phase: " + phase + "[" + actualTasks[id].Speed + "][" + actualTasks[id].Item + "]");
 			}
 			else if (actualTasks[id].Type == GameTypes.Task.Craft)
 			{

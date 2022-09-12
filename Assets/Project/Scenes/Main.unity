@@ -3776,6 +3776,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1323565037}
     m_Modifications:
+    - target: {fileID: 2032303384, guid: 05a13ffb661704c65b980a9584477a82, type: 3}
+      propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032303384, guid: 05a13ffb661704c65b980a9584477a82, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032303385, guid: 05a13ffb661704c65b980a9584477a82, type: 3}
+      propertyPath: m_Speed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032303385, guid: 05a13ffb661704c65b980a9584477a82, type: 3}
+      propertyPath: m_AngularSpeed
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 1675747830481688711, guid: 05a13ffb661704c65b980a9584477a82,
         type: 3}
       propertyPath: m_Name

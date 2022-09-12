@@ -158,6 +158,8 @@ namespace Project.Scripts.Model
 
 			rigidbody.isKinematic = !isPhysics;
 			rigidbody.useGravity = isPhysics;
+
+			rigidbody.interpolation = isPhysics ? RigidbodyInterpolation.Interpolate : RigidbodyInterpolation.None;
 		}
 
 		public void ReceivePlayerMoveActions(Vector2 vec)

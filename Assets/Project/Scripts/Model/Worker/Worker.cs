@@ -17,6 +17,7 @@ namespace Project.Scripts.Model
 		
 		private Vector3 workerBodyStartPosition;
 		private Quaternion workerBodyStartRotation;
+		private float startSpeed, startAcceleration;
 		
 		public Transform GetTransform { get => worker; }
 		public Vector3 WorkerBodyStartPosition { get => workerBodyStartPosition; }
@@ -29,6 +30,9 @@ namespace Project.Scripts.Model
 			
 			agent.autoRepath = true;
 			agent.autoTraverseOffMeshLink = true;
+
+			startSpeed = agent.speed;
+			startAcceleration = agent.acceleration;
 			
 			UpdateAnimation(0, 1);
 		}
@@ -47,6 +51,12 @@ namespace Project.Scripts.Model
 		public void UpdateAnimation(float walk, float classic)
 		{
 			animator.UpdateAnimation(walk, classic);
+		}
+
+		public void UpdateSpeed(float speed)
+		{
+			agent.speed = startSpeed * speed;
+			agent.acceleration = startAcceleration * speed * 2;
 		}
 
 		public Transform GetTransformWorker()
