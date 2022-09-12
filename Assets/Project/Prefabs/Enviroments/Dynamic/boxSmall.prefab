@@ -944,7 +944,7 @@ GameObject:
   - component: {fileID: 6049076834442873892}
   - component: {fileID: 812179244463741871}
   m_Layer: 0
-  m_Name: box40x15
+  m_Name: boxSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultName: box40x15
+  defaultName: boxSmall
   itemName: box40x15
   color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &6049076834442873892

@@ -56,7 +56,15 @@ namespace Project.Scripts.Model.Animation
 
 					delay -= Time.deltaTime * actualTasks[id].Speed;
 					if (delay <= 0)
+					{
 						phase = GameTypes.Phase.Third;
+						Storage storage = (Storage)actualTasks[id].PlaceA;
+						if (storage)
+						{
+							storage.GetOneItem();
+							worker.UpdateVisibleItem(actualTasks[id].Item, true);
+						}
+					}
 				}
 				//несём объект ко второй точке
 				else if (phase == GameTypes.Phase.Third)
@@ -79,12 +87,13 @@ namespace Project.Scripts.Model.Animation
 					if (delay <= 0)
 					{
 						phase = GameTypes.Phase.First;
-						id++;
 						worker.UpdateAnimation(0, 1);
+						worker.UpdateVisibleItem(actualTasks[id].Item, false);
+						id++;
 					}
 				}
 				
-				Debug.Log("phase: " + phase + "[" + actualTasks[id].Speed + "]");
+				Debug.Log("phase: " + phase + "[" + actualTasks[id].Speed + "][" + actualTasks[id].Item + "]");
 			}
 			else if (actualTasks[id].Type == GameTypes.Task.Craft)
 			{

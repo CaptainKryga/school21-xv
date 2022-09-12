@@ -9119,7 +9119,7 @@ GameObject:
   - component: {fileID: 2032233171334808290}
   - component: {fileID: 6148735442808404540}
   m_Layer: 0
-  m_Name: pallet_with_boxes
+  m_Name: pallet_with_boxSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9184,8 +9184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7b7a8a4db5e44e5be4fc7079d47949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultName: pallet_with_boxes
-  itemName: storage
+  defaultName: pallet_with_boxSmall
+  itemName: storage box small
   color: {r: 1, g: 1, b: 1, a: 1}
   type: 0
   input: 

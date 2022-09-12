@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 5499721029241525093}
   - component: {fileID: 2910554182348909874}
   m_Layer: 0
-  m_Name: classic_printer
+  m_Name: boxMiddle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultName: classic_printer
+  defaultName: boxMiddle
   itemName: classic_printer
   color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!65 &5499721029241525093

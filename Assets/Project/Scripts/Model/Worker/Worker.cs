@@ -1,4 +1,5 @@
 using System;
+using Project.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,8 @@ namespace Project.Scripts.Model
 
 		[SerializeField] private NavMeshAgent agent;
 		[SerializeField] private Transform point1, point2;
+
+		[SerializeField] private GameObject boxSmall, boxMiddle;
 		
 		private Vector3 workerBodyStartPosition;
 		private Quaternion workerBodyStartRotation;
@@ -24,9 +27,10 @@ namespace Project.Scripts.Model
 			workerBodyStartPosition = transform.position;
 			workerBodyStartRotation = transform.rotation;
 			
-			agent.destination = point1.transform.position;
 			agent.autoRepath = true;
 			agent.autoTraverseOffMeshLink = true;
+			
+			UpdateAnimation(0, 1);
 		}
 
 		public bool SetNextPosition(Vector3 position)
@@ -48,6 +52,14 @@ namespace Project.Scripts.Model
 		public Transform GetTransformWorker()
 		{
 			return worker;
+		}
+
+		public void UpdateVisibleItem(GameTypes.Item item, bool isFlag)
+		{
+			if (item == GameTypes.Item.BoxSmall)
+				boxSmall.SetActive(isFlag);
+			else if (item == GameTypes.Item.BoxMiddle)
+				boxMiddle.SetActive(isFlag);
 		}
 	}
 }

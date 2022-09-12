@@ -174,14 +174,14 @@ namespace Project.Scripts.View
 			
 			listB = list.ToArray();
 			modelAnimation.SetPlaceB(listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : null);
-			modelAnimation.SetItem(listA[0].output);
+			modelAnimation.SetItem(listA[transferDropdownPlaceA.value].output);
 
 			transferDropdownPlaceB.options = optionDataB;
 			transferDropdownPlaceB.RefreshShownValue();
 			transferDropdownPlaceB.onValueChanged?.Invoke(0);
 			
 			List<TMP_Dropdown.OptionData> optionDataItem = new List<TMP_Dropdown.OptionData>();
-			optionDataItem.Add(new TMP_Dropdown.OptionData(listA[0].output.ToString()));
+			optionDataItem.Add(new TMP_Dropdown.OptionData(listA[transferDropdownPlaceA.value].output.ToString()));
 			transferDropdownItem.options = optionDataItem;
 			transferDropdownItem.RefreshShownValue();
 			transferDropdownItem.onValueChanged?.Invoke(0);
@@ -190,7 +190,7 @@ namespace Project.Scripts.View
 		public void OnDropdown_SetPlaceB()
 		{
 			modelAnimation.SetPlaceB(listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : null);
-			modelAnimation.SetItem(listA[0].output);
+			modelAnimation.SetItem(listA[transferDropdownPlaceA.value].output);
 		}
 	}
 }

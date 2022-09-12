@@ -1,4 +1,3 @@
-using System;
 using Project.Scripts.Utils;
 
 namespace Animation
@@ -9,12 +8,6 @@ namespace Animation
 		public GameTypes.Place type;
 		public GameTypes.Item[] input;
 		public GameTypes.Item output;
-		public int localId;
-
-		private void Start()
-		{
-			localId = id++;
-		}
 	} 
 }
 
