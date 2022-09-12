@@ -17,7 +17,6 @@ public class WindowCreateChange : MonoBehaviour
 	[SerializeField] private GameObject panelChange;
 	//color
 	[SerializeField] private Texture2D texture2DGradient;
-	[SerializeField] private Image imgTarget;
 	[SerializeField] private Image imgSelectColorGradient;
 	[SerializeField] private Image imgColorGradient;
 	
@@ -30,7 +29,6 @@ public class WindowCreateChange : MonoBehaviour
 
 	private ContentScene[] saveButtons;
 	private int selectedId = -1;
-	
 	
 	//Change
 	[SerializeField] private TMPro.TMP_InputField inputFieldScene;
@@ -79,6 +77,7 @@ public class WindowCreateChange : MonoBehaviour
 
 	public void OnClick_RenameScene()
 	{
+		modelChange.SetSceneName(inputFieldScene.text);
 		modelSaveLoad.Rename(modelChange.GetSceneName(), inputFieldScene.text);
 	}
 

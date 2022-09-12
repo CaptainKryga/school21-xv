@@ -143,8 +143,6 @@ namespace Project.Scripts.Model
 			if (worker == null)
 				GetWorker();
 
-			body.transform.position = new Vector3(0, 10, 0);
-
 			if (isWorker && worker)
 			{
 				body.SetParent(worker.transform);

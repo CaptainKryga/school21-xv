@@ -271,8 +271,9 @@ public class ModelSaveLoad : MonoBehaviour
 
 		if (!lastScanSaveFiles.Contains(oldName))
 		{
-			Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ ИГРУ, СОХРАНИТЕ ЕЁ ВНАЧАЛЕ ИЛИ ЗАГРУЗИТЕ СТАРУЮ");
-			Debug.LogError("тут можно бахнуть сразу сохранение что думаешь???");
+			// SaveScene(newName);
+			// Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ ИГРУ, СОХРАНИТЕ ЕЁ ВНАЧАЛЕ ИЛИ ЗАГРУЗИТЕ СТАРУЮ");
+			// Debug.LogError("тут можно бахнуть сразу сохранение что думаешь???");
 			return false;
 		}
 		

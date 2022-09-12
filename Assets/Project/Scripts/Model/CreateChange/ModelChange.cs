@@ -13,9 +13,6 @@ namespace Project.Scripts.Model.CreateChange
 
 		[SerializeField] private WindowCreateChange wCreateChange;
 		
-		[SerializeField] private DataBase dataBase;
-		[SerializeField] private Transform parentItems;
-		
 		private Dynamic nowSelectedDynamic;
 		private Rigidbody rigidbody;
 		private bool isMove;
@@ -131,6 +128,11 @@ namespace Project.Scripts.Model.CreateChange
 		public string GetSceneName()
 		{
 			return model.SceneName;
+		}		
+		
+		public void SetSceneName(string scene)
+		{
+			model.SceneName = scene;
 		}
 
 		public void RenameNowSelectedItemName(string newName)
