@@ -62,6 +62,12 @@ namespace Project.Scripts.Utils
 			UsePlace
 		}
 
+		public enum Craft
+		{
+			Use,
+			Drive
+		}
+
 		public static Item GetItemFromString(string item)
 		{
 			if (item == Item.BoxSmall.ToString())

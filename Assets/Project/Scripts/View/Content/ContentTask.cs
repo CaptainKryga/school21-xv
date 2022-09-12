@@ -20,7 +20,7 @@ public class ContentTask : MonoBehaviour
 	[SerializeField] private Color[] colorTask;
 	
 	//cycle
-	private int iterations;
+	private int iterations, nowIterations;
 	private ContentTask parentTask;
 	private ContentTask childTask;
 	private List<ContentTask> container = new List<ContentTask>();
@@ -32,6 +32,7 @@ public class ContentTask : MonoBehaviour
 	public float Speed { get => speed; }
 	
 	public int Iterations { get => iterations; }
+	public int NowIterations { get => nowIterations; set => nowIterations = value; }
 	public ContentTask ParentTask { get => parentTask; }
 	public ContentTask ChildTask { get => childTask; }
 	public List<ContentTask> Container { get => container; }
@@ -105,5 +106,10 @@ public class ContentTask : MonoBehaviour
 	{
 		if (type == GameTypes.Task.Cycle)
 			slider.gameObject.SetActive(false);
+	}
+
+	public void UpdateInfo()
+	{
+		textNameTask.text = "while " + (iterations - nowIterations) + "/" + iterations;
 	}
 }

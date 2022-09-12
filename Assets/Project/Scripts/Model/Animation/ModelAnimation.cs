@@ -15,10 +15,9 @@ namespace Project.Scripts.Model.Animation
 		[SerializeField] private Worker worker;
 
 		[SerializeField] private Transform pointTarget;
-		
+
 		private ContentTask[] actualTasks;
 		private ContentTask nowTask;
-		private int id;
 		private GameTypes.Phase phase;
 		private bool isPlay;
 
@@ -29,6 +28,8 @@ namespace Project.Scripts.Model.Animation
 		private GameTypes.Item tempItem;
 		private int tempIterations = 1;
 		private string tempDescription;
+
+		private List<ContentTask> cycles = new List<ContentTask>();
 
 		public GameTypes.Task TempType { get => tempType; }
 
@@ -47,84 +48,144 @@ namespace Project.Scripts.Model.Animation
 
 			if (nowTask.Type == GameTypes.Task.Transfer)
 			{
-				//идём к первой точке
-				if (phase == GameTypes.Phase.First)
-				{
-					worker.UpdateAnimation(1, 1);
-					worker.UpdateSpeed(nowTask.Speed);
-					
-					if (worker.SetNextPosition(nowTask.PlaceA.transform.position))
-					{
-						phase = GameTypes.Phase.Second;
-						delay = delayGive;
-					}
-					
-					pointTarget.position = nowTask.PlaceA.transform.position;
-				}
-				//забираем объект из первого места
-				else if (phase == GameTypes.Phase.Second)
-				{
-					worker.UpdateAnimation(0, 0);
-					worker.UpdateSpeed(nowTask.Speed);
-
-					delay -= Time.deltaTime * nowTask.Speed;
-					if (delay <= 0)
-					{
-						phase = GameTypes.Phase.Third;
-						Storage storage = (Storage)nowTask.PlaceA;
-						if (storage)
-						{
-							storage.GetOneItem();
-							worker.UpdateVisibleItem(nowTask.Item, true);
-						}
-					}
-				}
-				//несём объект ко второй точке
-				else if (phase == GameTypes.Phase.Third)
-				{
-					worker.UpdateAnimation(1, 0);
-					worker.UpdateSpeed(nowTask.Speed);
-
-					if (worker.SetNextPosition(nowTask.PlaceB.transform.position))
-					{
-						phase = GameTypes.Phase.Fourth;
-						delay = delayDrop;
-					}
-					
-					pointTarget.position = nowTask.PlaceB.transform.position;
-				}
-				//складируем объект на точке
-				else if (phase == GameTypes.Phase.Fourth)
-				{
-					worker.UpdateAnimation(0, 0);
-					worker.UpdateSpeed(nowTask.Speed);
-
-					delay -= Time.deltaTime * nowTask.Speed;
-					if (delay <= 0)
-					{
-						phase = GameTypes.Phase.First;
-						worker.UpdateAnimation(0, 1);
-						worker.UpdateVisibleItem(nowTask.Item, false);
-						id++;
-						nowTask = NextTask(nowTask);
-					}
-				}
-				
-				// Debug.Log("phase: " + phase + "[" + actualTasks[id].Speed + "][" + actualTasks[id].Item + "]");
+				MethodTransfer();
 			}
 			else if (nowTask.Type == GameTypes.Task.Craft)
 			{
-				
+				MethodCraft();
 			}
 			else if (nowTask.Type == GameTypes.Task.Cycle)
 			{
-				
+				MethodCycle();
 			}
+		}
 
+		private void MethodCycle()
+		{
+			if (!cycles.Contains(nowTask))
+			{
+				cycles.Add(nowTask);
+				nowTask.NowIterations = nowTask.Iterations;
+			}
+			
+			nowTask = NextTask(nowTask);
+		}
+		
+		private void MethodCraft()
+		{
+			//идём к первой точке
+			if (phase == GameTypes.Phase.First)
+			{
+				worker.UpdateAnimation(1, 1);
+				worker.UpdateSpeed(nowTask.Speed);
+					
+				if (worker.SetNextPosition(nowTask.PlaceA.transform.position))
+				{
+					phase = GameTypes.Phase.Second;
+					delay = delayGive;
+				}
+					
+				pointTarget.position = nowTask.PlaceA.transform.position;
+			}
+			//забираем объект из первого места
+			else if (phase == GameTypes.Phase.Second)
+			{
+				worker.UpdateAnimation(0, 0);
+				worker.UpdateSpeed(nowTask.Speed);
+
+				delay -= Time.deltaTime * nowTask.Speed;
+				if (delay <= 0)
+				{
+					phase = GameTypes.Phase.Third;
+					Craft craft = (Craft)nowTask.PlaceA;
+					if (craft)
+					{
+						craft.StartCreate(NextTask(nowTask));
+						worker.UpdateVisibleItem(nowTask.Item, true);
+					}
+				}
+			}
+		}
+		
+		private void MethodTransfer()
+		{
+			//идём к первой точке
+			if (phase == GameTypes.Phase.First)
+			{
+				worker.UpdateAnimation(1, 1);
+				worker.UpdateSpeed(nowTask.Speed);
+					
+				if (worker.SetNextPosition(nowTask.PlaceA.transform.position))
+				{
+					phase = GameTypes.Phase.Second;
+					delay = delayGive;
+				}
+					
+				pointTarget.position = nowTask.PlaceA.transform.position;
+			}
+			//забираем объект из первого места
+			else if (phase == GameTypes.Phase.Second)
+			{
+				worker.UpdateAnimation(0, 0);
+				worker.UpdateSpeed(nowTask.Speed);
+
+				delay -= Time.deltaTime * nowTask.Speed;
+				if (delay <= 0)
+				{
+					phase = GameTypes.Phase.Third;
+					Storage storage = (Storage)nowTask.PlaceA;
+					if (storage)
+					{
+						storage.GetOneItem();
+						worker.UpdateVisibleItem(nowTask.Item, true);
+					}
+				}
+			}
+			//несём объект ко второй точке
+			else if (phase == GameTypes.Phase.Third)
+			{
+				worker.UpdateAnimation(1, 0);
+				worker.UpdateSpeed(nowTask.Speed);
+
+				if (worker.SetNextPosition(nowTask.PlaceB.transform.position))
+				{
+					phase = GameTypes.Phase.Fourth;
+					delay = delayDrop;
+				}
+					
+				pointTarget.position = nowTask.PlaceB.transform.position;
+			}
+			//складируем объект на точке
+			else if (phase == GameTypes.Phase.Fourth)
+			{
+				worker.UpdateAnimation(0, 0);
+				worker.UpdateSpeed(nowTask.Speed);
+
+				delay -= Time.deltaTime * nowTask.Speed;
+				if (delay <= 0)
+				{
+					phase = GameTypes.Phase.First;
+					worker.UpdateAnimation(0, 1);
+					worker.UpdateVisibleItem(nowTask.Item, false);
+					nowTask = NextTask(nowTask);
+				}
+			}
 		}
 
 		private ContentTask NextTask(ContentTask now)
 		{
+			if (cycles.Count > 0 && now == cycles[^1] && now.ParentTask != null)
+			{
+				nowTask.ParentTask.NowIterations--;
+				nowTask.ParentTask.UpdateInfo();
+				if (nowTask.ParentTask.NowIterations > 0)
+				{
+					nowTask = now.ParentTask;
+					return nowTask;
+				}
+			}
+			//если сейчас чайл цикла iterations -1 и переходим на родителя
+			
 			for (int x = 0; x < actualTasks.Length; x++)
 			{
 				if (actualTasks[x] == now && x + 1 < actualTasks.Length)
@@ -132,7 +193,6 @@ namespace Project.Scripts.Model.Animation
 			}
 			
 			//если таска была последней стопаем анимацию
-			id = 0;
 			isPlay = false;
 			worker.UpdateAnimation(0, 1);
 
