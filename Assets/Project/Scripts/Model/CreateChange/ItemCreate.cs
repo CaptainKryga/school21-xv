@@ -27,13 +27,9 @@ public class ItemCreate : MonoBehaviour
             for (int y = 0; y < mrs[x].sharedMaterials.Length; y++)
             {
                 materials.Add(mrs[x].sharedMaterials[y]);
-                Debug.Log("material: " + mrs[x].sharedMaterials[y].name);
             }
-            Debug.Log("mrs[x].materials.Length: " + mrs[x].sharedMaterials.Length);
         }
-        Debug.Log("mrs.Length: " + mrs.Length);
         saveMaterials = materials.ToArray();
-        Debug.Log("saveMaterials.Length: " + saveMaterials.Length);
 
         coll = GetComponentInChildren<Collider>();
         coll.isTrigger = true;
