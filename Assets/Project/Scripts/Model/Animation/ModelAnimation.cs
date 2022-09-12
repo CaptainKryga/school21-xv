@@ -41,9 +41,13 @@ namespace Project.Scripts.Model.Animation
 			{
 				
 			}
-			
+
 			if (id >= actualTasks.Length)
+			{
 				id = 0;
+				isPlay = false;
+				worker.UpdateAnimation(0, 1);
+			}
 
 			if (actualTasks[id].Type == GameTypes.Task.Transfer)
 			{
