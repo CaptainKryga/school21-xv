@@ -176,6 +176,9 @@ namespace Project.Scripts.Model
 
 		public void ReceivePlayerAxisActions(Vector2 axis)
 		{
+			if (model.GetStateGame != GameTypes.Game.Play)
+				return;
+			
 			//добавляем угол для обзора по осям
 			mouseX += axis.x * sensitive * Time.deltaTime;
 			mouseY += axis.y * sensitive * Time.deltaTime;
