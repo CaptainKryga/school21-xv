@@ -7,16 +7,16 @@ namespace Animation
 	public class Craft : Place
 	{
 		[SerializeField] private NavMeshAgent agent;
-		[SerializeField] private GameTypes.Craft type;
+		[SerializeField] private GameTypes.TypeCraft typeCraft;
 
-		public void StartCreate(ContentTask func)
+		public void StartCraft(ContentTask func)
 		{
 			//start animation
-			if (type == GameTypes.Craft.Use)
+			if (typeCraft == GameTypes.TypeCraft.Use)
 			{
 				//чо-то включаем анимацию?
 			}
-			else if (type == GameTypes.Craft.Drive)
+			else if (typeCraft == GameTypes.TypeCraft.Drive)
 			{
 				//вождение
 			}

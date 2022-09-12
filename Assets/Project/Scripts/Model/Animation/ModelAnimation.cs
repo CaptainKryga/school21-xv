@@ -100,7 +100,7 @@ namespace Project.Scripts.Model.Animation
 					Craft craft = (Craft)nowTask.PlaceA;
 					if (craft)
 					{
-						craft.StartCreate(NextTask(nowTask));
+						craft.StartCraft(NextTask(nowTask));
 						worker.UpdateVisibleItem(nowTask.Item, true);
 					}
 				}

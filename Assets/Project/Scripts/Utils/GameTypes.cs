@@ -62,7 +62,7 @@ namespace Project.Scripts.Utils
 			UsePlace
 		}
 
-		public enum Craft
+		public enum TypeCraft
 		{
 			Use,
 			Drive
