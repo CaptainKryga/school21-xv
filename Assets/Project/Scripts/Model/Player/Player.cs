@@ -81,7 +81,13 @@ namespace Project.Scripts.Model
 
 			if (state == GameTypes.PlayerMove.Spectator)
 			{
+				if (rigidbody.velocity.magnitude < 0.5f)
+					rigidbody.isKinematic = true;
+				else
+					rigidbody.isKinematic = false;
+				
 				rigidbody.velocity = (cam.forward * move.y + cam.right * move.x) * speed / 2;
+				
 				DefaultUpdateCam();
 			}
 			else if (state == GameTypes.PlayerMove.HumanFirst)
@@ -136,6 +142,8 @@ namespace Project.Scripts.Model
 		{
 			if (worker == null)
 				GetWorker();
+
+			body.transform.position = new Vector3(0, 10, 0);
 
 			if (isWorker && worker)
 			{
