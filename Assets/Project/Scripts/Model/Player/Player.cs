@@ -163,7 +163,7 @@ namespace Project.Scripts.Model
 		public void ReceivePlayerMoveActions(Vector2 vec)
 		{
 			move = vec;
-			animator.SetAnimatorWalkSpeed(Mathf.InverseLerp(0, 1, Mathf.Abs(vec.x) + Mathf.Abs(vec.y)));
+			animator.UpdateAnimation(Mathf.InverseLerp(0, 1, Mathf.Abs(vec.x) + Mathf.Abs(vec.y)), 1);
 		}
 
 		public void ReceivePlayerAxisActions(Vector2 axis)

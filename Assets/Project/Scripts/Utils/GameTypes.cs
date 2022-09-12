@@ -46,6 +46,22 @@ namespace Project.Scripts.Utils
 			Craft,
 		}
 
+		public enum Phase
+		{
+			First,
+			Second,
+			Third,
+			Fourth
+		}
+
+		public enum WorkerAnimations
+		{
+			None,
+			Walk,
+			WalkItem,
+			UsePlace
+		}
+
 		public static Item GetItemFromString(string item)
 		{
 			if (item == Item.BoxSmall.ToString())

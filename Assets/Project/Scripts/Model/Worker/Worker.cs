@@ -11,7 +11,6 @@ namespace Project.Scripts.Model
 
 		[SerializeField] private NavMeshAgent agent;
 		[SerializeField] private Transform point1, point2;
-		[SerializeField] private bool isPoint1;
 		
 		private Vector3 workerBodyStartPosition;
 		private Quaternion workerBodyStartRotation;
@@ -30,20 +29,20 @@ namespace Project.Scripts.Model
 			agent.autoTraverseOffMeshLink = true;
 		}
 
-		private void Update()
+		public bool SetNextPosition(Vector3 position)
 		{
-			animator.SetAnimatorWalkSpeed(1);
+			agent.destination = position;
 
-			if (!isPoint1 && Vector3.Distance(agent.transform.position, point1.transform.position) < 1)
+			if (Vector3.Distance(agent.transform.position, position) < 1)
 			{
-				agent.destination = point2.transform.position;
-				isPoint1 = true; ;
+				return true;
 			}
-			else if (isPoint1 && Vector3.Distance(agent.transform.position, point2.transform.position) < 1)
-			{
-				agent.destination = point1.transform.position;
-				isPoint1 = false;
-			}
+			return false;
+		}
+
+		public void UpdateAnimation(float walk, float classic)
+		{
+			animator.UpdateAnimation(walk, classic);
 		}
 
 		public Transform GetTransformWorker()
