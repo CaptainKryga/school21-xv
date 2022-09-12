@@ -39,47 +39,43 @@ namespace Project.Scripts.Model.Animation
 
 			if (!nowTask)
 			{
-				
+				if (actualTasks.Length > 0)
+					nowTask = actualTasks[0];
+				else
+					return;
 			}
 
-			if (id >= actualTasks.Length)
-			{
-				id = 0;
-				isPlay = false;
-				worker.UpdateAnimation(0, 1);
-			}
-
-			if (actualTasks[id].Type == GameTypes.Task.Transfer)
+			if (nowTask.Type == GameTypes.Task.Transfer)
 			{
 				//идём к первой точке
 				if (phase == GameTypes.Phase.First)
 				{
 					worker.UpdateAnimation(1, 1);
-					worker.UpdateSpeed(actualTasks[id].Speed);
+					worker.UpdateSpeed(nowTask.Speed);
 					
-					if (worker.SetNextPosition(actualTasks[id].PlaceA.transform.position))
+					if (worker.SetNextPosition(nowTask.PlaceA.transform.position))
 					{
 						phase = GameTypes.Phase.Second;
 						delay = delayGive;
 					}
 					
-					pointTarget.position = actualTasks[id].PlaceA.transform.position;
+					pointTarget.position = nowTask.PlaceA.transform.position;
 				}
 				//забираем объект из первого места
 				else if (phase == GameTypes.Phase.Second)
 				{
 					worker.UpdateAnimation(0, 0);
-					worker.UpdateSpeed(actualTasks[id].Speed);
+					worker.UpdateSpeed(nowTask.Speed);
 
-					delay -= Time.deltaTime * actualTasks[id].Speed;
+					delay -= Time.deltaTime * nowTask.Speed;
 					if (delay <= 0)
 					{
 						phase = GameTypes.Phase.Third;
-						Storage storage = (Storage)actualTasks[id].PlaceA;
+						Storage storage = (Storage)nowTask.PlaceA;
 						if (storage)
 						{
 							storage.GetOneItem();
-							worker.UpdateVisibleItem(actualTasks[id].Item, true);
+							worker.UpdateVisibleItem(nowTask.Item, true);
 						}
 					}
 				}
@@ -87,43 +83,60 @@ namespace Project.Scripts.Model.Animation
 				else if (phase == GameTypes.Phase.Third)
 				{
 					worker.UpdateAnimation(1, 0);
-					worker.UpdateSpeed(actualTasks[id].Speed);
+					worker.UpdateSpeed(nowTask.Speed);
 
-					if (worker.SetNextPosition(actualTasks[id].PlaceB.transform.position))
+					if (worker.SetNextPosition(nowTask.PlaceB.transform.position))
 					{
 						phase = GameTypes.Phase.Fourth;
 						delay = delayDrop;
 					}
 					
-					pointTarget.position = actualTasks[id].PlaceB.transform.position;
+					pointTarget.position = nowTask.PlaceB.transform.position;
 				}
 				//складируем объект на точке
 				else if (phase == GameTypes.Phase.Fourth)
 				{
 					worker.UpdateAnimation(0, 0);
-					worker.UpdateSpeed(actualTasks[id].Speed);
+					worker.UpdateSpeed(nowTask.Speed);
 
-					delay -= Time.deltaTime * actualTasks[id].Speed;
+					delay -= Time.deltaTime * nowTask.Speed;
 					if (delay <= 0)
 					{
 						phase = GameTypes.Phase.First;
 						worker.UpdateAnimation(0, 1);
-						worker.UpdateVisibleItem(actualTasks[id].Item, false);
+						worker.UpdateVisibleItem(nowTask.Item, false);
 						id++;
+						nowTask = NextTask(nowTask);
 					}
 				}
 				
 				// Debug.Log("phase: " + phase + "[" + actualTasks[id].Speed + "][" + actualTasks[id].Item + "]");
 			}
-			else if (actualTasks[id].Type == GameTypes.Task.Craft)
+			else if (nowTask.Type == GameTypes.Task.Craft)
 			{
 				
 			}
-			else if (actualTasks[id].Type == GameTypes.Task.Cycle)
+			else if (nowTask.Type == GameTypes.Task.Cycle)
 			{
 				
 			}
 
+		}
+
+		private ContentTask NextTask(ContentTask now)
+		{
+			for (int x = 0; x < actualTasks.Length; x++)
+			{
+				if (actualTasks[x] == now && x + 1 < actualTasks.Length)
+					return actualTasks[x + 1];
+			}
+			
+			//если таска была последней стопаем анимацию
+			id = 0;
+			isPlay = false;
+			worker.UpdateAnimation(0, 1);
+
+			return null;
 		}
 
 		private int UpdatePositionTasks(ContentTask task, bool isUp)
@@ -233,6 +246,8 @@ namespace Project.Scripts.Model.Animation
 		public void ChangePlayStatus(bool isPlay)
 		{
 			this.isPlay = isPlay;
+			if (actualTasks.Length > 0)
+				nowTask = actualTasks[0];
 		}
 
 		public void SetTypeTask(GameTypes.Task type)
