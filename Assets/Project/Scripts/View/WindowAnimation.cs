@@ -25,20 +25,19 @@ namespace Project.Scripts.View
 		[Header("Basic")] 
 		[SerializeField] private TMP_InputField inputFieldTaskName;
 		[SerializeField] private TMP_Dropdown dropdownTaskType;
-		
+		[SerializeField] private TMP_InputField inputFieldDescription;
+
 		[Header("Transfer")] 
 		[SerializeField] private TMP_Dropdown transferDropdownPlaceA;
 		[SerializeField] private TMP_Dropdown transferDropdownPlaceB;
 		[SerializeField] private TMP_Dropdown transferDropdownItem;
-		[SerializeField] private Slider transferSliderSpeed;		
 		
 		[Header("Craft")] 
 		[SerializeField] private TMP_Dropdown craftDropdownPlace;
 		[SerializeField] private TMP_Dropdown craftDropdownItem;
-		[SerializeField] private Slider craftSliderSpeed;		
 		
 		[Header("Cycle")] 
-		[SerializeField] private TMP_InputField cycleDropdownIterations;
+		[SerializeField] private TMP_InputField cycleInputFieldIterations;
 
 		private void Start()
 		{
@@ -99,6 +98,7 @@ namespace Project.Scripts.View
 		}
 
 		private Place[] listA;
+		private Craft[] listC;
 		public void OnDropdown_TypeTask()
 		{
 			if (dropdownTaskType.options[dropdownTaskType.value].text == "Transfer")
@@ -121,40 +121,78 @@ namespace Project.Scripts.View
 					list.Add(places[x]);
 				}
 				
+				
 				// SetupDropdownPlaces(transferDropdownPlaceB, modelAnimation.GetAllPlaces());
-				transferDropdownPlaceB.options = new List<TMP_Dropdown.OptionData>()
-					{ new TMP_Dropdown.OptionData("null") };
+				// transferDropdownPlaceB.options = new List<TMP_Dropdown.OptionData>()
+					// { new TMP_Dropdown.OptionData("null") };
 				// SetupDropdownItems(transferDropdownPlaceB, itemsStorage);
-				transferDropdownItem.options = new List<TMP_Dropdown.OptionData>()
-					{new TMP_Dropdown.OptionData("null")};
+				// transferDropdownItem.options = new List<TMP_Dropdown.OptionData>()
+					// {new TMP_Dropdown.OptionData("null")};
 
 				listA = list.ToArray();
 				modelAnimation.SetTypeTask(GameTypes.Task.Transfer);
-				modelAnimation.SetPlaceA(listA[transferDropdownPlaceA.value]);
 
 				transferDropdownPlaceA.options = optionDatas;
 				transferDropdownPlaceA.RefreshShownValue();
 				transferDropdownPlaceA.onValueChanged?.Invoke(0);
 				
+				modelAnimation.SetPlaceA(listA[transferDropdownPlaceA.value]);
+
+				inputFieldDescription.text = "Worker transfer";
+				modelAnimation.SetDescription(inputFieldDescription.text);
+
 			} else if (dropdownTaskType.options[dropdownTaskType.value].text == "Craft")
 			{
 				panelTransfer.SetActive(false);
 				panelCraft.SetActive(true);
 				panelCycle.SetActive(false);
 				inputFieldTaskName.text = "Craft";
+				
+				Craft[] crafts = modelAnimation.GetAllCrafts();
+				List<TMP_Dropdown.OptionData> optionDatas = new List<TMP_Dropdown.OptionData>();
+				List<Craft> list = new List<Craft>();
+
+				for (int x = 0; x < crafts.Length; x++)
+				{
+					optionDatas.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + 
+																crafts[x].type + "#" + 
+																crafts[x].output + "#" + 
+																crafts[x].gameObject.GetInstanceID()));
+					list.Add(crafts[x]);
+				}
+				
+				listC = list.ToArray();
+				modelAnimation.SetTypeTask(GameTypes.Task.Craft);
+				//не используются
+				modelAnimation.SetPlaceB(null);
+
+				craftDropdownPlace.options = optionDatas;
+				craftDropdownPlace.RefreshShownValue();
+				craftDropdownPlace.onValueChanged?.Invoke(0);
+				
+				modelAnimation.SetPlaceA(listC[craftDropdownPlace.value]);
+				
+				inputFieldDescription.text = "Worker craft";
+				modelAnimation.SetDescription(inputFieldDescription.text);
+
 			} else if (dropdownTaskType.options[dropdownTaskType.value].text == "Cycle")
 			{
 				panelTransfer.SetActive(false);
 				panelCraft.SetActive(false);
 				panelCycle.SetActive(true);
 				inputFieldTaskName.text = "Cycle";
+				
+				modelAnimation.SetTypeTask(GameTypes.Task.Cycle);
+				//не используются
+				modelAnimation.SetPlaceA(null);
+				modelAnimation.SetPlaceB(null);
 			}
 		}
 
 		private Craft[] listB;
 		public void OnDropdown_SetPlaceA()
 		{
-			Craft[] crafts = modelAnimation.GetCraft(listA[0].output);
+			Craft[] crafts = modelAnimation.GetCraft(listA[transferDropdownPlaceA.value].output);
 			List<TMP_Dropdown.OptionData> optionDataB = new List<TMP_Dropdown.OptionData>();
 			List<Craft> list = new List<Craft>();
 			
@@ -191,6 +229,37 @@ namespace Project.Scripts.View
 		{
 			modelAnimation.SetPlaceB(listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : null);
 			modelAnimation.SetItem(listA[transferDropdownPlaceA.value].output);
+			
+			inputFieldDescription.text = "Worker transfer " + listA[transferDropdownPlaceA.value].output + 
+										" from " + listA[transferDropdownPlaceA.value] + 
+										" to " + (listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : "null");
+			modelAnimation.SetDescription(inputFieldDescription.text);
+		}
+
+		public void OnDropdown_SetCraft()
+		{
+			modelAnimation.SetPlaceA(listC[craftDropdownPlace.value]);
+			modelAnimation.SetItem(listC[craftDropdownPlace.value].output);
+
+			List<TMP_Dropdown.OptionData> optionDataItem = new List<TMP_Dropdown.OptionData>();
+			optionDataItem.Add(new TMP_Dropdown.OptionData(listC[craftDropdownPlace.value].output.ToString()));
+			craftDropdownItem.options = optionDataItem;
+			craftDropdownItem.RefreshShownValue();
+			craftDropdownItem.onValueChanged?.Invoke(0);
+
+			inputFieldDescription.text = "Worker craft " + listC[craftDropdownPlace.value].output + 
+										" in the " + listC[craftDropdownPlace.value];
+			modelAnimation.SetDescription(inputFieldDescription.text);
+		}
+
+		public void OnInputField_Iterations()
+		{
+			modelAnimation.SetIterations(Int32.Parse(cycleInputFieldIterations.text));
+		}
+
+		public void OnInputField_Description()
+		{
+			modelAnimation.SetDescription(inputFieldDescription.text);
 		}
 	}
 }

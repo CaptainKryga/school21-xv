@@ -17,6 +17,7 @@ namespace Project.Scripts.Model.Animation
 		[SerializeField] private Transform pointTarget;
 		
 		private ContentTask[] actualTasks;
+		private ContentTask nowTask;
 		private int id;
 		private GameTypes.Phase phase;
 		private bool isPlay;
@@ -26,12 +27,19 @@ namespace Project.Scripts.Model.Animation
 		private GameTypes.Task tempType;
 		private Place tempPlaceA, tempPlaceB;
 		private GameTypes.Item tempItem;
+		private int tempIterations;
+		private string tempDescription;
 
 		private void Update()
 		{
 			if (!isPlay)
 				return;
 
+			if (!nowTask)
+			{
+				
+			}
+			
 			if (id >= actualTasks.Length)
 				id = 0;
 
@@ -147,13 +155,19 @@ namespace Project.Scripts.Model.Animation
 				temp = new List<ContentTask>();
 			
 			temp.Add(contentTask);
-			contentTask.InitTask(taskName, UpdatePositionTasks, tempType, tempPlaceA, tempPlaceB, tempItem, 1);
+			contentTask.InitTask(taskName, tempDescription, UpdatePositionTasks, tempType, tempPlaceA, 
+				tempPlaceB, tempItem, 1, tempIterations);
 			actualTasks = temp.ToArray();
 		}
 
 		public Place[] GetAllPlaces()
 		{
 			return parentView.GetComponentsInChildren<Place>();
+		}
+
+		public Craft[] GetAllCrafts()
+		{
+			return parentView.GetComponentsInChildren<Craft>();
 		}
 
 		public Craft[] GetCraft(GameTypes.Item type)
@@ -212,6 +226,16 @@ namespace Project.Scripts.Model.Animation
 		public void SetItem(GameTypes.Item item)
 		{
 			this.tempItem = item;
+		}
+
+		public void SetIterations(int iterations)
+		{
+			this.tempIterations = iterations;
+		}
+
+		public void SetDescription(string description)
+		{
+			this.tempDescription = description;
 		}
 	}
 }

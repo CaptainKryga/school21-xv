@@ -3216,14 +3216,13 @@ MonoBehaviour:
   panelCycle: {fileID: 800011787}
   inputFieldTaskName: {fileID: 371939555}
   dropdownTaskType: {fileID: 1556067895}
+  inputFieldDescription: {fileID: 546823338}
   transferDropdownPlaceA: {fileID: 1700791633}
   transferDropdownPlaceB: {fileID: 1884505024}
   transferDropdownItem: {fileID: 1318910236}
-  transferSliderSpeed: {fileID: 0}
   craftDropdownPlace: {fileID: 611636519}
   craftDropdownItem: {fileID: 2074842983}
-  craftSliderSpeed: {fileID: 0}
-  cycleDropdownIterations: {fileID: 502154398}
+  cycleInputFieldIterations: {fileID: 502154398}
 --- !u!1 &213261353
 GameObject:
   m_ObjectHideFlags: 0
@@ -6980,7 +6979,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 199697729}
+        m_TargetAssemblyTypeName: Project.Scripts.View.WindowAnimation, Assembly-CSharp
+        m_MethodName: OnInputField_Iterations
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8049,7 +8060,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 199697729}
+        m_TargetAssemblyTypeName: Project.Scripts.View.WindowAnimation, Assembly-CSharp
+        m_MethodName: OnInputField_Description
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -9122,7 +9145,19 @@ MonoBehaviour:
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 199697729}
+        m_TargetAssemblyTypeName: Project.Scripts.View.WindowAnimation, Assembly-CSharp
+        m_MethodName: OnDropdown_SetCraft
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &611636520
 MonoBehaviour:
