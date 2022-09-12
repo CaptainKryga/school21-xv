@@ -132,7 +132,7 @@ namespace Project.Scripts.Model.Animation
 				temp = new List<ContentTask>();
 			
 			temp.Add(contentTask);
-			contentTask.InitTask(taskName, UpdatePositionTasks, tempType, tempPlaceA, tempPlaceB, tempItem);
+			contentTask.InitTask(taskName, UpdatePositionTasks, tempType, tempPlaceA, tempPlaceB, tempItem, 1);
 			actualTasks = temp.ToArray();
 		}
 

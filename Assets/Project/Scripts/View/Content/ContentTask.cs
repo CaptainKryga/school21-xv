@@ -22,7 +22,7 @@ public class ContentTask : MonoBehaviour
 	public float Speed { get => speed; }
 
 	public void InitTask(string taskName, Func<ContentTask, bool, int> func, GameTypes.Task type, Place placeA, Place placeB,
-		GameTypes.Item item)
+		GameTypes.Item item, float speed)
 	{
 		btnUp.onClick.AddListener(delegate { func(this, true); });
 		btnDown.onClick.AddListener(delegate { func(this, false); });
@@ -38,6 +38,7 @@ public class ContentTask : MonoBehaviour
 		this.placeA = placeA;
 		this.placeB = placeB;
 		this.item = item;
+		this.speed = speed;
 	}
 
 	public void OnSlider_ChangeSpeed()

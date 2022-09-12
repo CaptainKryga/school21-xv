@@ -153,7 +153,7 @@ BlendTree:
   m_Name: IsWalk
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: -8772307891463644272}
+    m_Motion: {fileID: -1792866504718506776}
     m_Threshold: 0
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1
@@ -161,7 +161,7 @@ BlendTree:
     m_DirectBlendParameter: walk
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: -1792866504718506776}
+    m_Motion: {fileID: -8772307891463644272}
     m_Threshold: 1
     m_Position: {x: 0, y: 0}
     m_TimeScale: 1

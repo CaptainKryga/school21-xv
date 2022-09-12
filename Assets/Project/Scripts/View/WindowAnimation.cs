@@ -170,6 +170,8 @@ namespace Project.Scripts.View
 				optionDataB.Add(new TMP_Dropdown.OptionData("None"));
 			}
 			
+			modelAnimation.SetPlaceA(listA[transferDropdownPlaceA.value]);
+			
 			listB = list.ToArray();
 			modelAnimation.SetPlaceB(listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : null);
 			modelAnimation.SetItem(listA[0].output);
@@ -187,7 +189,8 @@ namespace Project.Scripts.View
 
 		public void OnDropdown_SetPlaceB()
 		{
-
+			modelAnimation.SetPlaceB(listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : null);
+			modelAnimation.SetItem(listA[0].output);
 		}
 	}
 }
