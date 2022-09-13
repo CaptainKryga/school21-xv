@@ -408,6 +408,8 @@ MonoBehaviour:
   btnDestroy: {fileID: 135080477457525696}
   slider: {fileID: 4065953381867037101}
   textNameTask: {fileID: 6821724329795060275}
+  placeA: {fileID: 0}
+  placeB: {fileID: 0}
   colorTask:
   - {r: 0.37254903, g: 0.39215687, b: 1, a: 0.5882353}
   - {r: 0.16937685, g: 1, b: 0, a: 0.5882353}
@@ -524,7 +526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 227.1, y: 20}
+  m_AnchoredPosition: {x: 188.6, y: 21.25}
   m_SizeDelta: {x: 55.9299, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5110228277880255330
@@ -757,8 +759,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 29.45401, y: 21.25}
-  m_SizeDelta: {x: -177.9424, y: -42.5}
+  m_AnchoredPosition: {x: 7.522705, y: 21.25}
+  m_SizeDelta: {x: -221.805, y: -42.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &46944963328052340
 CanvasRenderer:

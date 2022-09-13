@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.Model;
 using Project.Scripts.Model.Animation;
@@ -11,6 +10,7 @@ namespace Animation
 	public class Craft : Place
 	{
 		[SerializeField] private GameObject car;
+		[SerializeField] private GameObject[] pallets;
 		[SerializeField] private GameTypes.TypeCraft typeCraft;
 
 		public void StartCraft(ModelAnimation model, ContentTask task, Worker worker)
@@ -74,6 +74,8 @@ namespace Animation
 						storages[x].transform.position, 2))
 					{
 						phase = GameTypes.Phase.Second;
+						pallets[storages[x].output == GameTypes.Item.BoxSmall ? 0 : 1].SetActive(true);
+						storages[x].gameObject.SetActive(false);
 					}
 				}
 				else if (phase == GameTypes.Phase.Second)
@@ -94,6 +96,8 @@ namespace Animation
 					if (worker.SetNextPosition(storages[x].Point ? storages[x].Point.position : 
 						storages[x].transform.position, 2))
 					{
+						pallets[storages[x].output == GameTypes.Item.BoxSmall ? 0 : 1].SetActive(false);
+						storages[x].gameObject.SetActive(true);
 						yield return new WaitForSeconds(1);
 						x++;
 						if (x >= storages.Length)
@@ -113,7 +117,6 @@ namespace Animation
 					
 					if (worker.SetNextPosition(transform.position, 2))
 					{
-						x++;
 						if (x >= storages.Length)
 						{
 							break;
