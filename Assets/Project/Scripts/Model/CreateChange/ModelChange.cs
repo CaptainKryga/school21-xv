@@ -71,38 +71,8 @@ namespace Project.Scripts.Model.CreateChange
 		{
 			if (model.GetStateGame != GameTypes.Game.Change)
 				return;
-
-			if (key == KeyCode.Mouse0)
-			{
-				if (itemCreate)
-				{
-					Destroy(itemCreate);
-					nowSelectedDynamic = null;
-					isMove = false;
-					wCreateChange.SetItemName("null");
-				}
-				else
-				{
-					Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-					RaycastHit hit;
-					if (Physics.Raycast(ray, out hit, 100))
-					{
-						// Debug.Log("hit " + hit.transform.name);
-					}
-
-					if (hit.collider && hit.collider.GetComponent<Dynamic>())
-					{
-						nowSelectedDynamic = hit.collider.GetComponent<Dynamic>();
-						rigidbody = nowSelectedDynamic.GetComponent<Rigidbody>();
-
-						wCreateChange.SetItemName(nowSelectedDynamic.itemName);
-
-						savePosition = nowSelectedDynamic.transform.position;
-						saveRotation = nowSelectedDynamic.transform.rotation;
-					}
-				}
-			}
-			else if (key == KeyCode.Mouse1)
+			
+			if (key == KeyCode.Mouse1)
 			{
 				nowSelectedDynamic.transform.position = savePosition;
 				nowSelectedDynamic.transform.rotation = saveRotation;
@@ -113,6 +83,40 @@ namespace Project.Scripts.Model.CreateChange
 				// Destroy(nowSelectedItem.transform.gameObject);
 				isMove = false;
 				wCreateChange.SetItemName("null");
+			}
+		}
+
+		public void OnClick_LCM()
+		{
+			if (model.GetStateGame != GameTypes.Game.Change)
+				return;
+			
+			if (itemCreate)
+			{
+				Destroy(itemCreate);
+				nowSelectedDynamic = null;
+				isMove = false;
+				wCreateChange.SetItemName("null");
+			}
+			else
+			{
+				Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				if (Physics.Raycast(ray, out hit, 100))
+				{
+					// Debug.Log("hit " + hit.transform.name);
+				}
+
+				if (hit.collider && hit.collider.GetComponent<Dynamic>())
+				{
+					nowSelectedDynamic = hit.collider.GetComponent<Dynamic>();
+					rigidbody = nowSelectedDynamic.GetComponent<Rigidbody>();
+
+					wCreateChange.SetItemName(nowSelectedDynamic.itemName);
+
+					savePosition = nowSelectedDynamic.transform.position;
+					saveRotation = nowSelectedDynamic.transform.rotation;
+				}
 			}
 		}
 
