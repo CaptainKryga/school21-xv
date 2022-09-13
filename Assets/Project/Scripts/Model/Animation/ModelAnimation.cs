@@ -32,6 +32,7 @@ namespace Project.Scripts.Model.Animation
 		private List<ContentTask> cycles = new List<ContentTask>();
 
 		public GameTypes.Task TempType { get => tempType; }
+		public WindowAnimation WindowAnimation { get => wAnimation; }
 
 		private void Update()
 		{
@@ -227,7 +228,7 @@ namespace Project.Scripts.Model.Animation
 			nowTask = null;
 		}
 
-		private int UpdatePositionTasks(ContentTask task, bool isUp)
+		public int UpdatePositionTasks(ContentTask task, bool isUp)
 		{
 			for (int x = 0; x < actualTasks.Length; x++)
 			{
@@ -264,10 +265,20 @@ namespace Project.Scripts.Model.Animation
 			return 0;
 		}
 
-		private int DestroyTask(ContentTask task)
+		public int DestroyTask(ContentTask task)
 		{
 			List<ContentTask> list = actualTasks.ToList();
 			list.Remove(task);
+			if (task.ParentTask)
+			{
+				list.Remove(task.ParentTask);
+				Destroy(task.ParentTask.gameObject);
+			}
+			if (task.ChildTask)
+			{
+				list.Remove(task.ChildTask);
+				Destroy(task.ChildTask.gameObject);
+			}
 			actualTasks = list.ToArray();
 			Destroy(task.gameObject);
 			return 0;
@@ -378,6 +389,32 @@ namespace Project.Scripts.Model.Animation
 		public void SetDescription(string description)
 		{
 			this.tempDescription = description;
+		}
+
+		public ContentTask[] GetActualTasks()
+		{
+			return actualTasks;
+		}
+		public Dynamic[] GetAllDynamics()
+		{
+			return parentView.GetComponentsInChildren<Dynamic>();
+		}
+
+		public void SetActualTasks(ContentTask[] tasks)
+		{
+			RemoveActualTasks(actualTasks);
+			actualTasks = tasks;
+		}
+		
+		private void RemoveActualTasks(ContentTask[] tasks)
+		{
+			if (tasks == null)
+				return;
+
+			for (int i = 0; i < tasks.Length; i++)
+			{
+				Destroy(tasks[i].gameObject);
+			}
 		}
 	}
 }

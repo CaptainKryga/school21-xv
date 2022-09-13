@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Animation;
 using Project.Scripts.Utils;
 using UnityEngine;
@@ -14,7 +13,7 @@ public class ContentTask : MonoBehaviour
 	[SerializeField] private TMPro.TMP_Text textNameTask;
 	private GameTypes.Task type;
 	private string description;
-	private Place placeA, placeB;
+	[SerializeField] private Place placeA, placeB;
 	private GameTypes.Item item;
 	private float speed;
 	[SerializeField] private Color[] colorTask;
@@ -23,7 +22,6 @@ public class ContentTask : MonoBehaviour
 	private int iterations, nowIterations;
 	private ContentTask parentTask;
 	private ContentTask childTask;
-	private List<ContentTask> container = new List<ContentTask>();
 
 	public GameTypes.Task Type { get => type; }
 	public Place PlaceA { get => placeA; }
@@ -37,8 +35,6 @@ public class ContentTask : MonoBehaviour
 	public int NowIterations { get => nowIterations; set => nowIterations = value; }
 	public ContentTask ParentTask { get => parentTask; }
 	public ContentTask ChildTask { get => childTask; }
-	public List<ContentTask> Container { get => container; }
-
 
 	public void InitTask(string taskName, string description, GameTypes.Task type, 
 		Place placeA, Place placeB, GameTypes.Item item, float speed, int iterations)
@@ -55,12 +51,12 @@ public class ContentTask : MonoBehaviour
 		this.description = description;
 		this.placeA = placeA;
 		this.placeB = placeB;
+		Debug.LogError("placeA:" + placeA + " | " + this.placeA);
 		this.item = item;
 		this.speed = speed;
 		this.iterations = iterations;
 		
 		UpdateColorTask();
-		DisableSlider();
 	}
 
 	public void InitButtons(Func<ContentTask, bool, int> func, Func<ContentTask, int> func2)
@@ -79,7 +75,7 @@ public class ContentTask : MonoBehaviour
 		if (parentTask != null)
 		{
 			textNameTask.text = "end while task";
-			type = GameTypes.Task.Cycle;
+			this.type = GameTypes.Task.Cycle;
 		}
 		else
 		{
@@ -87,7 +83,54 @@ public class ContentTask : MonoBehaviour
 		}
 
 		UpdateColorTask();
-		DisableSlider();
+	}
+
+	public void InitSaveLoad(string taskName, string description, GameTypes.Task type, 
+		GameTypes.Item item, float speed, int iterations, int nowIterations)
+	{
+		textNameTask.text = taskName;
+		this.type = type;
+		this.description = description;
+
+		this.item = item;
+		this.speed = speed;
+		this.iterations = iterations;
+		this.nowIterations = nowIterations;
+	}
+
+	public void InitSaveLoadSecond(Place placeA, Place placeB, ContentTask parent, ContentTask child)
+	{
+		isTT = true;
+		
+		this.placeA = placeA;
+		this.placeB = placeB;
+		this.parentTask = parent;
+		this.childTask = child;
+
+		if (type == GameTypes.Task.Cycle)
+		{
+			if (parentTask != null)
+			{
+				textNameTask.text = "end while task";
+				this.type = GameTypes.Task.Cycle;
+			}
+			else
+			{
+				textNameTask.text = "while task  0/" + iterations;
+			}
+		}
+		
+		UpdateColorTask();
+	}
+
+	private bool isTT;
+	private void Update()
+	{
+		if (isTT)
+			return;
+		
+		if (placeA)
+			Debug.LogError(placeA);
 	}
 
 	public void OnSlider_ChangeSpeed()

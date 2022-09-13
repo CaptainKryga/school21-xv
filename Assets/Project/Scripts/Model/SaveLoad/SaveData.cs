@@ -1,6 +1,7 @@
 using System;
 using Project.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [Serializable]
 public class SaveData
@@ -13,6 +14,7 @@ public class SaveData
 	public string[] itemDefaultName;
 	//custom item name in game
 	public string[] itemName;
+	public int[] id;
 	// public Vector3[] position;
 	public float[] itemPositionX;
 	public float[] itemPositionY;
@@ -57,4 +59,18 @@ public class SaveData
 	public float workerBodyRotationY;
 	public float workerBodyRotationZ;
 	public float workerBodyRotationW;
+	
+	//task's
+	public int lenght;
+	public string[] taskName;
+	public GameTypes.Task[] taskType;
+	public string[] taskDescription;
+	public int[] taskPlaceAId;
+	public int[] taskPlaceBId;
+	public GameTypes.Item[] taskItem;
+	public float[] taskSpeed;
+	public int[] taskIterations;
+	public int[] taskNowIterations;
+	public int[] taskParentTask;
+	public int[] taskChildTask;
 }

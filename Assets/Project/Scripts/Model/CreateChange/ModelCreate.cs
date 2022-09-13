@@ -1,3 +1,4 @@
+using System;
 using Project.Scripts.Utils;
 using UnityEngine;
 
@@ -30,6 +31,15 @@ namespace Project.Scripts.Model.CreateChange
 			game.Keyboard_Action -= ReceiveKeyboard;
 			game.Mouse_Action -= ReceiveMouse;
 			game.MouseScroll_Action -= ReceiveMouseScroll;
+		}
+
+		private void Start()
+		{
+			Dynamic[] dynamics = parentItems.GetComponentsInChildren<Dynamic>();
+			for (int i = 0; i < dynamics.Length; i++)
+			{
+				dynamics[i].Init();
+			}
 		}
 
 		private void Update()
@@ -70,6 +80,7 @@ namespace Project.Scripts.Model.CreateChange
 			}
 
 			nowCreateGO = Instantiate(dataBase.defaultPrefabs[selectedId], parentItems);
+			nowCreateGO.GetComponent<Dynamic>().Init();
 			nowCreateGO.AddComponent<ItemCreate>().Init(correct, incorrect);
 			rigidbody = nowCreateGO.GetComponent<Rigidbody>();
 		}

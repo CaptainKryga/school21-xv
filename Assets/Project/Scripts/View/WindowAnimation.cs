@@ -41,6 +41,10 @@ namespace Project.Scripts.View
 		[Header("Cycle")] 
 		[SerializeField] private TMP_InputField cycleInputFieldIterations;
 
+		public Transform ParentContent { get => parentContent; }
+		public ContentTask PrefabContentTask { get => prefabContentTask; }
+		public ContentTask PrefabSubEndTask { get => prefabSubEndTask; }
+		
 		private void Start()
 		{
 			panelRedactor.SetActive(false);
@@ -92,7 +96,7 @@ namespace Project.Scripts.View
 				// 	GameTypes.GetItemFromString(transferDropdownItem.options[transferDropdownItem.value].text);
 				ContentTask task = Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>();
 				ContentTask subTask = modelAnimation.TempType == GameTypes.Task.Cycle ? 
-					Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>() : null;
+					Instantiate(prefabSubEndTask, parentContent).GetComponent<ContentTask>() : null;
 				modelAnimation.AddNewTask(inputFieldTaskName.text, task, subTask);
 			}
 		}

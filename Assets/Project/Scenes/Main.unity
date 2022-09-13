@@ -6598,6 +6598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   model: {fileID: 649565551}
+  modelAnimation: {fileID: 1141122553}
   dataBase: {fileID: 11400000, guid: 3e8e43c01bd6445cd93c2b5cbc2ddf90, type: 2}
   wSaveLoad: {fileID: 347951041}
   parentItems: {fileID: 1853074324}

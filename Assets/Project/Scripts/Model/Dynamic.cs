@@ -15,7 +15,17 @@ public class Dynamic : MonoBehaviour
 	private static int id;
 	[SerializeField] private int localId;
 	
-	public int LocalId { get => localId; }
+	public int LocalId
+	{
+		get => localId;
+		set
+		{
+			if (id < value)
+				id = value + 1;
+			localId = value;
+		}
+	}
+
 	public Transform Point { get => point; }
 	
 	private void Awake()
@@ -30,9 +40,11 @@ public class Dynamic : MonoBehaviour
 			}
 		}
 		materials = mats.ToArray();
+	}
 
+	public void Init()
+	{
 		localId = id++;
-		Debug.Log(name + " : " + id + " | " + localId);
 	}
 
 	public void InitColor(Color color)
