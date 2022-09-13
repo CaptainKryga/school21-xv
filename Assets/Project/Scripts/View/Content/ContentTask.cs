@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ContentTask : MonoBehaviour
 {
 	[SerializeField] private Image background;
-	[SerializeField] private Button btnUp, btnDown;
+	[SerializeField] private Button btnUp, btnDown, btnDestroy;
 	[SerializeField] private Slider slider;
 
 	[SerializeField] private TMPro.TMP_Text textNameTask;
@@ -63,10 +63,11 @@ public class ContentTask : MonoBehaviour
 		DisableSlider();
 	}
 
-	public void InitButtons(Func<ContentTask, bool, int> func)
+	public void InitButtons(Func<ContentTask, bool, int> func, Func<ContentTask, int> func2)
 	{
 		btnUp.onClick.AddListener(delegate { func(this, true); });
 		btnDown.onClick.AddListener(delegate { func(this, false); });
+		btnDestroy.onClick.AddListener(delegate { func2(this); });
 	}
 
 	public void InitWhile(int iterations, ContentTask subTaskEnd, ContentTask parentTask)
@@ -110,7 +111,7 @@ public class ContentTask : MonoBehaviour
 		if (isUse)
 			background.color = new Color(c.r, c.g, c.b, 1);
 		else
-			background.color = new Color(c.r, c.g, c.b, 150f / 255f);
+			background.color = new Color(c.r, c.g, c.b, colorTask[0].a);
 	}
 	
 	private void DisableSlider()

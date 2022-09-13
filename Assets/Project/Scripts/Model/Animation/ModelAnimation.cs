@@ -46,7 +46,10 @@ namespace Project.Scripts.Model.Animation
 					nowTask.UpdateColor(true);
 				}
 				else
+				{
+					isPlay = false;
 					return;
+				}
 			}
 
 			if (nowTask.Type == GameTypes.Task.Transfer)
@@ -261,6 +264,15 @@ namespace Project.Scripts.Model.Animation
 			return 0;
 		}
 
+		private int DestroyTask(ContentTask task)
+		{
+			List<ContentTask> list = actualTasks.ToList();
+			list.Remove(task);
+			actualTasks = list.ToArray();
+			Destroy(task.gameObject);
+			return 0;
+		}
+
 		public void AddNewTask(string taskName, ContentTask contentTask, ContentTask subTaskEnd)
 		{
 			List<ContentTask> temp;
@@ -271,13 +283,13 @@ namespace Project.Scripts.Model.Animation
 			
 			contentTask.InitTask(taskName, tempDescription, tempType, tempPlaceA, 
 				tempPlaceB, tempItem, 1, tempIterations);
-			contentTask.InitButtons(UpdatePositionTasks);
+			contentTask.InitButtons(UpdatePositionTasks, DestroyTask);
 			temp.Add(contentTask);
 
 			if (contentTask.Type == GameTypes.Task.Cycle)
 			{
 				contentTask.InitWhile(tempIterations, subTaskEnd, null);
-				subTaskEnd.InitButtons(UpdatePositionTasks);
+				subTaskEnd.InitButtons(UpdatePositionTasks, DestroyTask);
 				subTaskEnd.InitWhile(tempIterations, null, contentTask);
 				temp.Add(subTaskEnd);
 			}
