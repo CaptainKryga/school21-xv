@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Project.Scripts.Utils;
 using UnityEngine;
 
 //REFACTOR MATERIALSSSSSSSS
@@ -11,7 +9,12 @@ public class Dynamic : MonoBehaviour
 	public string itemName;
 	public Color color;
 
-	private void Start()
+	private static int id;
+	[SerializeField] private int localId;
+	
+	public int LocalId { get => localId; }
+	
+	private void Awake()
 	{
 		MeshRenderer[] mrs = GetComponentsInChildren<MeshRenderer>();
 		List<Material> mats = new List<Material>();
@@ -23,6 +26,9 @@ public class Dynamic : MonoBehaviour
 			}
 		}
 		materials = mats.ToArray();
+
+		localId = id++;
+		Debug.Log(name + " : " + id + " | " + localId);
 	}
 
 	public void InitColor(Color color)

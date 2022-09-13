@@ -1,4 +1,5 @@
 using Project.Scripts.Model.ImportExport;
+using UnityEditor;
 using UnityEngine;
 
 public class WindowImportExport : MonoBehaviour
@@ -23,18 +24,23 @@ public class WindowImportExport : MonoBehaviour
 
 	public void OnClick_ExportScene()
 	{
-		if (selectedFile != -1)
-			modelImportExport.PreExportScene(imgContentButtons[selectedFile].GetTextInfo.text);
-		else if (inputField.text != "")
-			modelImportExport.PreExportScene(inputField.text);
-		else
-			Debug.LogError("ВВЕДИТЕ ИМЯ ДЛЯ EXPORT'a");
+		string path = EditorUtility.SaveFilePanel("ff", "", "default","import");
+		Debug.Log(path);
+		modelImportExport.PreExportScene(path);
+		
+		// if (selectedFile != -1)
+			// modelImportExport.PreExportScene(imgContentButtons[selectedFile].GetTextInfo.text);
+		// else if (inputField.text != "")
+			// modelImportExport.PreExportScene(inputField.text);
+		// else
+			// Debug.LogError("ВВЕДИТЕ ИМЯ ДЛЯ EXPORT'a");
 	}
 
 	public void OnClick_ImportScene()
 	{
-		if (selectedFile != -1)
-			modelImportExport.PreImportScene(imgContentButtons[selectedFile].GetTextInfo.text);
+		string path = EditorUtility.OpenFilePanel("ff", "", "import");
+		Debug.Log(path);
+		modelImportExport.PreImportScene(path);
 	}
 
 	public void OnClick_SelectExport(int scene)

@@ -118,10 +118,7 @@ namespace Project.Scripts.View
 
 				for (int x = 0; x < places.Length; x++)
 				{
-					optionDatas.Add(new TMP_Dropdown.OptionData(places[x].itemName + "#" + 
-																places[x].type + "#" + 
-																places[x].output + "#" + 
-																places[x].gameObject.GetInstanceID()));
+					optionDatas.Add(new TMP_Dropdown.OptionData(places[x].itemName + "#" + places[x].LocalId));
 					list.Add(places[x]);
 				}
 				
@@ -158,10 +155,7 @@ namespace Project.Scripts.View
 
 				for (int x = 0; x < crafts.Length; x++)
 				{
-					optionDatas.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + 
-																crafts[x].type + "#" + 
-																crafts[x].output + "#" + 
-																crafts[x].gameObject.GetInstanceID()));
+					optionDatas.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + crafts[x].LocalId));
 					list.Add(crafts[x]);
 				}
 				
@@ -202,8 +196,7 @@ namespace Project.Scripts.View
 			
 			for (int x = 0; x < crafts.Length; x++)
 			{
-				optionDataB.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + 
-															crafts[x].type + "#" + crafts[x].gameObject.GetInstanceID()));
+				optionDataB.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + crafts[x].LocalId));
 				list.Add(crafts[x]);
 			}
 			

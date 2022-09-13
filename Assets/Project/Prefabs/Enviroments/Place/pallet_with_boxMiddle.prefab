@@ -1094,8 +1094,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8377819, y: 0.18475175, z: 1.2653635}
-  m_Center: {x: -0.39722586, y: 0.07486969, z: -0.601076}
+  m_Size: {x: 1.6326368, y: 1.4384377, z: 1.2653635}
+  m_Center: {x: 0.00020161271, y: 0.7017126, z: -0.601076}
 --- !u!54 &4978896176110143806
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1127,6 +1127,7 @@ MonoBehaviour:
   defaultName: pallet_with_boxMiddle
   itemName: storage box middle
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
   type: 0
   input: 
   output: 2
@@ -1141,11 +1142,11 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.41889095, y: 0.09237585, z: 0.6326815}
+  m_Extents: {x: 0.8163185, y: 0.719219, z: 0.6326815}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1
-  m_Center: {x: -0.3972259, y: 0.07486969, z: -0.601076}
+  m_Center: {x: 0.0002016127, y: 0.7017126, z: -0.601076}
   m_TimeToStationary: 0.5
 --- !u!1 &851856585189715463
 GameObject:

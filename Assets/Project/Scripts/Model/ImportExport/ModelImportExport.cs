@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using Project.Scripts.Utils;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Project.Scripts.Model.ImportExport
 {
@@ -56,17 +59,18 @@ namespace Project.Scripts.Model.ImportExport
 
 		public void PreExportScene(string saveFileName)
 		{
-			UpdateArraySaveFiles();
+			// UpdateArraySaveFiles();
 
 			ExportScene(saveFileName);
 
-			wImportExport.UpdateContent();
+			// wImportExport.UpdateContent();
 		}
 
 		private void ExportScene(string saveFileName)
 		{
 			BinaryFormatter bf2 = new BinaryFormatter();
-			FileStream file2 = File.Create(pathToImportExportDirectory + saveFileName + format);
+			// FileStream file2 = File.Create(pathToImportExportDirectory + saveFileName + format);
+			FileStream file2 = File.Create(saveFileName);
 
 			SaveData save = new SaveData();
 			save.sceneName = saveFileName;
@@ -119,25 +123,26 @@ namespace Project.Scripts.Model.ImportExport
 
 		public void PreImportScene(string loadFileName)
 		{
-			lastScanSaveFiles = UpdateArraySaveFiles();
+			// lastScanSaveFiles = UpdateArraySaveFiles();
 
-			if (lastScanSaveFiles.Contains(loadFileName))
-			{
-				LoadScene(loadFileName);
-				return;
-			}
+			// if (lastScanSaveFiles.Contains(loadFileName))
+			// {
+				ImportScene(loadFileName);
+				// return;
+			// }
 
-			Debug.LogError("НЕВОЗМОЖНО ЗАГРУЗИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
+			// Debug.LogError("НЕВОЗМОЖНО ЗАГРУЗИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
 		}
 
-		private void LoadScene(string loadFileName)
+		private void ImportScene(string loadFileName)
 		{
 			Dynamic[] saveItems = parentItems.GetComponentsInChildren<Dynamic>();
 
 			try
 			{
 				BinaryFormatter bf = new BinaryFormatter();
-				FileStream file = File.Open(pathToImportExportDirectory + loadFileName + format, FileMode.Open);
+				// FileStream file = File.Open(pathToImportExportDirectory + loadFileName + format, FileMode.Open);
+				FileStream file = File.Open(loadFileName, FileMode.Open);
 				SaveData load = (SaveData) bf.Deserialize(file);
 				file.Close();
 
@@ -183,7 +188,7 @@ namespace Project.Scripts.Model.ImportExport
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
-				Debug.Log("БИТЫЙ ФАЙЛ ВЫБЕРИТЕ ДРУГОЙ!!!");
+				Debug.LogError("БИТЫЙ ФАЙЛ ВЫБЕРИТЕ ДРУГОЙ!!!");
 				throw;
 			}
 		}

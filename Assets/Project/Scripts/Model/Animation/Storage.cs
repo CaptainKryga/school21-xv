@@ -4,8 +4,7 @@ namespace Animation
 	public class Storage : Place
 	{
 		public StorageCell[] storageCells;
-
-		private int id = 0;
+		private int i;
 		
 		private void Start()
 		{
@@ -14,11 +13,11 @@ namespace Animation
 
 		public void GetOneItem()
 		{
-			storageCells[id].gameObject.SetActive(false);
-			id++;
-			if (id >= storageCells.Length)
+			storageCells[i].gameObject.SetActive(false);
+			i++;
+			if (i >= storageCells.Length)
 			{
-				id = 0;
+				i = 0;
 				for (int x = 0; x < storageCells.Length; x++)
 				{
 					storageCells[x].gameObject.SetActive(true);
