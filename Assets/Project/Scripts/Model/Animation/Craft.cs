@@ -67,6 +67,9 @@ namespace Animation
 			{
 				if (phase == GameTypes.Phase.First)
 				{
+					worker.UpdateAnimation(1, 1);
+					worker.UpdateSpeed(task.Speed);
+					
 					if (worker.SetNextPosition(storages[x].Point ? storages[x].Point.position : 
 						storages[x].transform.position, 2))
 					{
@@ -75,6 +78,9 @@ namespace Animation
 				}
 				else if (phase == GameTypes.Phase.Second)
 				{
+					worker.UpdateAnimation(1, 1);
+					worker.UpdateSpeed(task.Speed);
+					
 					if (worker.SetNextPosition(craft.Point ? craft.Point.position : craft.transform.position, 2))
 					{
 						phase = GameTypes.Phase.Third;
@@ -82,6 +88,9 @@ namespace Animation
 				}
 				else if (phase == GameTypes.Phase.Third)
 				{
+					worker.UpdateAnimation(1, 1);
+					worker.UpdateSpeed(task.Speed);
+					
 					if (worker.SetNextPosition(storages[x].Point ? storages[x].Point.position : 
 						storages[x].transform.position, 2))
 					{
@@ -99,6 +108,9 @@ namespace Animation
 				}
 				else if (phase == GameTypes.Phase.Fourth)
 				{
+					worker.UpdateAnimation(1, 1);
+					worker.UpdateSpeed(task.Speed);
+					
 					if (worker.SetNextPosition(transform.position, 2))
 					{
 						x++;
