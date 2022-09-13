@@ -71,7 +71,8 @@ namespace Project.Scripts.Model.Animation
 				nowTask.NowIterations = nowTask.Iterations;
 			}
 			
-			nowTask = NextTask(nowTask);
+			Debug.Log("updTask1");
+			NextTask(nowTask);
 		}
 		
 		private void MethodCraft()
@@ -105,7 +106,7 @@ namespace Project.Scripts.Model.Animation
 					Craft craft = (Craft)nowTask.PlaceA;
 					if (craft)
 					{
-						craft.StartCraft(NextTask(nowTask), nowTask, worker);
+						craft.StartCraft(this, nowTask, worker);
 						worker.UpdateVisibleItem(nowTask.Item, true);
 					}
 				}
@@ -172,13 +173,15 @@ namespace Project.Scripts.Model.Animation
 					phase = GameTypes.Phase.First;
 					worker.UpdateAnimation(0, 1);
 					worker.UpdateVisibleItem(nowTask.Item, false);
-					nowTask = NextTask(nowTask);
+					Debug.Log("updTask2");
+					NextTask(nowTask);
 				}
 			}
 		}
 
-		private ContentTask NextTask(ContentTask now)
+		public void NextTask(ContentTask now)
 		{
+			//цикл
 			if (cycles.Count > 0 && now == cycles[^1] && now.ParentTask != null)
 			{
 				nowTask.ParentTask.NowIterations--;
@@ -189,11 +192,13 @@ namespace Project.Scripts.Model.Animation
 					nowTask = now.ParentTask;
 					nowTask.UpdateColor(true);
 					wAnimation.SetTextWorker(nowTask.Description);
-					return nowTask;
+					phase = GameTypes.Phase.First;
+					Debug.Log("task1: " + nowTask.TextNameTask);
+					return;
 				}
 			}
 			
-			//если сейчас чайл цикла iterations -1 и переходим на родителя
+			//по порядку
 			for (int x = 0; x < actualTasks.Length; x++)
 			{
 				if (actualTasks[x] == now && x + 1 < actualTasks.Length)
@@ -202,7 +207,10 @@ namespace Project.Scripts.Model.Animation
 					// nowTask = now.ParentTask;
 					actualTasks[x + 1].UpdateColor(true);
 					wAnimation.SetTextWorker(nowTask.Description);
-					return actualTasks[x + 1];
+					phase = GameTypes.Phase.First;
+					Debug.Log("task2: " + actualTasks[x + 1].TextNameTask);
+					nowTask = actualTasks[x + 1];
+					return;
 				}
 			}
 			
@@ -210,8 +218,10 @@ namespace Project.Scripts.Model.Animation
 			isPlay = false;
 			nowTask.UpdateColor(false);
 			worker.UpdateAnimation(0, 1);
+			phase = GameTypes.Phase.First;
+			Debug.Log("task3: " + null);
 
-			return null;
+			nowTask = null;
 		}
 
 		private int UpdatePositionTasks(ContentTask task, bool isUp)
@@ -283,6 +293,11 @@ namespace Project.Scripts.Model.Animation
 		public Craft[] GetAllCrafts()
 		{
 			return parentView.GetComponentsInChildren<Craft>();
+		}
+
+		public Storage[] GetAllStorages()
+		{
+			return parentView.GetComponentsInChildren<Storage>();
 		}
 
 		public Craft[] GetCraft(GameTypes.Item type)

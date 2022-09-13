@@ -102,7 +102,7 @@ namespace Project.Scripts.View
 			panelRedactor.SetActive(false);
 		}
 
-		private Place[] listA;
+		private Storage[] listA;
 		private Craft[] listC;
 		public void OnDropdown_TypeTask()
 		{
@@ -113,17 +113,15 @@ namespace Project.Scripts.View
 				panelCycle.SetActive(false);
 				inputFieldTaskName.text = "Transfer";
 				
-				Place[] places = modelAnimation.GetAllPlaces();
+				Storage[] storages = modelAnimation.GetAllStorages();
 				List<TMP_Dropdown.OptionData> optionDatas = new List<TMP_Dropdown.OptionData>();
-				List<Place> list = new List<Place>();
 
-				for (int x = 0; x < places.Length; x++)
+				for (int x = 0; x < storages.Length; x++)
 				{
-					optionDatas.Add(new TMP_Dropdown.OptionData(places[x].itemName + "#" + places[x].LocalId));
-					list.Add(places[x]);
+					optionDatas.Add(new TMP_Dropdown.OptionData(storages[x].itemName + "#" + storages[x].LocalId));
 				}
 
-				listA = list.ToArray();
+				listA = storages;
 				modelAnimation.SetTypeTask(GameTypes.Task.Transfer);
 
 				transferDropdownPlaceA.options = optionDatas;

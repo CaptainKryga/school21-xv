@@ -31,6 +31,7 @@ public class ContentTask : MonoBehaviour
 	public GameTypes.Item Item { get => item; }
 	public float Speed { get => speed; }
 	public string Description { get => description; }
+	public string TextNameTask { get => textNameTask.text; }
 	
 	public int Iterations { get => iterations; }
 	public int NowIterations { get => nowIterations; set => nowIterations = value; }
@@ -109,7 +110,7 @@ public class ContentTask : MonoBehaviour
 		if (isUse)
 			background.color = new Color(c.r, c.g, c.b, 1);
 		else
-			background.color = new Color(c.r, c.g, c.b, 200f / 255f);
+			background.color = new Color(c.r, c.g, c.b, 150f / 255f);
 	}
 	
 	private void DisableSlider()

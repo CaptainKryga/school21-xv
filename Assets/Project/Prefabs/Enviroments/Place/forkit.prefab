@@ -2457,6 +2457,7 @@ GameObject:
   - component: {fileID: 8824136038385329143}
   - component: {fileID: 4132259740299980680}
   - component: {fileID: 1432269573653682937}
+  - component: {fileID: 6678373625234711481}
   m_Layer: 0
   m_Name: forkit
   m_TagString: Untagged
@@ -2583,6 +2584,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.89372134, y: 1.3310925, z: 1.7423741}
   m_Center: {x: -0.25506592, y: 0.6739939, z: -0.84333867}
+--- !u!208 &6678373625234711481
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824136038385329135}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.44686064, y: 0.665546, z: 0.871187}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.2550659, y: 0.6739939, z: -0.8433387}
+  m_TimeToStationary: 0.5
 --- !u!1 &8824136039723098976
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Project.Scripts.Model;
+using Project.Scripts.Model.Animation;
 using Project.Scripts.Utils;
 using UnityEngine;
 
@@ -12,14 +13,15 @@ namespace Animation
 		[SerializeField] private GameObject car;
 		[SerializeField] private GameTypes.TypeCraft typeCraft;
 
-		public void StartCraft(ContentTask func, ContentTask task, Worker worker)
+		public void StartCraft(ModelAnimation model, ContentTask task, Worker worker)
 		{
 			//start animation
 			if (typeCraft == GameTypes.TypeCraft.Use)
 			{
 				//чо-то включаем анимацию?
 				anim.Play();
-				var temp = func;
+
+				model.NextTask(task);
 			}
 			else if (typeCraft == GameTypes.TypeCraft.Drive)
 			{
@@ -44,15 +46,16 @@ namespace Animation
 				if (crafts.Length == 0 || storages.Length == 0 || nearCraft == null)
 				{
 					Debug.LogError("НЕТ ХРАНИЛИЩ ИЛИ КРАФТЕРОВ OR SUBS");
-					var temp = func;
+					Debug.Log("updTask4");
+					model.NextTask(task);
 					return;
 				}
 				
-				StartCoroutine(Drive(nearCraft, storages.ToArray(), func, task, worker));
+				StartCoroutine(Drive(nearCraft, storages.ToArray(), model, task, worker));
 			}
 		}
 
-		IEnumerator Drive(Craft craft, Storage[] storages, ContentTask func, ContentTask task, Worker worker)
+		IEnumerator Drive(Craft craft, Storage[] storages, ModelAnimation model, ContentTask task, Worker worker)
 		{
 			GameTypes.Phase phase = GameTypes.Phase.First;
 			int x = 0;
@@ -98,18 +101,27 @@ namespace Animation
 				{
 					if (worker.SetNextPosition(transform.position, 2))
 					{
-						break;
+						x++;
+						if (x >= storages.Length)
+						{
+							break;
+						}
+						else
+						{
+							phase = GameTypes.Phase.First;
+						}
 					}
 				}
 				yield return new WaitForEndOfFrame();
-				Debug.Log("phase: " + phase);
+				// Debug.Log("phase: " + phase);
 			}
 			
 			car.transform.SetParent(transform);
 			car.transform.localPosition = Vector3.zero;
 			car.transform.localRotation = Quaternion.identity;
 			
-			var tempFunc = func;
+			Debug.Log("updTask5");
+			model.NextTask(task);
 			yield break;
 		}
 	}

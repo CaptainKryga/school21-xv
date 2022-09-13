@@ -15880,6 +15880,7 @@ GameObject:
   - component: {fileID: 8824136038385329143}
   - component: {fileID: 4132259740299980680}
   - component: {fileID: 1432269573653682937}
+  - component: {fileID: 5670381793656756089}
   m_Layer: 0
   m_Name: car
   m_TagString: Untagged
@@ -15975,9 +15976,8 @@ MonoBehaviour:
   type: 1
   input: 
   output: 0
-  agent: {fileID: 0}
+  car: {fileID: 0}
   typeCraft: 1
-  data: {fileID: 0}
 --- !u!54 &4132259740299980680
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16007,6 +16007,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5395768, y: 2.6394842, z: 4.1144686}
   m_Center: {x: -0.083011866, y: 1.3281897, z: 0.09210867}
+--- !u!208 &5670381793656756089
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8824136038385329135}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.7697885, y: 1.319742, z: 2.0572345}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.08301187, y: 1.32819, z: 0.09210867}
+  m_TimeToStationary: 0.5
 --- !u!1 &8824136039723098976
 GameObject:
   m_ObjectHideFlags: 0
