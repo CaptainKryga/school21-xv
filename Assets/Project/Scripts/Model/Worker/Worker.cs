@@ -37,11 +37,11 @@ namespace Project.Scripts.Model
 			UpdateAnimation(0, 1);
 		}
 
-		public bool SetNextPosition(Vector3 position)
+		public bool SetNextPosition(Vector3 position, float distance = 1)
 		{
 			agent.destination = position;
 
-			if (Vector3.Distance(agent.transform.position, position) < 1)
+			if (Vector3.Distance(agent.transform.position, position) < distance)
 			{
 				return true;
 			}

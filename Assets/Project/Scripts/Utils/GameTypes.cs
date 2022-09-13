@@ -44,6 +44,7 @@ namespace Project.Scripts.Utils
 		{
 			Storage,
 			Craft,
+			Sub
 		}
 
 		public enum Phase
@@ -51,7 +52,8 @@ namespace Project.Scripts.Utils
 			First,
 			Second,
 			Third,
-			Fourth
+			Fourth,
+			Fifth
 		}
 
 		public enum WorkerAnimations
@@ -65,7 +67,8 @@ namespace Project.Scripts.Utils
 		public enum TypeCraft
 		{
 			Use,
-			Drive
+			Drive,
+			Sub
 		}
 
 		public static Item GetItemFromString(string item)

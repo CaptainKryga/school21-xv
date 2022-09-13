@@ -102,7 +102,7 @@ namespace Project.Scripts.Model.Animation
 					Craft craft = (Craft)nowTask.PlaceA;
 					if (craft)
 					{
-						craft.StartCraft(NextTask(nowTask));
+						craft.StartCraft(NextTask(nowTask), nowTask, worker);
 						worker.UpdateVisibleItem(nowTask.Item, true);
 					}
 				}
