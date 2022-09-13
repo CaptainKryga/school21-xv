@@ -45,6 +45,7 @@ namespace Project.Scripts.Model.Animation
 				{
 					nowTask = actualTasks[0];
 					nowTask.UpdateColor(true);
+					wAnimation.SetTextWorker(nowTask.Description);
 				}
 				else
 				{
