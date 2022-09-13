@@ -79,13 +79,15 @@ namespace Project.Scripts.Model.Animation
 				worker.UpdateAnimation(1, 1);
 				worker.UpdateSpeed(nowTask.Speed);
 					
-				if (worker.SetNextPosition(nowTask.PlaceA.transform.position))
+				if (worker.SetNextPosition(nowTask.PlaceA.Point ? nowTask.PlaceA.Point.position : 
+					nowTask.PlaceA.transform.position))
 				{
 					phase = GameTypes.Phase.Second;
 					delay = delayGive;
 				}
 					
-				pointTarget.position = nowTask.PlaceA.transform.position;
+				pointTarget.position = nowTask.PlaceA.Point ? nowTask.PlaceA.Point.position : 
+					nowTask.PlaceA.transform.position;
 			}
 			//забираем объект из первого места
 			else if (phase == GameTypes.Phase.Second)

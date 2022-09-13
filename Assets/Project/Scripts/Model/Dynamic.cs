@@ -4,6 +4,9 @@ using UnityEngine;
 //REFACTOR MATERIALSSSSSSSS
 public class Dynamic : MonoBehaviour
 {
+	[SerializeField] private Transform point;
+	[SerializeField] protected UnityEngine.Animation anim;
+	
 	private Material[] materials;
 	public string defaultName;
 	public string itemName;
@@ -13,6 +16,7 @@ public class Dynamic : MonoBehaviour
 	[SerializeField] private int localId;
 	
 	public int LocalId { get => localId; }
+	public Transform Point { get => point; }
 	
 	private void Awake()
 	{

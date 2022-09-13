@@ -15,6 +15,8 @@ namespace Animation
 			if (typeCraft == GameTypes.TypeCraft.Use)
 			{
 				//чо-то включаем анимацию?
+				anim.Play();
+				var contentTask = func;
 			}
 			else if (typeCraft == GameTypes.TypeCraft.Drive)
 			{
