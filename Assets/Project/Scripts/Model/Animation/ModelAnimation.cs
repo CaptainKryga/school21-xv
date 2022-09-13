@@ -209,11 +209,10 @@ namespace Project.Scripts.Model.Animation
 				{
 					if (isUp && x > 0)
 					{
-						Debug.Log((task.Type == GameTypes.Task.Cycle) + " | " + task.ChildTask + " | " + 
-								(actualTasks[x - 1].ChildTask == task));
 						//чек на ребёнка в цикле
-						if (task.Type == GameTypes.Task.Cycle && task.ParentTask && 
-							actualTasks[x - 1].ChildTask == task)
+						if (task.Type == GameTypes.Task.Cycle && ((task.ParentTask && 
+							actualTasks[x - 1].ChildTask == task) || 
+							(task.ChildTask && actualTasks[x - 1].ParentTask)))
 							break;
 						
 						actualTasks[x] = actualTasks[x - 1];
@@ -222,8 +221,9 @@ namespace Project.Scripts.Model.Animation
 					if (!isUp && x < actualTasks.Length - 1)
 					{
 						//чек на родителя в цикле
-						if (task.Type == GameTypes.Task.Cycle && task.ChildTask && 
-							actualTasks[x + 1].ParentTask == task)
+						if (task.Type == GameTypes.Task.Cycle && ((task.ChildTask && 
+							actualTasks[x + 1].ParentTask == task) || 
+							(task.ParentTask && actualTasks[x + 1].ChildTask)))
 							break;
 						
 						actualTasks[x] = actualTasks[x + 1];
