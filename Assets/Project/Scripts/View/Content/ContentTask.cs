@@ -51,7 +51,6 @@ public class ContentTask : MonoBehaviour
 		this.description = description;
 		this.placeA = placeA;
 		this.placeB = placeB;
-		Debug.LogError("placeA:" + placeA + " | " + this.placeA);
 		this.item = item;
 		this.speed = speed;
 		this.iterations = iterations;
@@ -100,8 +99,6 @@ public class ContentTask : MonoBehaviour
 
 	public void InitSaveLoadSecond(Place placeA, Place placeB, ContentTask parent, ContentTask child)
 	{
-		isTT = true;
-		
 		this.placeA = placeA;
 		this.placeB = placeB;
 		this.parentTask = parent;
@@ -121,16 +118,6 @@ public class ContentTask : MonoBehaviour
 		}
 		
 		UpdateColorTask();
-	}
-
-	private bool isTT;
-	private void Update()
-	{
-		if (isTT)
-			return;
-		
-		if (placeA)
-			Debug.LogError(placeA);
 	}
 
 	public void OnSlider_ChangeSpeed()

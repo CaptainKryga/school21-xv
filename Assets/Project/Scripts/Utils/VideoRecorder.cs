@@ -25,8 +25,9 @@ public class VideoRecorder : MonoBehaviour
         //persistentDataPath = Application.streamingAssetsPath + "/ScreenRecorder";
 
 #if     UNITY_STANDALONE_OSX
-        sys_chmod(Application.streamingAssetsPath + @"/FFMPEG/MAC/ffmpeg", 755);
+        sys_chmod(Application.streamingAssetsPath + @"/ffmpeg", 755);
 #endif 
+        print(Application.streamingAssetsPath);
     }
 
     void OnApplicationQuit()
@@ -90,7 +91,7 @@ public class VideoRecorder : MonoBehaviour
         //string savePath = "\"" + Application.streamingAssetsPath + "/ScreenRecorder" + "/out_video.mp4\"";
 
 #if UNITY_STANDALONE_OSX
-        proc.StartInfo.FileName = Application.streamingAssetsPath + @"/FFMPEG/MAC/ffmpeg";
+        proc.StartInfo.FileName = Application.streamingAssetsPath + @"/ffmpeg";
         proc.StartInfo.Arguments = " -y -f avfoundation -i 1 -pix_fmt yuv420p -framerate 10 -vcodec libx264 -preset ultrafast -vsync 2 " + savePath + filePath;
 #endif
 

@@ -4,16 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using Animation;
+using Project.Scripts.Model.Animation;
 using Project.Scripts.Utils;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Networking;
 
 namespace Project.Scripts.Model.ImportExport
 {
 	public class ModelImportExport : MonoBehaviour
 	{
 		[SerializeField] private ModelController model;
+		[SerializeField] private ModelAnimation modelAnimation;
 		[SerializeField] private DataBase dataBase;
 		[SerializeField] private WindowImportExport wImportExport;
 
@@ -79,6 +80,7 @@ namespace Project.Scripts.Model.ImportExport
 			int childCount = parentItems.childCount;
 			save.itemDefaultName = new string[childCount];
 			save.itemName = new string[childCount];
+			save.id = new int[childCount];
 			// save.position = new Vector3[childCount];
 			save.itemPositionX = new float[childCount];
 			save.itemPositionY = new float[childCount];
@@ -98,6 +100,7 @@ namespace Project.Scripts.Model.ImportExport
 				Dynamic @dynamic = parentItems.GetChild(i).GetComponent<Dynamic>();
 				save.itemDefaultName[i] = dynamic.defaultName;
 				save.itemName[i] = dynamic.itemName;
+				save.id[i] = dynamic.LocalId;
 				// save.position[i] = item.transform.position;
 				save.itemPositionX[i] = dynamic.transform.position.x;
 				save.itemPositionY[i] = dynamic.transform.position.y;
@@ -114,6 +117,42 @@ namespace Project.Scripts.Model.ImportExport
 				save.itemColorA[i] = dynamic.color.a;
 
 			}
+			
+			ContentTask[] tasks = modelAnimation.GetActualTasks();
+			if (tasks == null)
+				save.lenght = 0;
+			else
+				save.lenght = tasks.Length;
+			if (save.lenght > 0)
+			{
+				save.lenght = tasks.Length;
+				save.taskName = new string[tasks.Length];
+				save.taskType = new GameTypes.Task[tasks.Length];
+				save.taskDescription = new string[tasks.Length];
+				save.taskPlaceAId = new int[tasks.Length];
+				save.taskPlaceBId = new int[tasks.Length];
+				save.taskItem = new GameTypes.Item[tasks.Length];
+				save.taskSpeed = new float[tasks.Length];
+				save.taskIterations = new int[tasks.Length];
+				save.taskNowIterations = new int[tasks.Length];
+				save.taskParentTask = new int[tasks.Length];
+				save.taskChildTask = new int[tasks.Length];
+
+				for (int i = 0; i < tasks.Length; i++)
+				{
+					save.taskName[i] = tasks[i].TextNameTask;
+					save.taskType[i] = tasks[i].Type;
+					save.taskDescription[i] = tasks[i].Description;
+					save.taskPlaceAId[i] = tasks[i].PlaceA ? tasks[i].PlaceA.LocalId : -1;
+					save.taskPlaceBId[i] = tasks[i].PlaceB ? tasks[i].PlaceB.LocalId : -1;
+					Debug.Log(" >>>> PlaceA: " + tasks[i].PlaceA + " | " + (tasks[i].PlaceA ? tasks[i].PlaceA.LocalId : -1));
+					save.taskSpeed[i] = tasks[i].Speed;
+					save.taskIterations[i] = tasks[i].Iterations;
+					save.taskNowIterations[i] = tasks[i].NowIterations;
+					save.taskParentTask[i] = GetIdTAsk(tasks[i].ParentTask, tasks);
+					save.taskChildTask[i] = GetIdTAsk(tasks[i].ChildTask, tasks);
+				}
+			}
 
 			bf2.Serialize(file2, save);
 			file2.Close();
@@ -123,21 +162,19 @@ namespace Project.Scripts.Model.ImportExport
 
 		public void PreImportScene(string loadFileName)
 		{
-			// lastScanSaveFiles = UpdateArraySaveFiles();
-
-			// if (lastScanSaveFiles.Contains(loadFileName))
-			// {
-				ImportScene(loadFileName);
-				// return;
-			// }
-
-			// Debug.LogError("НЕВОЗМОЖНО ЗАГРУЗИТЬ ИГРУ, СЦЕНА НЕ НАЙДЕНА");
+			StartCoroutine(ImportScene(loadFileName));
 		}
 
-		private void ImportScene(string loadFileName)
+		IEnumerator ImportScene(string loadFileName)
 		{
 			Dynamic[] saveItems = parentItems.GetComponentsInChildren<Dynamic>();
+			for (int i = 0; i < saveItems.Length; i++)
+			{
+				Destroy(saveItems[i].gameObject);
+			}
 
+			yield return new WaitForSeconds(0.1f);
+			
 			try
 			{
 				BinaryFormatter bf = new BinaryFormatter();
@@ -155,6 +192,7 @@ namespace Project.Scripts.Model.ImportExport
 							GameObject newItem = Instantiate(dataBase.defaultPrefabs[x]);
 							newItem.GetComponent<Dynamic>().defaultName = load.itemDefaultName[i];
 							newItem.GetComponent<Dynamic>().itemName = load.itemName[i];
+							newItem.GetComponent<Dynamic>().LocalId = load.id[i];
 							newItem.transform.position = new Vector3(load.itemPositionX[i], load.itemPositionY[i],
 								load.itemPositionZ[i]);
 							newItem.transform.rotation = new Quaternion(load.itemRotationX[i], load.itemRotationY[i],
@@ -175,15 +213,41 @@ namespace Project.Scripts.Model.ImportExport
 				worker.GetTransform.position = worker.WorkerBodyStartPosition;
 				worker.GetTransform.rotation = worker.WorkerBodyStartRotation;
 
+				if (load.lenght > 0)
+				{
+					ContentTask[] tasks = new ContentTask[load.taskType.Length];
+					for (int i = 0; i < tasks.Length; i++)
+					{
+						Debug.Log(i);
+						tasks[i] = Instantiate(load.taskParentTask[i] != -1 ? 
+								modelAnimation.WindowAnimation.PrefabSubEndTask :
+								modelAnimation.WindowAnimation.PrefabContentTask,
+							modelAnimation.WindowAnimation.ParentContent).GetComponent<ContentTask>();
+					
+						tasks[i].InitSaveLoad(load.taskName[i], load.taskDescription[i], load.taskType[i],
+							load.taskItem[i], load.taskSpeed[i], load.taskIterations[i], load.taskNowIterations[i]);
+					}
+
+					Place[] places = modelAnimation.GetAllPlaces();
+			
+					for (int i = 0; i < tasks.Length; i++)
+					{
+						tasks[i].InitSaveLoadSecond(GetPlace(load.taskPlaceAId[i], places), 
+							GetPlace(load.taskPlaceBId[i], places), 
+							(load.taskParentTask[i] == -1 ? null : tasks[load.taskParentTask[i]]), 
+							(load.taskChildTask[i] == -1 ? null : tasks[load.taskChildTask[i]]));
+
+						tasks[i].InitButtons(modelAnimation.UpdatePositionTasks, modelAnimation.DestroyTask);
+					}
+
+					modelAnimation.SetActualTasks(tasks);
+				}
+				
+				
 				model.UpdateGameState(GameTypes.Game.SceneImportExport);
 				model.UpdatePlayerState(GameTypes.PlayerMove.Spectator);
 
 				Debug.Log("Game data imported!");
-
-				for (int i = 0; i < saveItems.Length; i++)
-				{
-					Destroy(saveItems[i].gameObject);
-				}
 			}
 			catch (Exception e)
 			{
@@ -191,6 +255,31 @@ namespace Project.Scripts.Model.ImportExport
 				Debug.LogError("БИТЫЙ ФАЙЛ ВЫБЕРИТЕ ДРУГОЙ!!!");
 				throw;
 			}
+			
+			yield break;
+		}
+		
+		private int GetIdTAsk(ContentTask task, ContentTask[] tasks)
+		{
+			for (int i = 0; i < tasks.Length; i++)
+			{
+				if (task == tasks[i])
+					return i;
+			}
+
+			return -1;
+		}	
+	
+		private Place GetPlace(int placeId, Place[] places)
+		{
+			for (int i = 0; i < places.Length; i++)
+			{
+				Debug.Log("place: " + places[i] + ", id: " + placeId + ", localId: " + places[i].LocalId);
+				if (placeId == places[i].LocalId)
+					return places[i];
+			}
+
+			return null;
 		}
 
 		private string[] UpdateArraySaveFiles()

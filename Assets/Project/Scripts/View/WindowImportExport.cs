@@ -24,9 +24,9 @@ public class WindowImportExport : MonoBehaviour
 
 	public void OnClick_ExportScene()
 	{
-		string path = EditorUtility.SaveFilePanel("ff", "", "default","import");
-		Debug.Log(path);
-		modelImportExport.PreExportScene(path);
+		// string path = EditorUtility.SaveFilePanel("ff", "", "default","import");
+		// Debug.Log(path);
+		// modelImportExport.PreExportScene(path);
 		
 		// if (selectedFile != -1)
 			// modelImportExport.PreExportScene(imgContentButtons[selectedFile].GetTextInfo.text);
@@ -38,9 +38,9 @@ public class WindowImportExport : MonoBehaviour
 
 	public void OnClick_ImportScene()
 	{
-		string path = EditorUtility.OpenFilePanel("ff", "", "import");
-		Debug.Log(path);
-		modelImportExport.PreImportScene(path);
+		// string path = EditorUtility.OpenFilePanel("ff", "", "import");
+		// Debug.Log(path);
+		// modelImportExport.PreImportScene(path);
 	}
 
 	public void OnClick_SelectExport(int scene)
