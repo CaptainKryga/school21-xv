@@ -5,7 +5,6 @@ using Project.Scripts.Model.Animation;
 using Project.Scripts.Utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Project.Scripts.View
 {
@@ -16,6 +15,8 @@ namespace Project.Scripts.View
 		[SerializeField] private Transform parentContent;
 		[SerializeField] private ContentTask prefabContentTask;
 		[SerializeField] private ContentTask prefabSubEndTask;
+		
+		[SerializeField] private TMP_Text workerMessage;
 
 		[Header("Sub Windows")] 
 		[SerializeField] private GameObject panelRedactor;
@@ -121,14 +122,6 @@ namespace Project.Scripts.View
 					optionDatas.Add(new TMP_Dropdown.OptionData(places[x].itemName + "#" + places[x].LocalId));
 					list.Add(places[x]);
 				}
-				
-				
-				// SetupDropdownPlaces(transferDropdownPlaceB, modelAnimation.GetAllPlaces());
-				// transferDropdownPlaceB.options = new List<TMP_Dropdown.OptionData>()
-					// { new TMP_Dropdown.OptionData("null") };
-				// SetupDropdownItems(transferDropdownPlaceB, itemsStorage);
-				// transferDropdownItem.options = new List<TMP_Dropdown.OptionData>()
-					// {new TMP_Dropdown.OptionData("null")};
 
 				listA = list.ToArray();
 				modelAnimation.SetTypeTask(GameTypes.Task.Transfer);
@@ -257,6 +250,11 @@ namespace Project.Scripts.View
 		public void OnInputField_Description()
 		{
 			modelAnimation.SetDescription(inputFieldDescription.text);
+		}
+
+		public void SetTextWorker(string text)
+		{
+			workerMessage.text = text;
 		}
 	}
 }

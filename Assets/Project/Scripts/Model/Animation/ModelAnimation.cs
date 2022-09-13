@@ -41,7 +41,10 @@ namespace Project.Scripts.Model.Animation
 			if (!nowTask)
 			{
 				if (actualTasks.Length > 0)
+				{
 					nowTask = actualTasks[0];
+					nowTask.UpdateColor(true);
+				}
 				else
 					return;
 			}
@@ -182,20 +185,30 @@ namespace Project.Scripts.Model.Animation
 				nowTask.ParentTask.UpdateInfo();
 				if (nowTask.ParentTask.NowIterations > 0)
 				{
+					nowTask.UpdateColor(false);
 					nowTask = now.ParentTask;
+					nowTask.UpdateColor(true);
+					wAnimation.SetTextWorker(nowTask.Description);
 					return nowTask;
 				}
 			}
-			//если сейчас чайл цикла iterations -1 и переходим на родителя
 			
+			//если сейчас чайл цикла iterations -1 и переходим на родителя
 			for (int x = 0; x < actualTasks.Length; x++)
 			{
 				if (actualTasks[x] == now && x + 1 < actualTasks.Length)
+				{
+					nowTask.UpdateColor(false);
+					// nowTask = now.ParentTask;
+					actualTasks[x + 1].UpdateColor(true);
+					wAnimation.SetTextWorker(nowTask.Description);
 					return actualTasks[x + 1];
+				}
 			}
 			
 			//если таска была последней стопаем анимацию
 			isPlay = false;
+			nowTask.UpdateColor(false);
 			worker.UpdateAnimation(0, 1);
 
 			return null;
@@ -308,8 +321,6 @@ namespace Project.Scripts.Model.Animation
 		public void ChangePlayStatus(bool isPlay)
 		{
 			this.isPlay = isPlay;
-			if (actualTasks.Length > 0)
-				nowTask = actualTasks[0];
 		}
 
 		public void SetTypeTask(GameTypes.Task type)

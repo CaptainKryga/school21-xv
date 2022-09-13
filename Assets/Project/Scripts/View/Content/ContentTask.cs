@@ -30,6 +30,7 @@ public class ContentTask : MonoBehaviour
 	public Place PlaceB { get => placeB; }
 	public GameTypes.Item Item { get => item; }
 	public float Speed { get => speed; }
+	public string Description { get => description; }
 	
 	public int Iterations { get => iterations; }
 	public int NowIterations { get => nowIterations; set => nowIterations = value; }
@@ -100,6 +101,15 @@ public class ContentTask : MonoBehaviour
 			background.color = colorTask[1];
 		else if (type == GameTypes.Task.Cycle)
 			background.color = colorTask[2];
+	}
+
+	public void UpdateColor(bool isUse)
+	{
+		Color c = background.color;
+		if (isUse)
+			background.color = new Color(c.r, c.g, c.b, 1);
+		else
+			background.color = new Color(c.r, c.g, c.b, 200f / 255f);
 	}
 	
 	private void DisableSlider()
