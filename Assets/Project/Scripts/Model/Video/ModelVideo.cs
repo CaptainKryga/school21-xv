@@ -2,8 +2,10 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class VideoRecorder : MonoBehaviour
+public class ModelVideo : MonoBehaviour
 {
+    [SerializeField] private TMPro.TMP_Text textPath;
+    
     //ffmpeg.exe -hwaccel cuda -hwaccel_output_format cuda -f gdigrab -framerate 60 -s 1920x1080 -i desktop -preset ultrafast -crf 0 out.mkv
     private bool SetRecordScreen = false;
     //private string persistentDataPath => Application.streamingAssetsPath + "/ScreenRecorder";
@@ -28,6 +30,8 @@ public class VideoRecorder : MonoBehaviour
         sys_chmod(Application.streamingAssetsPath + @"/ffmpeg", 755);
 #endif 
         print(Application.streamingAssetsPath);
+
+        textPath.text = "\"" + Application.streamingAssetsPath + "/ScreenRecorder";
     }
 
     void OnApplicationQuit()
@@ -52,7 +56,7 @@ public class VideoRecorder : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F10))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             SetRecordScreen = !SetRecordScreen;
             if (recording == true && SetRecordScreen == false)
