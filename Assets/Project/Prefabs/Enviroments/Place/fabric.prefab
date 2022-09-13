@@ -13235,6 +13235,7 @@ GameObject:
   - component: {fileID: 3468090054161671505}
   - component: {fileID: 4246880999355842031}
   - component: {fileID: 3909724248135045501}
+  - component: {fileID: 7797870856095751037}
   m_Layer: 0
   m_Name: fabric
   m_TagString: Untagged
@@ -13288,8 +13289,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.5894544, y: 6.0771356, z: 10.123241}
-  m_Center: {x: -1.5110081, y: 2.992552, z: -1.7399645}
+  m_Size: {x: 3.5894544, y: 6.0771356, z: 13.101239}
+  m_Center: {x: -1.5110081, y: 2.992552, z: -0.2509656}
 --- !u!54 &3468090054161671505
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13345,6 +13346,22 @@ Animation:
   m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!208 &7797870856095751037
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759286058915226091}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.794727, y: 3.038568, z: 6.55062}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.511008, y: 2.992552, z: -0.2509656}
+  m_TimeToStationary: 0.5
 --- !u!1 &2785147493230211725
 GameObject:
   m_ObjectHideFlags: 0
