@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemCreate : MonoBehaviour
@@ -12,11 +15,45 @@ public class ItemCreate : MonoBehaviour
     private Material correct, incorrect;
 
     private bool isCorrect;
+
+    private Collider[] colliders;
     
     private void Awake()
     {
         gameObject.layer = 2;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.layer = 2;
+        }
+        // Collider[] temp = transform.GetComponentsInChildren<Collider>();
+        // List<Collider> list = new List<Collider>();
+        // for (int i = 0; i < temp.Length; i++)
+        // {
+        //     if (!temp[i].isTrigger)
+        //     {
+        //         list.Add(temp[i]);
+        //     }
+        // }
+        //
+        // colliders = temp.ToArray();
     }
+
+    // private void OnEnable()
+    // {
+    //     for (int i = 0; i < colliders.Length; i++)
+    //     {
+    //         colliders[i].isTrigger = true;
+    //     }
+    // }
+    //
+    // private void OnDisable()
+    // {
+    //     for (int i = 0; i < colliders.Length; i++)
+    //     {
+    //         colliders[i].isTrigger = false;
+    //     }
+    // }
 
     private void Start()
     {
@@ -44,6 +81,11 @@ public class ItemCreate : MonoBehaviour
     private void OnDestroy()
     {
         gameObject.layer = 0;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            transform.GetChild(i).gameObject.layer = 0;
+        }
+        
         coll.isTrigger = false;
         
         ResetMaterials();

@@ -9,6 +9,7 @@ namespace Project.Scripts.Model
 	{
 		[SerializeField] private Transform worker;
 		[SerializeField] private CustomAnimator animator;
+		[SerializeField] private Rigidbody rigidbody;
 
 		[SerializeField] private NavMeshAgent agent;
 		[SerializeField] private Transform point1, point2;
@@ -33,16 +34,20 @@ namespace Project.Scripts.Model
 
 			startSpeed = agent.speed;
 			startAcceleration = agent.acceleration;
+
+			rigidbody.isKinematic = true;
 			
 			UpdateAnimation(0, 1);
 		}
 
 		public bool SetNextPosition(Vector3 position, float distance = 1)
 		{
+			rigidbody.isKinematic = false;
 			agent.destination = position;
 
 			if (Vector3.Distance(agent.transform.position, position) < distance)
 			{
+				rigidbody.isKinematic = true;
 				return true;
 			}
 			return false;

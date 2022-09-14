@@ -1,6 +1,4 @@
-using System;
 using Project.Scripts.Utils;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Project.Scripts.Model
@@ -74,8 +72,7 @@ namespace Project.Scripts.Model
 		{
 			if (model.GetStateGame != GameTypes.Game.Play)
 			{
-				rigidbody.velocity = Vector3.zero;
-				rigidbody.angularVelocity = Vector3.zero;
+				rigidbody.isKinematic = true;
 				return;
 			}
 
