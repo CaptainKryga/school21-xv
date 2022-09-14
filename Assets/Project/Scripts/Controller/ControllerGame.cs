@@ -1,6 +1,7 @@
 using System;
 using Project.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerGame : MonoBehaviour
 {
@@ -50,6 +51,10 @@ public class ControllerGame : MonoBehaviour
 		
 		PlayerMove_Action?.Invoke(new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")));
 		PlayerAxis_Action?.Invoke(new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")));
+
+
+		if (Input.GetKeyDown(KeyCode.Escape))
+			SceneManager.LoadScene(0);
 	}
 
 	public void UpdateState(GameTypes.Game state)

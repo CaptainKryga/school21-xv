@@ -25,7 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 0
-  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
+  m_SubtractiveShadowColor: {r: 0.5169989, g: 0.5682577, b: 0.6981132, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: f49cec8fb0ac4497ca50e41f0cf740dc, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -20559,8 +20559,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Video???\n6\u0439 \u0438 7\u0439 \u043F\u0443\u043D\u043A\u0442\u044B
-    \u0441\u0430\u0431\u0436\u0430"
+  m_text: 'Record
+
+    Video'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -26636,7 +26637,7 @@ GameObject:
   - component: {fileID: 1977560678}
   - component: {fileID: 1977560677}
   m_Layer: 5
-  m_Name: BtnVideo?
+  m_Name: BtnRecordVideo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
