@@ -68,6 +68,11 @@ namespace Project.Scripts.Model.Animation
 			{
 				MethodCycle();
 			}
+
+			// if (worker.CheckActualPath())
+			// {
+				// wAnimation.SetTextWorker("GG Path");
+			// }
 		}
 
 		private void MethodCycle()

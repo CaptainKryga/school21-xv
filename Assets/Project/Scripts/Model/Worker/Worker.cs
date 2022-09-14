@@ -31,6 +31,7 @@ namespace Project.Scripts.Model
 			
 			agent.autoRepath = true;
 			agent.autoTraverseOffMeshLink = true;
+			agent.autoBraking = true;
 
 			startSpeed = agent.speed;
 			startAcceleration = agent.acceleration;
@@ -75,6 +76,11 @@ namespace Project.Scripts.Model
 				boxSmall.SetActive(isFlag);
 			else if (item == GameTypes.Item.BoxMiddle)
 				boxMiddle.SetActive(isFlag);
+		}
+
+		public bool CheckActualPath()
+		{
+			return agent.hasPath;
 		}
 	}
 }

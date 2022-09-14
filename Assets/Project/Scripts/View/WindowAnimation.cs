@@ -147,7 +147,7 @@ namespace Project.Scripts.View
 
 				for (int x = 0; x < storages.Length; x++)
 				{
-					optionDatas.Add(new TMP_Dropdown.OptionData(storages[x].itemName + "#" + storages[x].LocalId));
+					optionDatas.Add(new TMP_Dropdown.OptionData(storages[x].itemName + " - " + storages[x].LocalId));
 				}
 
 				listA = storages;
@@ -178,7 +178,7 @@ namespace Project.Scripts.View
 
 				for (int x = 0; x < crafts.Length; x++)
 				{
-					optionDatas.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + crafts[x].LocalId));
+					optionDatas.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + " - " + crafts[x].LocalId));
 					list.Add(crafts[x]);
 				}
 				
@@ -225,7 +225,7 @@ namespace Project.Scripts.View
 			
 			for (int x = 0; x < crafts.Length; x++)
 			{
-				optionDataB.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + "#" + crafts[x].LocalId));
+				optionDataB.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + " - " + crafts[x].LocalId));
 				list.Add(crafts[x]);
 			}
 			

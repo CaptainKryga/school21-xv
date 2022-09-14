@@ -112,7 +112,7 @@ namespace Project.Scripts.Model.CreateChange
 					nowSelectedDynamic = hit.collider.GetComponent<Dynamic>();
 					rigidbody = nowSelectedDynamic.GetComponent<Rigidbody>();
 
-					wCreateChange.SetItemName(nowSelectedDynamic.itemName);
+					wCreateChange.SetItemName(nowSelectedDynamic.itemName + " - " + nowSelectedDynamic.LocalId);
 
 					savePosition = nowSelectedDynamic.transform.position;
 					saveRotation = nowSelectedDynamic.transform.rotation;
