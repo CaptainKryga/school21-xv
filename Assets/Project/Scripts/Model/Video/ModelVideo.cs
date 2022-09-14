@@ -1,56 +1,39 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 public class ModelVideo : MonoBehaviour
 {
     [SerializeField] private TMPro.TMP_Text textPath;
+    [SerializeField] private GameObject imgRecord;
     
-    //ffmpeg.exe -hwaccel cuda -hwaccel_output_format cuda -f gdigrab -framerate 60 -s 1920x1080 -i desktop -preset ultrafast -crf 0 out.mkv
-    private bool SetRecordScreen = false;
-    //private string persistentDataPath => Application.streamingAssetsPath + "/ScreenRecorder";
-    private Process proc = null;
-    public bool recording = false;
-    public string savePath => "\"" + Application.streamingAssetsPath + "/ScreenRecorder";
-    public string filePath => "/out_video.mp4\"";
-    //public string fileName;
+    private bool isSetRecordScreen;
+    private Process proc;
+    private bool isRecording;
+    private string savePath = "\"" + Application.streamingAssetsPath + "/ScreenRecorder";
+    private string filePath = "/out_video.mp4\"";
 
-#if UNITY_STANDALONE_OSX
     [DllImport ("libc", EntryPoint = "chmod", SetLastError = true)]
     private static extern int sys_chmod (string path, uint mode);
- #endif
 
     void Start()
     {
-        recording = false;
-        SetRecordScreen = false;
-        //persistentDataPath = Application.streamingAssetsPath + "/ScreenRecorder";
+        isRecording = false;
+        isSetRecordScreen = false;
 
-#if     UNITY_STANDALONE_OSX
+        //chmod 777 полный доступ
         sys_chmod(Application.streamingAssetsPath + @"/ffmpeg", 755);
-#endif 
-        print(Application.streamingAssetsPath);
+        Debug.Log(Application.streamingAssetsPath);
 
-        textPath.text = "\"" + Application.streamingAssetsPath + "/ScreenRecorder";
+        textPath.text = Application.streamingAssetsPath + "/ScreenRecorder";
     }
 
     void OnApplicationQuit()
     {
         if (proc != null)
         {
-#if UNITY_STANDALONE_OSX
-                //proc.Close();
-                UnityEngine.Debug.Log("Killed process on MAC");
-
-                int IDstring = System.Convert.ToInt32(proc.Id.ToString());
-                Process tempProc = Process.GetProcessById(IDstring);
-
-                tempProc.CloseMainWindow();
-                tempProc.WaitForExit();
-#endif
-                UnityEngine.Debug.Log("Stopped Recording!");
-                proc = null;
-                recording = false;
+            KillProcess();
         }
     }
 
@@ -58,49 +41,46 @@ public class ModelVideo : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SetRecordScreen = !SetRecordScreen;
-            if (recording == true && SetRecordScreen == false)
-            {
-
-#if UNITY_STANDALONE_OSX
-                //proc.Close();
-                UnityEngine.Debug.Log("Killed process on MAC");
-
-                int IDstring = System.Convert.ToInt32(proc.Id.ToString());
-                Process tempProc = Process.GetProcessById(IDstring);
-
-                tempProc.CloseMainWindow();
-                tempProc.WaitForExit();
-#endif
-                UnityEngine.Debug.Log("Stopped Recording!");
-                proc = null;
-                recording = false;
-            }
+            isSetRecordScreen = !isSetRecordScreen;
+            if (isRecording && !isSetRecordScreen)
+                KillProcess();
         }
 
         RecordScreen();
     }
 
+    private void KillProcess()
+    {
+        int IDstring = System.Convert.ToInt32(proc.Id.ToString());
+        Process tempProc = Process.GetProcessById(IDstring);
+        tempProc.CloseMainWindow();
+        tempProc.WaitForExit();
+        proc = null;
+        isRecording = false;
+        
+        imgRecord.SetActive(false);
+        Debug.Log("STOP RECORDING");
+    }
+
     public void RecordScreen()
     {
-        if (SetRecordScreen == false || recording == true)
+        if (isSetRecordScreen == false || isRecording)
             return;
-
-        UnityEngine.Debug.Log("Started Recording!");
+        
         proc = new Process();
         proc.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         proc.StartInfo.CreateNoWindow = true;
-        //proc.StartInfo.UseShellExecute = false;
 
-        //string savePath = "\"" + Application.streamingAssetsPath + "/ScreenRecorder" + "/out_video.mp4\"";
-
-#if UNITY_STANDALONE_OSX
         proc.StartInfo.FileName = Application.streamingAssetsPath + @"/ffmpeg";
-        proc.StartInfo.Arguments = " -y -f avfoundation -i 1 -pix_fmt yuv420p -framerate 10 -vcodec libx264 -preset ultrafast -vsync 2 " + savePath + filePath;
-#endif
-
-        UnityEngine.Debug.Log(proc.StartInfo.FileName + proc.StartInfo.Arguments);
+        proc.StartInfo.Arguments = 
+            " -y -f avfoundation -i 1 -pix_fmt yuv420p -framerate 10 -vcodec libx264 -preset ultrafast -vsync 2 " + 
+            savePath + filePath;
+        Debug.Log(proc.StartInfo.FileName + proc.StartInfo.Arguments);
+        
         proc.Start();
-        recording = true;
+        isRecording = true;
+        
+        imgRecord.SetActive(true);
+        Debug.Log("START RECORD");
     }
 }
