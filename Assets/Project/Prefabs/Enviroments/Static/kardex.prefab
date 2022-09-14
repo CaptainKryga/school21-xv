@@ -2085,6 +2085,7 @@ GameObject:
   - component: {fileID: 3144501016111743445}
   - component: {fileID: 1638597835519025277}
   - component: {fileID: 2052686328778239226}
+  - component: {fileID: 136325178309940276}
   m_Layer: 0
   m_Name: kardex
   m_TagString: Untagged
@@ -2231,9 +2232,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  point: {fileID: 0}
+  anim: {fileID: 0}
   defaultName: kardex
   itemName: kardex
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
 --- !u!65 &1638597835519025277
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2263,6 +2267,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &136325178309940276
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392636196445120868}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.8326465, y: 3.004081, z: 1.156561}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.757057, y: 2.928492, z: -0.9505602}
+  m_TimeToStationary: 0.5
 --- !u!1 &1416424029092031985
 GameObject:
   m_ObjectHideFlags: 0

@@ -2100,6 +2100,7 @@ GameObject:
   - component: {fileID: 416001206908736742}
   - component: {fileID: 6628627858893715177}
   - component: {fileID: 1196993284205016209}
+  - component: {fileID: 6919678761750811460}
   m_Layer: 0
   m_Name: pallet_conveyer
   m_TagString: Untagged
@@ -2139,9 +2140,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  point: {fileID: 0}
+  anim: {fileID: 0}
   defaultName: pallet_conveyer
   itemName: pallet_conveyer
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
 --- !u!65 &6628627858893715177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2153,8 +2157,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.5502257, y: 0.17175704, z: 1}
-  m_Center: {x: -0.7792609, y: -0.0230923, z: 0}
+  m_Size: {x: 1.5502257, y: 0.17175704, z: 0.9379483}
+  m_Center: {x: -0.7792609, y: -0.0230923, z: -0.4790723}
 --- !u!54 &1196993284205016209
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2171,6 +2175,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &6919678761750811460
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5955753776113709643}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.775113, y: 0.0858785, z: 0.46897414}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.7792609, y: -0.0230923, z: -0.4790723}
+  m_TimeToStationary: 0.5
 --- !u!1 &6274999843095623816
 GameObject:
   m_ObjectHideFlags: 0

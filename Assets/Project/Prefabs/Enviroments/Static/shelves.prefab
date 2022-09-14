@@ -1143,6 +1143,7 @@ GameObject:
   - component: {fileID: 381674139861958353}
   - component: {fileID: 625729268973439264}
   - component: {fileID: 3468090054161671505}
+  - component: {fileID: 5073295794003534355}
   m_Layer: 0
   m_Name: shelves
   m_TagString: Untagged
@@ -1181,9 +1182,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  point: {fileID: 0}
+  anim: {fileID: 0}
   defaultName: shelves
   itemName: shelves
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
 --- !u!65 &625729268973439264
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1213,6 +1217,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &5073295794003534355
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2759286058915226091}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.3390422, y: 1.280028, z: 2.7440705}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.3012806, y: 1.234012, z: -2.67027}
+  m_TimeToStationary: 0.5
 --- !u!1 &2804869169407195925
 GameObject:
   m_ObjectHideFlags: 0

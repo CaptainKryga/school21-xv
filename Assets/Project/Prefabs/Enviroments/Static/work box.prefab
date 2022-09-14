@@ -212,8 +212,9 @@ GameObject:
   - component: {fileID: 6711250471109384183}
   - component: {fileID: 5543292163995414748}
   - component: {fileID: 1579682525832097367}
+  - component: {fileID: 521022071106866622}
   m_Layer: 0
-  m_Name: movable_parts_cabinet
+  m_Name: work box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,9 +252,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultName: movable_parts_cabinet
-  itemName: movable_parts_cabinet
+  point: {fileID: 0}
+  anim: {fileID: 0}
+  defaultName: work box
+  itemName: work box
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
 --- !u!65 &5543292163995414748
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -283,6 +287,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &521022071106866622
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3417068567823425467}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.38130835, y: 0.46559656, z: 0.2665632}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.3423137, y: 0.4369233, z: -0.2334368}
+  m_TimeToStationary: 0.5
 --- !u!1 &3419848634397935944
 GameObject:
   m_ObjectHideFlags: 0

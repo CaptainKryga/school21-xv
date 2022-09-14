@@ -4276,8 +4276,9 @@ GameObject:
   - component: {fileID: 2776130066558976410}
   - component: {fileID: 2303815882337224586}
   - component: {fileID: 1417102165492936112}
+  - component: {fileID: 1514077109884070141}
   m_Layer: 0
-  m_Name: pallet_rack_type_3600
+  m_Name: stand_3600
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4312,9 +4313,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultName: pallet_rack_type_3600
-  itemName: pallet_rack_type_3600
+  point: {fileID: 0}
+  anim: {fileID: 0}
+  defaultName: stand_3600
+  itemName: stand_3600
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
 --- !u!65 &2303815882337224586
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4344,6 +4348,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &1514077109884070141
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5941614282041420760}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 2.047019, y: 4.59751, z: 0.677854}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.9895341, y: 4.459875, z: -0.4976792}
+  m_TimeToStationary: 0.5
 --- !u!1 &6041459072486609713
 GameObject:
   m_ObjectHideFlags: 0

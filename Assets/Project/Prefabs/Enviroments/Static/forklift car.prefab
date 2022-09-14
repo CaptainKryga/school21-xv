@@ -44,8 +44,9 @@ GameObject:
   - component: {fileID: 1275446212350213870}
   - component: {fileID: 3995848091882482285}
   - component: {fileID: 5229371905306204244}
+  - component: {fileID: 7066762900573367219}
   m_Layer: 0
-  m_Name: retractable_forklift
+  m_Name: forklift car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -80,9 +81,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6eaa3b55923e0476eb6bd5b2d2e703e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultName: retractable_forklift
-  itemName: retractable_forklift
+  point: {fileID: 0}
+  anim: {fileID: 0}
+  defaultName: forklift car
+  itemName: forklift car
   color: {r: 1, g: 1, b: 1, a: 1}
+  localId: 0
 --- !u!65 &3995848091882482285
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -112,6 +116,22 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &7066762900573367219
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4902277720547909980}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.086753, y: 1.1549805, z: 0.5750535}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -1.041601, y: 1.100731, z: -0.5504622}
+  m_TimeToStationary: 0.5
 --- !u!1 &5617954071623825133
 GameObject:
   m_ObjectHideFlags: 0

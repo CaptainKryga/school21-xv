@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 6019590757236019298}
   - component: {fileID: 5499721029241525093}
   - component: {fileID: 2910554182348909874}
+  - component: {fileID: 7012163907530151552}
   m_Layer: 0
   m_Name: printer_m
   m_TagString: Untagged
@@ -146,8 +147,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9201313659304070523}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.22, y: 0.5, z: 1.8089728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   point: {fileID: 0}
+  anim: {fileID: 0}
   defaultName: printer_m
   itemName: printer_m
   color: {r: 1, g: 1, b: 1, a: 1}
@@ -201,3 +203,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
+--- !u!208 &7012163907530151552
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9201313659304070523}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.15033916, y: 0.2035171, z: 0.16017096}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.1428499, y: 0.1963088, z: -0.1444982}
+  m_TimeToStationary: 0.5
