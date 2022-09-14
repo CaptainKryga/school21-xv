@@ -107,6 +107,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1321723161951625953}
   - component: {fileID: 1321723161951625952}
+  - component: {fileID: 4247972210177400638}
   m_Layer: 0
   m_Name: Storage Pallets
   m_TagString: Untagged
@@ -158,8 +159,22 @@ MonoBehaviour:
   type: 1
   input: 
   output: 0
-  agent: {fileID: 0}
+  car: {fileID: 0}
+  pallets: []
   typeCraft: 2
+--- !u!65 &4247972210177400638
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1321723161951625955}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.9797325, y: 7.238186, z: 11.37501}
+  m_Center: {x: 11.823278, y: 3.6905298, z: -0.18687344}
 --- !u!1 &1321723161961206621
 GameObject:
   m_ObjectHideFlags: 0

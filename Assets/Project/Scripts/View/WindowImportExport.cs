@@ -25,17 +25,27 @@ public class WindowImportExport : MonoBehaviour
 		// string path = EditorUtility.SaveFilePanel("ff", "", "default","import");
 		// Debug.Log(path);
 		// modelImportExport.PreExportScene(path);
-		
+
 		// if (selectedFile != -1)
-			// modelImportExport.PreExportScene(imgContentButtons[selectedFile].GetTextInfo.text);
+		// modelImportExport.PreExportScene(imgContentButtons[selectedFile].GetTextInfo.text);
 		// else if (inputField.text != "")
-			// modelImportExport.PreExportScene(inputField.text);
+		// modelImportExport.PreExportScene(inputField.text);
 		// else
-			// Debug.LogError("ВВЕДИТЕ ИМЯ ДЛЯ EXPORT'a");
+		// Debug.LogError("ВВЕДИТЕ ИМЯ ДЛЯ EXPORT'a");
+
+		if (inputFieldName.text == "")
+			return;
+
+		modelImportExport.PreExportScene(inputFieldName.text);
+
+		UpdateContent();
 	}
 
 	public void OnClick_ImportScene()
 	{
+		if (selectedFile == -1)
+			return;
+
 		if (selectedFile == 0)
 		{
 			modelImportExport.UpdatePathToImportExportDirectory(true);
@@ -44,6 +54,12 @@ public class WindowImportExport : MonoBehaviour
 		{
 			modelImportExport.UpdatePathToImportExportDirectory(false, 
 				imgContentButtons[selectedFile].GetTextInfo.text);
+		}
+		else
+		{
+			if (imgContentButtons[selectedFile - 10000].GetTextInfo.text == "")
+				return;
+			modelImportExport.PreImportScene(imgContentButtons[selectedFile - 10000].GetTextInfo.text);
 		}
 		
 		UpdateContent();
@@ -54,11 +70,14 @@ public class WindowImportExport : MonoBehaviour
 
 	public void OnClick_SelectExport(int scene)
 	{
+		if (selectedFile > 9999)
+			selectedFile -= 10000;
+		
 		if (selectedFile != -1)
 			imgContentButtons[selectedFile].GetImg.color = Color.white;
+		selectedFile = scene;
 		if (scene > 9999)
 			scene -= 10000;
-		selectedFile = scene;
 		imgContentButtons[scene].GetImg.color = Color.green;
 	}
 
@@ -125,12 +144,12 @@ public class WindowImportExport : MonoBehaviour
 		//files + 10000
 		for (int x = 0; x < files.Length; x++, i++)
 		{
-			Debug.Log("files:" + files[x]);
 			ContentScene content = Instantiate(prafabImgContentButton, parentContent).GetComponent<ContentScene>();
 			content.GetTextInfo.text = files[x];
 			imgContentButtons[i] = content;
 			
 			int i2 = i + 10000;
+			Debug.Log("files:" + files[x]);
 			imgContentButtons[i].GetButton.onClick.AddListener(delegate { OnClick_SelectExport(i2); });
 		}
 	}

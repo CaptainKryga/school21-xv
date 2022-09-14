@@ -77,95 +77,105 @@ namespace Project.Scripts.Model.ImportExport
 
 		private void ExportScene(string saveFileName)
 		{
-			BinaryFormatter bf2 = new BinaryFormatter();
-			// FileStream file2 = File.Create(pathToImportExportDirectory + saveFileName + format);
-			FileStream file2 = File.Create(saveFileName);
-
-			SaveData save = new SaveData();
-			save.sceneName = saveFileName;
-			save.stateGame = model.GetStateGame;
-
-			int childCount = parentItems.childCount;
-			save.itemDefaultName = new string[childCount];
-			save.itemName = new string[childCount];
-			save.id = new int[childCount];
-			// save.position = new Vector3[childCount];
-			save.itemPositionX = new float[childCount];
-			save.itemPositionY = new float[childCount];
-			save.itemPositionZ = new float[childCount];
-			// save.rotation = new Quaternion[childCount];
-			save.itemRotationX = new float[childCount];
-			save.itemRotationY = new float[childCount];
-			save.itemRotationZ = new float[childCount];
-			save.itemRotationW = new float[childCount];
-			// save.color = new Color[childCount];
-			save.itemColorR = new float[childCount];
-			save.itemColorG = new float[childCount];
-			save.itemColorB = new float[childCount];
-			save.itemColorA = new float[childCount];
-			for (int i = 0; i < save.itemDefaultName.Length; i++)
+			try
 			{
-				Dynamic @dynamic = parentItems.GetChild(i).GetComponent<Dynamic>();
-				save.itemDefaultName[i] = dynamic.defaultName;
-				save.itemName[i] = dynamic.itemName;
-				save.id[i] = dynamic.LocalId;
-				// save.position[i] = item.transform.position;
-				save.itemPositionX[i] = dynamic.transform.position.x;
-				save.itemPositionY[i] = dynamic.transform.position.y;
-				save.itemPositionZ[i] = dynamic.transform.position.z;
-				// save.rotation[i] = item.transform.rotation;
-				save.itemRotationX[i] = dynamic.transform.rotation.x;
-				save.itemRotationY[i] = dynamic.transform.rotation.y;
-				save.itemRotationZ[i] = dynamic.transform.rotation.z;
-				save.itemRotationW[i] = dynamic.transform.rotation.w;
-				// save.color[i] = item.color;
-				save.itemColorR[i] = dynamic.color.r;
-				save.itemColorG[i] = dynamic.color.g;
-				save.itemColorB[i] = dynamic.color.b;
-				save.itemColorA[i] = dynamic.color.a;
+				BinaryFormatter bf2 = new BinaryFormatter();
+				FileStream file2 = File.Create(pathToImportExportDirectory + saveFileName + format);
+				// FileStream file2 = File.Create(saveFileName);
 
-			}
-			
-			ContentTask[] tasks = modelAnimation.GetActualTasks();
-			if (tasks == null)
-				save.lenght = 0;
-			else
-				save.lenght = tasks.Length;
-			if (save.lenght > 0)
-			{
-				save.lenght = tasks.Length;
-				save.taskName = new string[tasks.Length];
-				save.taskType = new GameTypes.Task[tasks.Length];
-				save.taskDescription = new string[tasks.Length];
-				save.taskPlaceAId = new int[tasks.Length];
-				save.taskPlaceBId = new int[tasks.Length];
-				save.taskItem = new GameTypes.Item[tasks.Length];
-				save.taskSpeed = new float[tasks.Length];
-				save.taskIterations = new int[tasks.Length];
-				save.taskNowIterations = new int[tasks.Length];
-				save.taskParentTask = new int[tasks.Length];
-				save.taskChildTask = new int[tasks.Length];
+				SaveData save = new SaveData();
+				save.sceneName = saveFileName;
+				save.stateGame = model.GetStateGame;
 
-				for (int i = 0; i < tasks.Length; i++)
+				int childCount = parentItems.childCount;
+				save.itemDefaultName = new string[childCount];
+				save.itemName = new string[childCount];
+				save.id = new int[childCount];
+				// save.position = new Vector3[childCount];
+				save.itemPositionX = new float[childCount];
+				save.itemPositionY = new float[childCount];
+				save.itemPositionZ = new float[childCount];
+				// save.rotation = new Quaternion[childCount];
+				save.itemRotationX = new float[childCount];
+				save.itemRotationY = new float[childCount];
+				save.itemRotationZ = new float[childCount];
+				save.itemRotationW = new float[childCount];
+				// save.color = new Color[childCount];
+				save.itemColorR = new float[childCount];
+				save.itemColorG = new float[childCount];
+				save.itemColorB = new float[childCount];
+				save.itemColorA = new float[childCount];
+				for (int i = 0; i < save.itemDefaultName.Length; i++)
 				{
-					save.taskName[i] = tasks[i].TextNameTask;
-					save.taskType[i] = tasks[i].Type;
-					save.taskDescription[i] = tasks[i].Description;
-					save.taskPlaceAId[i] = tasks[i].PlaceA ? tasks[i].PlaceA.LocalId : -1;
-					save.taskPlaceBId[i] = tasks[i].PlaceB ? tasks[i].PlaceB.LocalId : -1;
-					Debug.Log(" >>>> PlaceA: " + tasks[i].PlaceA + " | " + (tasks[i].PlaceA ? tasks[i].PlaceA.LocalId : -1));
-					save.taskSpeed[i] = tasks[i].Speed;
-					save.taskIterations[i] = tasks[i].Iterations;
-					save.taskNowIterations[i] = tasks[i].NowIterations;
-					save.taskParentTask[i] = GetIdTAsk(tasks[i].ParentTask, tasks);
-					save.taskChildTask[i] = GetIdTAsk(tasks[i].ChildTask, tasks);
+					Dynamic @dynamic = parentItems.GetChild(i).GetComponent<Dynamic>();
+					save.itemDefaultName[i] = dynamic.defaultName;
+					save.itemName[i] = dynamic.itemName;
+					save.id[i] = dynamic.LocalId;
+					// save.position[i] = item.transform.position;
+					save.itemPositionX[i] = dynamic.transform.position.x;
+					save.itemPositionY[i] = dynamic.transform.position.y;
+					save.itemPositionZ[i] = dynamic.transform.position.z;
+					// save.rotation[i] = item.transform.rotation;
+					save.itemRotationX[i] = dynamic.transform.rotation.x;
+					save.itemRotationY[i] = dynamic.transform.rotation.y;
+					save.itemRotationZ[i] = dynamic.transform.rotation.z;
+					save.itemRotationW[i] = dynamic.transform.rotation.w;
+					// save.color[i] = item.color;
+					save.itemColorR[i] = dynamic.color.r;
+					save.itemColorG[i] = dynamic.color.g;
+					save.itemColorB[i] = dynamic.color.b;
+					save.itemColorA[i] = dynamic.color.a;
+
 				}
+
+				ContentTask[] tasks = modelAnimation.GetActualTasks();
+				if (tasks == null)
+					save.lenght = 0;
+				else
+					save.lenght = tasks.Length;
+				if (save.lenght > 0)
+				{
+					save.lenght = tasks.Length;
+					save.taskName = new string[tasks.Length];
+					save.taskType = new GameTypes.Task[tasks.Length];
+					save.taskDescription = new string[tasks.Length];
+					save.taskPlaceAId = new int[tasks.Length];
+					save.taskPlaceBId = new int[tasks.Length];
+					save.taskItem = new GameTypes.Item[tasks.Length];
+					save.taskSpeed = new float[tasks.Length];
+					save.taskIterations = new int[tasks.Length];
+					save.taskNowIterations = new int[tasks.Length];
+					save.taskParentTask = new int[tasks.Length];
+					save.taskChildTask = new int[tasks.Length];
+
+					for (int i = 0; i < tasks.Length; i++)
+					{
+						save.taskName[i] = tasks[i].TextNameTask;
+						save.taskType[i] = tasks[i].Type;
+						save.taskDescription[i] = tasks[i].Description;
+						save.taskPlaceAId[i] = tasks[i].PlaceA ? tasks[i].PlaceA.LocalId : -1;
+						save.taskPlaceBId[i] = tasks[i].PlaceB ? tasks[i].PlaceB.LocalId : -1;
+						Debug.Log(" >>>> PlaceA: " + tasks[i].PlaceA + " | " +
+								(tasks[i].PlaceA ? tasks[i].PlaceA.LocalId : -1));
+						save.taskSpeed[i] = tasks[i].Speed;
+						save.taskIterations[i] = tasks[i].Iterations;
+						save.taskNowIterations[i] = tasks[i].NowIterations;
+						save.taskParentTask[i] = GetIdTAsk(tasks[i].ParentTask, tasks);
+						save.taskChildTask[i] = GetIdTAsk(tasks[i].ChildTask, tasks);
+					}
+				}
+
+				bf2.Serialize(file2, save);
+				file2.Close();
+
+				Debug.Log("Game data exported!");
+
 			}
-
-			bf2.Serialize(file2, save);
-			file2.Close();
-
-			Debug.Log("Game data exported!");
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 		}
 
 		public void PreImportScene(string loadFileName)
@@ -187,7 +197,8 @@ namespace Project.Scripts.Model.ImportExport
 			{
 				BinaryFormatter bf = new BinaryFormatter();
 				// FileStream file = File.Open(pathToImportExportDirectory + loadFileName + format, FileMode.Open);
-				FileStream file = File.Open(loadFileName, FileMode.Open);
+				FileStream file = File.Open(pathToImportExportDirectory + loadFileName, FileMode.Open);
+				// FileStream file = File.Open(loadFileName, FileMode.Open);
 				SaveData load = (SaveData) bf.Deserialize(file);
 				file.Close();
 

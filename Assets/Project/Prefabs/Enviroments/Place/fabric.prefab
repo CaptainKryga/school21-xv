@@ -13323,12 +13323,13 @@ MonoBehaviour:
   anim: {fileID: 3909724248135045501}
   defaultName: fabric
   itemName: fabric
-  color: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 1, g: 1, b: 1, a: 1}
   localId: 0
   type: 1
   input: 
   output: 0
-  agent: {fileID: 0}
+  car: {fileID: 0}
+  pallets: []
   typeCraft: 0
 --- !u!111 &3909724248135045501
 Animation:
