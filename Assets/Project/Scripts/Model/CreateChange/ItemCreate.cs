@@ -69,7 +69,7 @@ public class ItemCreate : MonoBehaviour
         saveMaterials = materials.ToArray();
 
         coll = GetComponentInChildren<Collider>();
-        coll.isTrigger = true;
+        if (coll) coll.isTrigger = true;
     }
 
     public void Init(Material correct, Material incorrect)
@@ -86,7 +86,7 @@ public class ItemCreate : MonoBehaviour
             transform.GetChild(i).gameObject.layer = 0;
         }
         
-        coll.isTrigger = false;
+        if (coll) coll.isTrigger = false;
         
         ResetMaterials();
     }
@@ -120,13 +120,13 @@ public class ItemCreate : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Dynamic>())
+        if (!other.gameObject.GetComponent<Floor>())
             collisionList.Add(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Dynamic>())
+        if (!other.gameObject.GetComponent<Floor>())
             collisionList.Remove(other);
     }
 
