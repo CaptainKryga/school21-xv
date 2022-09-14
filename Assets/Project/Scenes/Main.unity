@@ -27690,12 +27690,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Content: {fileID: 717276046}
   m_Horizontal: 0
-  m_Vertical: 0
+  m_Vertical: 1
   m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 0
   m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
+  m_ScrollSensitivity: 10
   m_Viewport: {fileID: 1715812742}
   m_HorizontalScrollbar: {fileID: 1010637856}
   m_VerticalScrollbar: {fileID: 2076589850}
@@ -29028,7 +29028,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2076589849
 RectTransform:
   m_ObjectHideFlags: 0
