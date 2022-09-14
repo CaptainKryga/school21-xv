@@ -178,6 +178,9 @@ namespace Project.Scripts.View
 
 				for (int x = 0; x < crafts.Length; x++)
 				{
+					if (crafts[x].TypeCraft == GameTypes.TypeCraft.Sub)
+						continue;
+					
 					optionDatas.Add(new TMP_Dropdown.OptionData(crafts[x].itemName + " - " + crafts[x].LocalId));
 					list.Add(crafts[x]);
 				}

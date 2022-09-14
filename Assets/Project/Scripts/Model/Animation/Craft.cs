@@ -12,6 +12,8 @@ namespace Animation
 		[SerializeField] private GameObject car;
 		[SerializeField] private GameObject[] pallets;
 		[SerializeField] private GameTypes.TypeCraft typeCraft;
+		
+		public GameTypes.TypeCraft TypeCraft { get => typeCraft; }
 
 		public void StartCraft(ModelAnimation model, ContentTask task, Worker worker)
 		{
