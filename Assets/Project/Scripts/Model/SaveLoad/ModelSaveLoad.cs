@@ -80,7 +80,7 @@ public class ModelSaveLoad : MonoBehaviour
 			FileStream file2 = File.Create(pathToSaveDirectory + saveFileName + format);
 
 			SaveData save = new SaveData();
-			save.sceneName = saveFileName;
+			save.sceneName = model.SceneName;
 			save.stateGame = model.GetStateGame;
 
 			int childCount = parentItems.childCount;

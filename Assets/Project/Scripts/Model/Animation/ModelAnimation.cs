@@ -49,6 +49,8 @@ namespace Project.Scripts.Model.Animation
 				}
 				else
 				{
+					wAnimation.SetTextWorker("Worker is sleep!");
+					worker.UpdateAnimation(0, 1);
 					isPlay = false;
 					return;
 				}
@@ -112,6 +114,8 @@ namespace Project.Scripts.Model.Animation
 					if (craft)
 					{
 						craft.StartCraft(this, nowTask, worker);
+						if (!nowTask)
+							return;
 						worker.UpdateVisibleItem(nowTask.Item, true);
 					}
 				}

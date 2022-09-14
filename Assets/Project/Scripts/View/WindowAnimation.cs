@@ -51,6 +51,8 @@ namespace Project.Scripts.View
 			panelTransfer.SetActive(true);
 			panelCraft.SetActive(false);
 			panelCycle.SetActive(false);
+			
+			SetTextWorker("Worker is sleep!");
 		}
 
 		public void UpdateContent(ContentTask[] actualTasks)
@@ -83,22 +85,45 @@ namespace Project.Scripts.View
 
 		public void OnClick_Save()
 		{
-			if (inputFieldTaskName.text != "" &&
-				transferDropdownPlaceA.options[transferDropdownPlaceA.value].text != "None" &&
-				transferDropdownPlaceB.options[transferDropdownPlaceB.value].text != "None" &&
-				transferDropdownItem.options[transferDropdownItem.value].text != "None")
+			if (modelAnimation.TempType == GameTypes.Task.Transfer)
 			{
-				// GameTypes.Task tempTask =
-				// 	GameTypes.GetTaskFromString(dropdownTaskType.options[dropdownTaskType.value].text);
-				// string place1 = (transferDropdownPlaceA.options[transferDropdownPlaceA.value].text).Split('#')[^1];
-				// string place2 = (transferDropdownPlaceB.options[transferDropdownPlaceB.value].text).Split('#')[^1];
-				// GameTypes.Item tempItem =
-				// 	GameTypes.GetItemFromString(transferDropdownItem.options[transferDropdownItem.value].text);
-				ContentTask task = Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>();
-				ContentTask subTask = modelAnimation.TempType == GameTypes.Task.Cycle ? 
-					Instantiate(prefabSubEndTask, parentContent).GetComponent<ContentTask>() : null;
-				modelAnimation.AddNewTask(inputFieldTaskName.text, task, subTask);
+				if (inputFieldTaskName.text == "" ||
+					transferDropdownPlaceA.options.Count <= 0 ||
+					transferDropdownPlaceA.options[transferDropdownPlaceA.value].text == "None" ||
+					transferDropdownPlaceB.options.Count <= 0 ||
+					transferDropdownPlaceB.options[transferDropdownPlaceB.value].text == "None")
+				{
+					return;
+				}
 			}
+			else if (modelAnimation.TempType == GameTypes.Task.Craft)
+			{
+				if (inputFieldTaskName.text == "" ||
+					craftDropdownPlace.options.Count <= 0 ||
+					craftDropdownPlace.options[craftDropdownPlace.value].text == "None")
+				{
+					return;
+				}
+			}
+			else if (modelAnimation.TempType == GameTypes.Task.Cycle)
+			{
+				if (inputFieldTaskName.text == "")
+				{
+					return;
+				}
+			}
+
+			// GameTypes.Task tempTask =
+			// 	GameTypes.GetTaskFromString(dropdownTaskType.options[dropdownTaskType.value].text);
+			// string place1 = (transferDropdownPlaceA.options[transferDropdownPlaceA.value].text).Split('#')[^1];
+			// string place2 = (transferDropdownPlaceB.options[transferDropdownPlaceB.value].text).Split('#')[^1];
+			// GameTypes.Item tempItem =
+			// 	GameTypes.GetItemFromString(transferDropdownItem.options[transferDropdownItem.value].text);
+			ContentTask task = Instantiate(prefabContentTask, parentContent).GetComponent<ContentTask>();
+			ContentTask subTask = modelAnimation.TempType == GameTypes.Task.Cycle
+				? Instantiate(prefabSubEndTask, parentContent).GetComponent<ContentTask>()
+				: null;
+			modelAnimation.AddNewTask(inputFieldTaskName.text, task, subTask);
 		}
 
 		public void OnClick_Cancel()
@@ -132,6 +157,9 @@ namespace Project.Scripts.View
 				transferDropdownPlaceA.RefreshShownValue();
 				transferDropdownPlaceA.onValueChanged?.Invoke(0);
 				
+				if (listA.Length <= 0)
+					return;
+				
 				modelAnimation.SetPlaceA(listA[transferDropdownPlaceA.value]);
 
 				inputFieldDescription.text = "Worker transfer";
@@ -163,6 +191,9 @@ namespace Project.Scripts.View
 				craftDropdownPlace.RefreshShownValue();
 				craftDropdownPlace.onValueChanged?.Invoke(0);
 				
+				if (listC.Length <= 0)
+					return;
+				
 				modelAnimation.SetPlaceA(listC[craftDropdownPlace.value]);
 				
 				inputFieldDescription.text = "Worker craft";
@@ -185,6 +216,9 @@ namespace Project.Scripts.View
 		private Craft[] listB;
 		public void OnDropdown_SetPlaceA()
 		{
+			if (listA.Length <= 0)
+				return;
+			
 			Craft[] crafts = modelAnimation.GetCraft(listA[transferDropdownPlaceA.value].output);
 			List<TMP_Dropdown.OptionData> optionDataB = new List<TMP_Dropdown.OptionData>();
 			List<Craft> list = new List<Craft>();
@@ -219,6 +253,9 @@ namespace Project.Scripts.View
 
 		public void OnDropdown_SetPlaceB()
 		{
+			if (listB.Length <= 0)
+				return;
+			
 			modelAnimation.SetPlaceB(listB.Length >= 1 ? listB[transferDropdownPlaceB.value] : null);
 			modelAnimation.SetItem(listA[transferDropdownPlaceA.value].output);
 			
@@ -230,6 +267,9 @@ namespace Project.Scripts.View
 
 		public void OnDropdown_SetCraft()
 		{
+			if (listC.Length <= 0)
+				return;
+			
 			modelAnimation.SetPlaceA(listC[craftDropdownPlace.value]);
 			modelAnimation.SetItem(listC[craftDropdownPlace.value].output);
 

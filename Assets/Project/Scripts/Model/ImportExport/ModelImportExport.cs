@@ -84,7 +84,7 @@ namespace Project.Scripts.Model.ImportExport
 				// FileStream file2 = File.Create(saveFileName);
 
 				SaveData save = new SaveData();
-				save.sceneName = saveFileName;
+				save.sceneName = model.SceneName;
 				save.stateGame = model.GetStateGame;
 
 				int childCount = parentItems.childCount;
