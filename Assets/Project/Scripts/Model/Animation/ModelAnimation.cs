@@ -41,7 +41,7 @@ namespace Project.Scripts.Model.Animation
 
 			if (!nowTask)
 			{
-				if (actualTasks.Length > 0)
+				if (actualTasks != null && actualTasks.Length > 0)
 				{
 					nowTask = actualTasks[0];
 					nowTask.UpdateColor(true);

@@ -26,7 +26,7 @@ namespace Project.Scripts.Model.ImportExport
 
 		private string pathToImportExportDirectory;
 
-		private string[] lastScanSaveFiles;
+		private string[] lastScanSaveFiles, lastScanSaveDirectories;
 
 		public string[] LastScanSaveFiles
 		{
@@ -34,6 +34,14 @@ namespace Project.Scripts.Model.ImportExport
 			{
 				UpdateArraySaveFiles();
 				return lastScanSaveFiles;
+			}
+		}		
+		public string[] LastScanSaveDirectories
+		{
+			get
+			{
+				UpdateArraySaveDirectories();
+				return lastScanSaveDirectories;
 			}
 		}
 		public string PathToImportExportDirectory { get => pathToImportExportDirectory; }
@@ -292,8 +300,7 @@ namespace Project.Scripts.Model.ImportExport
 				{
 					if (lastScanSaveFiles[i].Substring(lastScanSaveFiles[i].Length - 3) == format)
 					{
-						string res = lastScanSaveFiles[i].Substring(pathToImportExportDirectory.Length);
-						res = res.Substring(0, res.Length - 3);
+						string res = lastScanSaveFiles[i].Substring(pathToImportExportDirectory.LastIndexOf('/') + 1);
 						temp.Add(res);
 					}
 				}
@@ -309,25 +316,19 @@ namespace Project.Scripts.Model.ImportExport
 			return lastScanSaveFiles;
 		}
 
-		public bool Rename(string oldName, string newName)
+		private string[] UpdateArraySaveDirectories()
 		{
-			if (lastScanSaveFiles.Contains(newName))
-			{
-				Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ СЦЕНУ, ЭТО ИМЯ ЗАНЯТО");
-				return false;
-			}
-
-			if (!lastScanSaveFiles.Contains(oldName))
-			{
-				Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ СЦЕНУ, ЭКСПОРТИРУЙТЕ ЕЁ ВНАЧАЛЕ ИЛИ ИМПОРТИРУЙТЕ СТАРУЮ");
-				Debug.LogError("тут можно бахнуть сразу сохранение что думаешь???");
-				return false;
-			}
-
 			try
 			{
-				File.Move(pathToImportExportDirectory + oldName + format,
-					pathToImportExportDirectory + newName + format);
+				List<string> temp = new List<string>();
+				lastScanSaveDirectories = Directory.GetDirectories(pathToImportExportDirectory);
+				for (int i = 0; i < lastScanSaveDirectories.Length; i++)
+				{
+					string res = lastScanSaveDirectories[i].Substring(pathToImportExportDirectory.LastIndexOf('/') + 1);
+					temp.Add(res);
+				}
+
+				lastScanSaveDirectories = temp.ToArray();
 			}
 			catch (Exception e)
 			{
@@ -335,7 +336,51 @@ namespace Project.Scripts.Model.ImportExport
 				throw;
 			}
 
-			return true;
+			return lastScanSaveDirectories;
 		}
+
+		public void UpdatePathToImportExportDirectory(bool isUp, string directory = "")
+		{
+			if (isUp)
+			{
+				pathToImportExportDirectory = pathToImportExportDirectory.Substring(0, 
+					pathToImportExportDirectory.LastIndexOf('/'));
+				pathToImportExportDirectory = pathToImportExportDirectory.Substring(0, 
+					pathToImportExportDirectory.LastIndexOf('/') + 1);
+			}
+			else
+			{
+				pathToImportExportDirectory += directory + '/';
+			}
+		}
+
+		// public bool Rename(string oldName, string newName)
+		// {
+			// if (lastScanSaveFiles.Contains(newName))
+			// {
+				// Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ СЦЕНУ, ЭТО ИМЯ ЗАНЯТО");
+				// return false;
+			// }
+
+			// if (!lastScanSaveFiles.Contains(oldName))
+			// {
+				// Debug.LogError("НЕВОЗМОЖНО ПЕРЕИМЕНОВАТЬ СЦЕНУ, ЭКСПОРТИРУЙТЕ ЕЁ ВНАЧАЛЕ ИЛИ ИМПОРТИРУЙТЕ СТАРУЮ");
+				// Debug.LogError("тут можно бахнуть сразу сохранение что думаешь???");
+				// return false;
+			// }
+
+			// try
+			// {
+				// File.Move(pathToImportExportDirectory + oldName + format,
+					// pathToImportExportDirectory + newName + format);
+			// }
+			// catch (Exception e)
+			// {
+				// Console.WriteLine(e);
+				// throw;
+			// }
+
+			// return true;
+		// }
 	}
 }
