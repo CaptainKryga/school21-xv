@@ -1,6 +1,7 @@
 # school21-xv
-factory simulator
-school project 42/21
+### factory simulator
+### school project 42/21
+### the project was done in crunch mode, based on pattern MVS +- xDD
 
 ![Image alt](https://github.com/CaptainKryga/school21-xv/blob/main/git/back.jpg)
 
@@ -17,11 +18,11 @@ The subject itself: https://github.com/CaptainKryga/school21-xv/blob/main/git/en
 Main control:
 WASD or arrows => movement
 1, 2, 3, 4, 5 => select surveillance camera
-escape => exit to menu
+Escape => exit to menu
 P => start recording and stop video (bug at the time of delivery, works at any time)
 
 According to the subject, 56 days are given to complete a group of 2-4 people, they did it in crunch mode in 6-7 days in a team of 2 people.
 
 For assembly:
-Demlaly project for Units 2021.3.9f1
+Demlaly project for Unity 2021.3.9f1 on macos
 Video recording implemented through ffmpeg configured to work only with macos
