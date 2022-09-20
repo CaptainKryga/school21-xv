@@ -1,7 +1,7 @@
 # school21-xv
 ### factory simulator
 ### school project 42/21
-### the project was done in crunch mode, based on pattern MVS +- xDD
+### the project was done in crunch mode, based on pattern MVC +- xDD
 
 ![Image alt](https://github.com/CaptainKryga/school21-xv/blob/main/git/back.jpg)
 
